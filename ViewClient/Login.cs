@@ -13,27 +13,18 @@ namespace ViewClient
     {
         public Login()
         {
-            InitializeComponent();            
-
+            InitializeComponent();
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            LoadCameraView();
-        }
-        void LoadCameraView()
-        {
-            Cognex.InSight.CvsInSightSoftwareDevelopmentKit.Initialize();
-            Form BatchShoulderView = new MonitorView("批号相机", "肩标相机");
-            //Form FrontBackView = new MonitorView("前标相机", "背标相机");
-            //Form IsFrontIsBackView = new MonitorView("正标有无相机", "背标有无相机");
+            //Form selctJobView = new SelectJob(this);
+            //selctJobView.Show();
 
+            MonitorViewTab BatchShoulderView = new MonitorViewTab(CameraType.Front, CameraType.Back);
             BatchShoulderView.Show();
-            //FrontBackView.Show();
-            // IsFrontIsBackView.Show();
-            this.Hide();
 
+            this.Visible = false;
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();

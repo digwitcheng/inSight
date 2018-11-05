@@ -1,4 +1,5 @@
 ﻿using Cognex.InSight;
+using Cognex.InSight.Cell;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,63 +15,81 @@ namespace ViewClient
 {
     public partial class MonitorView : Form
     {
-        private Cognex.InSight.CvsInSight m_oInSight;
+        // private Cognex.InSight.CvsInSight m_oInSight;
         private Cognex.InSight.NativeMode.CvsNativeModeClient oNativeModeClient;
-        string cameraName1;
-        string cameraName2;
-        public MonitorView(string cameraName1,string cameraName2)
+        public CameraType CurrentCameraType { get; set; }
+        public Panel TxtPanel { get { return this.txtPanel; } }
+        public MonitorView(CameraType type)
         {
-            this.cameraName1 = cameraName1;
-            this.cameraName2 = cameraName2;          
+            Cognex.InSight.CvsInSightSoftwareDevelopmentKit.Initialize();
             InitializeComponent();
-
+            this.Text = Tools.GetCameraName(type);
+            this.CurrentCameraType = type;
             InitCvsInSightDisplay();
-            ChangeCameraBtnName();
-
         }
-        public delegate void MyDel();
-
+        private void MonitorView_Load(object sender, EventArgs e)
+        {
+           
+            
+        }
         private void InitCvsInSightDisplay()
         {
+
             
+            //cvsInSightDisplay1.GridOpacity = .7;
+            //cvsInSightDisplay1.ImageScale = 1;
+            // cvsInSightDisplay1.StatusInformationChanged += new EventHandler(OnStatusInformationChanged);
+            // this.m_oInSight.StateChanged += new Cognex.InSight.CvsStateChangedEventHandler(m_oInSight_StateChanged);
             cvsInSightDisplay1.LoadStandardTheme();
-            cvsInSightDisplay2.LoadStandardTheme();
+            cvsInSightDisplay1.ShowImage = true;
+            cvsInSightDisplay1.ImageZoomMode = Cognex.InSight.Controls.Display.CvsDisplayZoom.Fill;
 
             oNativeModeClient = new Cognex.InSight.NativeMode.CvsNativeModeClient();
             oNativeModeClient.ConnectCompleted += new Cognex.InSight.CvsConnectCompletedEventHandler(oNativeModeClient_ConnectCompleted);
             txtResponse.Text = oNativeModeClient.WelcomeBanner;
-
             ConnetServer();
+           // m_oInSight = cvsInSightDisplay1.InSight;
         }
         void oNativeModeClient_ConnectCompleted(object sender, Cognex.InSight.CvsConnectCompletedEventArgs e)
         {
-            const int ExtLen = 3;
-            string response, fList;
-            int dotLoc = 0;
+            //const int ExtLen = 3;
+            //string response, fList;
+            //int dotLoc = 0;
 
-            oNativeModeClient.SendCommand("get filelist");
-            System.Xml.XmlDocument xDoc = new System.Xml.XmlDocument();
-            response = oNativeModeClient.LastResponseString;
-            xDoc.LoadXml(@"<?xml version=""1.0""?>" + response);
-            // misc1.jobmisc2.jobproc.setmisc3.job
-            fList = xDoc.DocumentElement.InnerText.Substring(2);
-            // Parse file strings
-            while (fList.Length > ExtLen)
+            //oNativeModeClient.SendCommand("get filelist");
+            //System.Xml.XmlDocument xDoc = new System.Xml.XmlDocument();
+            //response = oNativeModeClient.LastResponseString;
+            //xDoc.LoadXml(@"<?xml version=""1.0""?>" + response);
+            //// misc1.jobmisc2.jobproc.setmisc3.job
+            //fList = xDoc.DocumentElement.InnerText.Substring(2);
+            //// Parse file strings
+            //while (fList.Length > ExtLen)
+            //{
+            //    dotLoc = fList.IndexOf('.');
+            //    fList = fList.Substring(dotLoc + ExtLen + 1);
+            //}
+
+            //txtResponse.Text =oNativeModeClient.WelcomeBanner;
+
+        }
+        public bool IsConnected
+        {
+            get
             {
-                dotLoc = fList.IndexOf('.');
-                fList = fList.Substring(dotLoc + ExtLen + 1);
+                if (!(cvsInSightDisplay1 == null))
+                    return cvsInSightDisplay1.Connected;
+                else
+                    return false;
             }
+        }
 
-            txtResponse.Text =oNativeModeClient.WelcomeBanner;
-
-        }        
         /// <summary>
         /// Send the specified string to the In-Sight sensor as a native mode 
         ///  command and waits for a response. 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SendCommand(string message)
+        private string SendCommand(string message)
         {
             try
             {
@@ -78,14 +97,16 @@ namespace ViewClient
                 {
                     if (message != null && message.Length > 0)
                     {
-                        txtResponse.Text = oNativeModeClient.SendCommand(message.Trim());
+                        string response = oNativeModeClient.SendCommand(message.Trim());
+                        txtResponse.Text = response;
                     }
                 }
                 XmlNodeReader nrdr = oNativeModeClient.LastResponseReader;
-                MessageBox.Show(nrdr.Value);
-                nrdr.MoveToElement();
-                nrdr.Read();
-                nrdr.Read();
+                if (nrdr.ReadToFollowing("Status"))
+                {
+                    nrdr.ReadElementContentAsString();
+                    return nrdr.ReadElementContentAsString();
+                }
 
             }
             catch (Cognex.InSight.NativeMode.CvsNativeModeResponseException resEx)
@@ -99,16 +120,38 @@ namespace ViewClient
                 // The exception that is thrown when a Native Mode timeout occurs.
                 txtResponse.Text = timEx.Message;
             }
+            return "未找到";
         }
-
+        public string Get(string position)
+        {
+            string command = string.Format("EV GetCellValue(\"{0}\")", position); 
+            return SendCommand(command);
+        }
+        public string Set(string position,string value)
+        {
+            string command = string.Format("EV SetCellValue(\"{0}\",{1})", position, value);
+            return SendCommand(command);
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-            SendCommand(textBox1.Text.ToString().Trim());
+            string position = textBox1.Text.ToString().Trim();
+            string command = string.Format("EV GetCellValue(\"{0}\")", position); ;
+            //"EV GetCellValue(\"" + position +"\")";
+            SendCommand(command);
+        }
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            string position = textBox1.Text.ToString().Trim();
+            string value = textBox2.Text.ToString().Trim();
+            string command = string.Format("EV SetCellValue(\"{0}\",{1})", position,value);
+            //"EV SetCellValue(\"" +position+ "\"," + value + ")";
+            SendCommand(command);
         }
 
-        private void ConnetServer()
+        public void ConnetServer()
         {
             string addr = "192.168.0.1";
+            //string addr = "127.0.0.1";
             string username = "admin";
             string password = "";
            
@@ -130,58 +173,12 @@ namespace ViewClient
             Refresh();
         }
 
-        private void ChangeCameraBtnName()
-        {
-
-            this.Text = cameraName1 + "和" + cameraName2;
-            cameraBtn1.Text = cameraName1;
-            cameraBtn1.Name = cameraName1;
-            cameraBtn2.Text = cameraName2;
-            cameraBtn2.Name = cameraName2;
-        }
-
         private void clearCountBtn1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void clearCountBtn2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void cameraBtn1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cameraBtn1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cameraBtn2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cvsInSightDisplay1_ConnectCompleted(object sender, Cognex.InSight.CvsConnectCompletedEventArgs e)
-        {
-            cvsInSightDisplay1.ShowImage=true;
-            cvsInSightDisplay1.ShowGraphics = true;
-            cvsInSightDisplay1.ImageZoomMode = Cognex.InSight.Controls.Display.CvsDisplayZoom.Fill;
-
-            cvsInSightDisplay2.ShowImage = true;
-            cvsInSightDisplay2.ImageZoomMode = Cognex.InSight.Controls.Display.CvsDisplayZoom.Fill;
-            
-        }
-
-        private void cvsInSightDisplay1_ConnectedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cvsInSightDisplay1_StateChanged(object sender, EventArgs e)
         {
 
         }
@@ -196,10 +193,14 @@ namespace ViewClient
             if (oNativeModeClient.Connected)
                 oNativeModeClient.Disconnect();
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        public void OpenJob()
         {
-            cvsInSightDisplay1.Edit.SaveJobAs.Execute();
+            cvsInSightDisplay1.Edit.OpenJob.Execute();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }
