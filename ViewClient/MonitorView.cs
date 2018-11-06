@@ -15,40 +15,34 @@ namespace ViewClient
 {
     public partial class MonitorView : Form
     {
-        // private Cognex.InSight.CvsInSight m_oInSight;
         private Cognex.InSight.NativeMode.CvsNativeModeClient oNativeModeClient;
-        public CameraType CurrentCameraType { get; set; }
+        private CameraConfig config;
         public Panel TxtPanel { get { return this.txtPanel; } }
-        public MonitorView(CameraType type)
+        public MonitorView(CameraConfig config)
         {
             Cognex.InSight.CvsInSightSoftwareDevelopmentKit.Initialize();
             InitializeComponent();
-            this.Text = Tools.GetCameraName(type);
-            this.CurrentCameraType = type;
+            this.Text = config.CameraName;
+            this.config = config;
             InitCvsInSightDisplay();
         }
         private void MonitorView_Load(object sender, EventArgs e)
         {
-           
-            
+
+
         }
         private void InitCvsInSightDisplay()
         {
-
-            
-            //cvsInSightDisplay1.GridOpacity = .7;
-            //cvsInSightDisplay1.ImageScale = 1;
-            // cvsInSightDisplay1.StatusInformationChanged += new EventHandler(OnStatusInformationChanged);
-            // this.m_oInSight.StateChanged += new Cognex.InSight.CvsStateChangedEventHandler(m_oInSight_StateChanged);
             cvsInSightDisplay1.LoadStandardTheme();
             cvsInSightDisplay1.ShowImage = true;
             cvsInSightDisplay1.ImageZoomMode = Cognex.InSight.Controls.Display.CvsDisplayZoom.Fill;
 
             oNativeModeClient = new Cognex.InSight.NativeMode.CvsNativeModeClient();
             oNativeModeClient.ConnectCompleted += new Cognex.InSight.CvsConnectCompletedEventHandler(oNativeModeClient_ConnectCompleted);
-            txtResponse.Text = oNativeModeClient.WelcomeBanner;
+
             ConnetServer();
-           // m_oInSight = cvsInSightDisplay1.InSight;
+            //Thread thread = new Thread(ConnetServer);
+            //thread.Start();
         }
         void oNativeModeClient_ConnectCompleted(object sender, Cognex.InSight.CvsConnectCompletedEventArgs e)
         {
@@ -82,13 +76,6 @@ namespace ViewClient
                     return false;
             }
         }
-
-        /// <summary>
-        /// Send the specified string to the In-Sight sensor as a native mode 
-        ///  command and waits for a response. 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private string SendCommand(string message)
         {
             try
@@ -98,72 +85,57 @@ namespace ViewClient
                     if (message != null && message.Length > 0)
                     {
                         string response = oNativeModeClient.SendCommand(message.Trim());
-                        txtResponse.Text = response;
                     }
                 }
                 XmlNodeReader nrdr = oNativeModeClient.LastResponseReader;
                 if (nrdr.ReadToFollowing("Status"))
                 {
-                    nrdr.ReadElementContentAsString();
-                    return nrdr.ReadElementContentAsString();
+                    if (nrdr.ReadElementContentAsString().Equals("1"))
+                    {
+                        return nrdr.ReadElementContentAsString();
+                    }
                 }
 
             }
             catch (Cognex.InSight.NativeMode.CvsNativeModeResponseException resEx)
             {
-                // The exception that is thrown when a Native Mode status is received that 
-                //  indicates the command returned an error response.
-                txtResponse.Text = resEx.Message;
+                return "输入参数无效";
             }
             catch (Cognex.InSight.NativeMode.CvsNativeModeTimeoutException timEx)
             {
-                // The exception that is thrown when a Native Mode timeout occurs.
-                txtResponse.Text = timEx.Message;
+                return "超时";
+            }
+            catch (CvsNetworkException notConnected)
+            {
+                return "未连接";
             }
             return "未找到";
         }
         public string Get(string position)
         {
-            string command = string.Format("EV GetCellValue(\"{0}\")", position); 
+            string command = Tools.GetCommandString(position);
             return SendCommand(command);
         }
-        public string Set(string position,string value)
+        public string Set(string position, string value)
         {
-            string command = string.Format("EV SetCellValue(\"{0}\",{1})", position, value);
+            string command = Tools.SetCommandString(position, value);
             return SendCommand(command);
         }
-        private void button1_Click(object sender, EventArgs e)
+        public string Set(string position, double value)
         {
-            string position = textBox1.Text.ToString().Trim();
-            string command = string.Format("EV GetCellValue(\"{0}\")", position); ;
-            //"EV GetCellValue(\"" + position +"\")";
-            SendCommand(command);
+            return Set(position, value + "");
         }
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            string position = textBox1.Text.ToString().Trim();
-            string value = textBox2.Text.ToString().Trim();
-            string command = string.Format("EV SetCellValue(\"{0}\",{1})", position,value);
-            //"EV SetCellValue(\"" +position+ "\"," + value + ")";
-            SendCommand(command);
-        }
-
         public void ConnetServer()
         {
-            string addr = "192.168.0.1";
-            //string addr = "127.0.0.1";
-            string username = "admin";
-            string password = "";
-           
             try
             {
                 if (!(cvsInSightDisplay1.Connected))
                 {
-                    cvsInSightDisplay1.Connect(addr, username, password, false);
+                    cvsInSightDisplay1.Connect(config.CameraAddress, config.UserName, config.Password, false);
                 }
                 if (!oNativeModeClient.Connected)
                 {
-                    oNativeModeClient.ConnectAsynchronous(addr, username, password);
+                    oNativeModeClient.ConnectAsynchronous(config.CameraAddress, config.UserName, config.Password);
                 }
             }
             catch (Exception ex)
@@ -175,7 +147,7 @@ namespace ViewClient
 
         private void clearCountBtn1_Click(object sender, EventArgs e)
         {
-
+            Set(ConstDefine.RESET, 1);
         }
 
         private void cameraBtn1_Click(object sender, EventArgs e)
@@ -189,7 +161,6 @@ namespace ViewClient
         }
         void AppForm_Disposed()
         {
-            // If the Client is still connected, disconnect it.
             if (oNativeModeClient.Connected)
                 oNativeModeClient.Disconnect();
         }
@@ -197,9 +168,31 @@ namespace ViewClient
         {
             cvsInSightDisplay1.Edit.OpenJob.Execute();
         }
+        public bool IsOnline()
+        {
+            if (cvsInSightDisplay1 != null && IsConnected)
+            {
+                return cvsInSightDisplay1.Edit.SoftOnline.Activated;
+            }
+            return false;
+        }
+        public void SetOnline()
+        {
+            cvsInSightDisplay1.Edit.SoftOnline.Activated = true;
+        }
+        public void SetOffline()
+        {
+            cvsInSightDisplay1.Edit.SoftOnline.Activated = false;
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (IsConnected)
+            {
+                sum.Text = Get(ConstDefine.TOTAL);
+                qualified.Text = Get(ConstDefine.PASS_COUNT);
+                unqualified.Text = Get(ConstDefine.FAIL_COUNT);
+            }
 
         }
     }

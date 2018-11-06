@@ -17,11 +17,14 @@ namespace ViewClient
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            //Form selctJobView = new SelectJob(this);
-            //selctJobView.Show();
+            string userName = userTextBox.Text.Trim();
+            string password = passwordTextBox.Text.Trim();
 
-            MonitorViewTab BatchShoulderView = new MonitorViewTab(CameraType.Front, CameraType.Back);
-            BatchShoulderView.Show();
+            Form selctJobView = new SelectJob(this,userName,password);
+            selctJobView.Show();
+
+            //MonitorViewTab BatchShoulderView = new MonitorViewTab(CameraType.Front, CameraType.Back);
+            //BatchShoulderView.Show();
 
             this.Visible = false;
         }

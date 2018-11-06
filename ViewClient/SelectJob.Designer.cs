@@ -225,6 +225,7 @@
             this.IsFrontBtn.TabIndex = 0;
             this.IsFrontBtn.Text = "无相机";
             this.IsFrontBtn.UseVisualStyleBackColor = true;
+            this.IsFrontBtn.Click += new System.EventHandler(this.IsFrontBtn_Click);
             // 
             // label7
             // 
@@ -253,6 +254,7 @@
             this.backBtn.TabIndex = 0;
             this.backBtn.Text = "无相机";
             this.backBtn.UseVisualStyleBackColor = true;
+            this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
             // label6
             // 
@@ -281,6 +283,7 @@
             this.frontBtn.TabIndex = 0;
             this.frontBtn.Text = "无相机";
             this.frontBtn.UseVisualStyleBackColor = true;
+            this.frontBtn.Click += new System.EventHandler(this.frontBtn_Click);
             // 
             // label5
             // 
@@ -338,6 +341,7 @@
             this.batchBtn.TabIndex = 0;
             this.batchBtn.Text = "无相机";
             this.batchBtn.UseVisualStyleBackColor = true;
+            this.batchBtn.Click += new System.EventHandler(this.batchBtn_Click);
             // 
             // label3
             // 

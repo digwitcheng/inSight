@@ -13,22 +13,28 @@ namespace ViewClient
     {
         Form loginForm;
         MonitorViewTab frontBackView;
-        public SelectJob(Form form)
+        MonitorViewTab batchShoulderView;
+        MonitorViewTab isFrontIsBackView;
+        string userName;
+        string password;
+        public SelectJob(Form form,string userName,string password)
         {
-            loginForm = form;
+            this.loginForm = form;
+            this.userName = userName;
+            this.password = password;
             InitializeComponent();
         }
         private void button2_Click(object sender, EventArgs e)
         {
             frontBackView.Show();
-            //FrontBackView.Show();
-            //IsFrontIsBackView.Show();
+            batchShoulderView.Show();
+           // isFrontIsBackView.Show();
         }
         void LoadCameraView()
         {
-            frontBackView = new MonitorViewTab(CameraType.Front, CameraType.Back);
-            // BatchShoulderView = new MonitorViewTab(CameraType.Batch,CameraType.Shoulder);
-            //Form IsFrontIsBackView = new MonitorViewTab("正标有无相机", "背标有无相机");
+            frontBackView = new MonitorViewTab(Tools.CreateCameraConfig(userName,password,CameraType.Front), Tools.CreateCameraConfig(userName, password, CameraType.Back));
+            batchShoulderView = new MonitorViewTab(Tools.CreateCameraConfig(userName, password, CameraType.Batch), Tools.CreateCameraConfig(userName, password, CameraType.Shoulder));
+            // isFrontIsBackView = new MonitorViewTab(CameraType.IsFront, CameraType.IsBack);
             this.timer1.Enabled = true;
             this.timer1.Start();
 
@@ -36,31 +42,10 @@ namespace ViewClient
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            if (frontBackView.LeftMonitorView.IsConnected)
-            {
-                panel5.BackColor = Color.LightBlue;
-                frontBtn.Enabled = true;
-                frontBtn.Text = "联机/脱机";
-            }
-            else
-            {
-                panel5.BackColor = Color.FromArgb(86, 167, 190);
-                frontBtn.Enabled = false;
-                frontBtn.Text = "无相机";
-            }
-            if (frontBackView.RightMonitorView.IsConnected)
-            {
-                panel6.BackColor = Color.LightBlue;
-                backBtn.Enabled = true;
-                backBtn.Text = "联机/脱机";
-            }
-            else
-            {
-                panel6.BackColor =Color.FromArgb(86, 167, 190);
-                backBtn.Enabled = false;
-                backBtn.Text = "无相机";
-            }
+            Tools.CheckConnect(frontBackView.LeftMonitorView, panel5, frontBtn);
+            Tools.CheckConnect(frontBackView.RightMonitorView, panel6, backBtn);
         }
+       
 
         private void SelectJob_Load(object sender, EventArgs e)
         {
@@ -83,5 +68,26 @@ namespace ViewClient
             loginForm.Visible=true;
             this.Close(); 
         }
+
+        private void batchBtn_Click(object sender, EventArgs e)
+        {
+            //CvsInSightDisplay1.Edit.SoftOnline.Activated
+        }
+
+        private void frontBtn_Click(object sender, EventArgs e)
+        {
+            Tools.ClickCameraBtn(frontBackView.LeftMonitorView, frontBtn);           
+        }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            Tools.ClickCameraBtn(frontBackView.RightMonitorView, backBtn);
+        }
+
+        private void IsFrontBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

@@ -50,7 +50,7 @@
             this.zbyzTextBox = new System.Windows.Forms.TextBox();
             this.zbyzLabel = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.zbkTextBox = new System.Windows.Forms.TextBox();
+            this.bkdTextBox = new System.Windows.Forms.TextBox();
             this.bkdLabel = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.zbkdTextBox = new System.Windows.Forms.TextBox();
@@ -98,7 +98,7 @@
             this.panel1.Controls.Add(this.zbyzTextBox);
             this.panel1.Controls.Add(this.zbyzLabel);
             this.panel1.Controls.Add(this.label15);
-            this.panel1.Controls.Add(this.zbkTextBox);
+            this.panel1.Controls.Add(this.bkdTextBox);
             this.panel1.Controls.Add(this.bkdLabel);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.zbkdTextBox);
@@ -124,6 +124,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(348, 642);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // saveBtn
             // 
@@ -151,6 +152,7 @@
             this.ewmTextBox.Name = "ewmTextBox";
             this.ewmTextBox.Size = new System.Drawing.Size(84, 21);
             this.ewmTextBox.TabIndex = 38;
+            this.ewmTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ewmTextBox_KeyDown);
             // 
             // ewmLabel
             // 
@@ -176,6 +178,7 @@
             this.ewmkdTextBox.Name = "ewmkdTextBox";
             this.ewmkdTextBox.Size = new System.Drawing.Size(84, 21);
             this.ewmkdTextBox.TabIndex = 35;
+            this.ewmkdTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ewmkdTextBox_KeyDown);
             // 
             // ewmkdLabel
             // 
@@ -201,6 +204,7 @@
             this.ewmgdTextBox.Name = "ewmgdTextBox";
             this.ewmgdTextBox.Size = new System.Drawing.Size(84, 21);
             this.ewmgdTextBox.TabIndex = 32;
+            this.ewmgdTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ewmgdTextBox_KeyDown);
             // 
             // ewmgdLabel
             // 
@@ -226,6 +230,7 @@
             this.ewmyzTextBox.Name = "ewmyzTextBox";
             this.ewmyzTextBox.Size = new System.Drawing.Size(84, 21);
             this.ewmyzTextBox.TabIndex = 29;
+            this.ewmyzTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ewmyzTextBox_KeyDown);
             // 
             // ewmyzLabel
             // 
@@ -251,6 +256,7 @@
             this.ewmxzTextBox.Name = "ewmxzTextBox";
             this.ewmxzTextBox.Size = new System.Drawing.Size(84, 21);
             this.ewmxzTextBox.TabIndex = 26;
+            this.ewmxzTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ewmxzTextBox_KeyDown);
             // 
             // ewmxzLabel
             // 
@@ -276,6 +282,7 @@
             this.zbyzTextBox.Name = "zbyzTextBox";
             this.zbyzTextBox.Size = new System.Drawing.Size(84, 21);
             this.zbyzTextBox.TabIndex = 23;
+            this.zbyzTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbyzTextBox_KeyDown);
             // 
             // zbyzLabel
             // 
@@ -295,12 +302,13 @@
             this.label15.TabIndex = 21;
             this.label15.Text = "找边阈值:";
             // 
-            // zbkTextBox
+            // bkdTextBox
             // 
-            this.zbkTextBox.Location = new System.Drawing.Point(177, 272);
-            this.zbkTextBox.Name = "zbkTextBox";
-            this.zbkTextBox.Size = new System.Drawing.Size(84, 21);
-            this.zbkTextBox.TabIndex = 20;
+            this.bkdTextBox.Location = new System.Drawing.Point(177, 272);
+            this.bkdTextBox.Name = "bkdTextBox";
+            this.bkdTextBox.Size = new System.Drawing.Size(84, 21);
+            this.bkdTextBox.TabIndex = 20;
+            this.bkdTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bkdTextBox_KeyDown);
             // 
             // bkdLabel
             // 
@@ -326,6 +334,7 @@
             this.zbkdTextBox.Name = "zbkdTextBox";
             this.zbkdTextBox.Size = new System.Drawing.Size(84, 21);
             this.zbkdTextBox.TabIndex = 17;
+            this.zbkdTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbkdTextBox_KeyDown);
             // 
             // zbkdLabel
             // 
@@ -351,6 +360,7 @@
             this.zbgdTextBox.Name = "zbgdTextBox";
             this.zbgdTextBox.Size = new System.Drawing.Size(84, 21);
             this.zbgdTextBox.TabIndex = 14;
+            this.zbgdTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbgdTextBox_KeyDown);
             // 
             // zbgdLabel
             // 
@@ -376,6 +386,7 @@
             this.zbyTextBox.Name = "zbyTextBox";
             this.zbyTextBox.Size = new System.Drawing.Size(84, 21);
             this.zbyTextBox.TabIndex = 11;
+            this.zbyTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbyTextBox_KeyDown);
             // 
             // zbyLabel
             // 
@@ -401,6 +412,7 @@
             this.zbxTextBox.Name = "zbxTextBox";
             this.zbxTextBox.Size = new System.Drawing.Size(84, 21);
             this.zbxTextBox.TabIndex = 8;
+            this.zbxTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbxTextBox_KeyDown);
             // 
             // zbxLabel
             // 
@@ -426,6 +438,7 @@
             this.zyTextBox.Name = "zyTextBox";
             this.zyTextBox.Size = new System.Drawing.Size(84, 21);
             this.zyTextBox.TabIndex = 5;
+            this.zyTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zyTextBox_KeyDown);
             // 
             // zyLabel
             // 
@@ -451,6 +464,7 @@
             this.bgsjTextBox.Name = "bgsjTextBox";
             this.bgsjTextBox.Size = new System.Drawing.Size(84, 21);
             this.bgsjTextBox.TabIndex = 2;
+            this.bgsjTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bgsjTextBox_KeyDown);
             // 
             // bgsjLabel
             // 
@@ -515,7 +529,7 @@
         private System.Windows.Forms.TextBox zbyzTextBox;
         private System.Windows.Forms.Label zbyzLabel;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox zbkTextBox;
+        private System.Windows.Forms.TextBox bkdTextBox;
         private System.Windows.Forms.Label bkdLabel;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox zbkdTextBox;
