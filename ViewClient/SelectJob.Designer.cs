@@ -197,6 +197,7 @@
             this.IsBackBtn.TabIndex = 0;
             this.IsBackBtn.Text = "无相机";
             this.IsBackBtn.UseVisualStyleBackColor = true;
+            this.IsBackBtn.Click += new System.EventHandler(this.IsBackBtn_Click);
             // 
             // label8
             // 
@@ -312,6 +313,7 @@
             this.shouderBtn.TabIndex = 0;
             this.shouderBtn.Text = "无相机";
             this.shouderBtn.UseVisualStyleBackColor = true;
+            this.shouderBtn.Click += new System.EventHandler(this.shouderBtn_Click);
             // 
             // label4
             // 

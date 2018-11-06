@@ -26,7 +26,7 @@ namespace ViewClient
             this.leftType = leftConfig.CurrentCameraType;
             this.rightType = rightConfig.CurrentCameraType;
             string leftName = leftConfig.CameraName;
-            string rightName = leftConfig.CameraName;
+            string rightName = rightConfig.CameraName;
             this.Text = leftName+ "和" + rightName;
             leftBtn.Text = leftName+"调试界面";
             rightBtn.Text = rightName+"调试界面";
@@ -63,7 +63,7 @@ namespace ViewClient
             isClickLeft = true;
             SetVisible(false);            
                     rightMonitorView.Visible = false;
-                    Form backView = MonitorViewFactory.Create(leftMonitorView,CameraType.Back, OnCallBack);
+                    Form backView = MonitorViewFactory.Create(leftMonitorView,leftType, OnCallBack);
                     this.Text = leftMonitorView.Text+"调试界面";
                     leftMonitorView.TxtPanel.Visible = false;
                     addView = backView; 
@@ -83,7 +83,7 @@ namespace ViewClient
             isClickLeft = false;
             SetVisible(false);
                     leftMonitorView.Visible = false;
-                    Form frontView = MonitorViewFactory.Create(rightMonitorView, CameraType.Front, OnCallBack);
+                    Form frontView = MonitorViewFactory.Create(rightMonitorView, rightType, OnCallBack);
                     this.Text = rightMonitorView.Text + "调试界面";
                     rightMonitorView.TxtPanel.Visible = false;
                     addView = frontView;

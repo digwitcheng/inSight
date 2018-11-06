@@ -17,6 +17,7 @@ namespace ViewClient
         MonitorViewTab isFrontIsBackView;
         string userName;
         string password;
+        MainView mainView;
         public SelectJob(Form form,string userName,string password)
         {
             this.loginForm = form;
@@ -26,15 +27,20 @@ namespace ViewClient
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            frontBackView.Show();
-            batchShoulderView.Show();
-           // isFrontIsBackView.Show();
+            //frontBackView.Show();
+            //batchShoulderView.Show();
+            //isFrontIsBackView.Show();
+            if(mainView==null)
+              mainView = new MainView(batchShoulderView, frontBackView, isFrontIsBackView);
+            mainView.Visible = true;
+            mainView.Show();
+
         }
         void LoadCameraView()
         {
-            frontBackView = new MonitorViewTab(Tools.CreateCameraConfig(userName,password,CameraType.Front), Tools.CreateCameraConfig(userName, password, CameraType.Back));
             batchShoulderView = new MonitorViewTab(Tools.CreateCameraConfig(userName, password, CameraType.Batch), Tools.CreateCameraConfig(userName, password, CameraType.Shoulder));
-            // isFrontIsBackView = new MonitorViewTab(CameraType.IsFront, CameraType.IsBack);
+            frontBackView = new MonitorViewTab(Tools.CreateCameraConfig(userName,password,CameraType.Front), Tools.CreateCameraConfig(userName, password, CameraType.Back));
+             isFrontIsBackView = new MonitorViewTab(Tools.CreateCameraConfig(userName, password, CameraType.IsFront), Tools.CreateCameraConfig(userName, password, CameraType.IsBack));
             this.timer1.Enabled = true;
             this.timer1.Start();
 
@@ -44,6 +50,12 @@ namespace ViewClient
         {
             Tools.CheckConnect(frontBackView.LeftMonitorView, panel5, frontBtn);
             Tools.CheckConnect(frontBackView.RightMonitorView, panel6, backBtn);
+
+            Tools.CheckConnect(batchShoulderView.LeftMonitorView, panel3, batchBtn);
+            Tools.CheckConnect(batchShoulderView.RightMonitorView, panel4, shouderBtn);
+
+            Tools.CheckConnect(isFrontIsBackView.LeftMonitorView, panel7, IsFrontBtn);
+            Tools.CheckConnect(isFrontIsBackView.RightMonitorView, panel8, IsBackBtn);
         }
        
 
@@ -54,8 +66,6 @@ namespace ViewClient
                 listBox1.SelectedIndex = 0;
             }
             LoadCameraView();
-            //MonitorView view = new MonitorView("test");
-            //view.Show();
         }
 
         private void SelectJobBtn_Click(object sender, EventArgs e)
@@ -71,7 +81,7 @@ namespace ViewClient
 
         private void batchBtn_Click(object sender, EventArgs e)
         {
-            //CvsInSightDisplay1.Edit.SoftOnline.Activated
+            Tools.ClickCameraBtn(batchShoulderView.LeftMonitorView, batchBtn);
         }
 
         private void frontBtn_Click(object sender, EventArgs e)
@@ -86,8 +96,17 @@ namespace ViewClient
 
         private void IsFrontBtn_Click(object sender, EventArgs e)
         {
-
+            Tools.ClickCameraBtn(isFrontIsBackView.LeftMonitorView, IsFrontBtn);
         }
 
+        private void shouderBtn_Click(object sender, EventArgs e)
+        {
+            Tools.ClickCameraBtn(batchShoulderView.RightMonitorView, shouderBtn);
+        }
+
+        private void IsBackBtn_Click(object sender, EventArgs e)
+        {
+            Tools.ClickCameraBtn(isFrontIsBackView.RightMonitorView, IsBackBtn);
+        }
     }
 }

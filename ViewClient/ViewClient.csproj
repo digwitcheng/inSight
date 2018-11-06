@@ -54,6 +54,12 @@
     <Compile Include="CameraType.cs" />
     <Compile Include="AppSetting.cs" />
     <Compile Include="ConstDefine.cs" />
+    <Compile Include="DebugViews\BatchView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DebugViews\BatchView.Designer.cs">
+      <DependentUpon>BatchView.cs</DependentUpon>
+    </Compile>
     <Compile Include="DebugViews\FrontBackView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,18 @@
       <DependentUpon>FrontBackView.cs</DependentUpon>
     </Compile>
     <Compile Include="DebugViews\MonitorViewFactory.cs" />
+    <Compile Include="DebugViews\ShoulderView100.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DebugViews\ShoulderView100.Designer.cs">
+      <DependentUpon>ShoulderView100.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainView.Designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
     <Compile Include="MonitorView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,8 +112,17 @@
       <DependentUpon>SelectJob.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools.cs" />
+    <EmbeddedResource Include="DebugViews\BatchView.resx">
+      <DependentUpon>BatchView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DebugViews\FrontBackView.resx">
       <DependentUpon>FrontBackView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DebugViews\ShoulderView100.resx">
+      <DependentUpon>ShoulderView100.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MonitorView.resx">
       <DependentUpon>MonitorView.cs</DependentUpon>
