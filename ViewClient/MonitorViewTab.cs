@@ -20,16 +20,16 @@ namespace ViewClient
         Form removeView;
         Form addView;
         bool isClickLeft = true;
-        public MonitorViewTab(CameraConfig leftConfig,CameraConfig rightConfig)
+        public MonitorViewTab(CameraConfig leftConfig, CameraConfig rightConfig)
         {
             InitializeComponent();
             this.leftType = leftConfig.CurrentCameraType;
             this.rightType = rightConfig.CurrentCameraType;
             string leftName = leftConfig.CameraName;
             string rightName = rightConfig.CameraName;
-            this.Text = leftName+ "和" + rightName;
-            leftBtn.Text = leftName+"调试界面";
-            rightBtn.Text = rightName+"调试界面";
+            this.Text = leftName + "和" + rightName;
+            leftBtn.Text = leftName + "调试界面";
+            rightBtn.Text = rightName + "调试界面";
             leftMonitorView = new MonitorView(leftConfig);
             rightMonitorView = new MonitorView(rightConfig);
         }
@@ -38,8 +38,8 @@ namespace ViewClient
         {
             try
             {
-                AddMonitorView(leftMonitorView,leftPanel);
-                AddMonitorView(rightMonitorView,rightPanel);
+                AddMonitorView(leftMonitorView, leftPanel);
+                AddMonitorView(rightMonitorView, rightPanel);
             }
             catch (Exception ex)
             {
@@ -47,8 +47,8 @@ namespace ViewClient
             }
         }
 
-        private void AddMonitorView(MonitorView monitorView,Panel panel)
-        {            
+        private void AddMonitorView(MonitorView monitorView, Panel panel)
+        {
             monitorView.TopLevel = false;
             monitorView.Dock = DockStyle.Fill;
             panel.Controls.Add(monitorView);
@@ -61,20 +61,24 @@ namespace ViewClient
         private void leftBtn_Click(object sender, EventArgs e)
         {
             isClickLeft = true;
-            SetVisible(false);            
-                    rightMonitorView.Visible = false;
-                    Form backView = MonitorViewFactory.Create(leftMonitorView,leftType, OnCallBack);
-                    this.Text = leftMonitorView.Text+"调试界面";
-                    leftMonitorView.TxtPanel.Visible = false;
-                    addView = backView; 
-                    removeView = rightMonitorView;
+            SetVisible(false);
+            rightMonitorView.Visible = false;
+            Form backView = MonitorViewFactory.Create(leftMonitorView, leftType, OnCallBack);
+            this.Text = leftMonitorView.Text + "调试界面";
+            leftMonitorView.TxtPanel.Visible = false;
+            addView = backView;
+            removeView = rightMonitorView;
 
-                    addView.TopLevel = false;
-                    addView.Dock = DockStyle.Fill;
-                    rightPanel.Controls.Remove(removeView);
-                    rightPanel.Controls.Add(addView);
-                    addView.Show();
-                 
+            addView.TopLevel = false;
+            addView.Dock = DockStyle.Fill;
+            rightPanel.Controls.Remove(removeView);
+            rightPanel.Controls.Add(addView);
+            addView.Show();
+
+            if (leftType == CameraType.Batch)
+            {
+                leftMonitorView.SetGridView();
+            }
         }
 
 
@@ -82,24 +86,26 @@ namespace ViewClient
         {
             isClickLeft = false;
             SetVisible(false);
-                    leftMonitorView.Visible = false;
-                    Form frontView = MonitorViewFactory.Create(rightMonitorView, rightType, OnCallBack);
-                    this.Text = rightMonitorView.Text + "调试界面";
-                    rightMonitorView.TxtPanel.Visible = false;
-                    addView = frontView;
-                    removeView = leftMonitorView;
+            leftMonitorView.Visible = false;
+            Form frontView = MonitorViewFactory.Create(rightMonitorView, rightType, OnCallBack);
+            this.Text = rightMonitorView.Text + "调试界面";
+            rightMonitorView.TxtPanel.Visible = false;
+            addView = frontView;
+            removeView = leftMonitorView;
 
-                    addView.TopLevel = false;
-                    addView.Dock = DockStyle.Fill;
-                    leftPanel.Controls.Remove(removeView);
-                    leftPanel.Controls.Add(addView);
-                    addView.Show();
+            addView.TopLevel = false;
+            addView.Dock = DockStyle.Fill;
+            leftPanel.Controls.Remove(removeView);
+            leftPanel.Controls.Add(addView);
+            addView.Show();
+
+            
 
         }
         void SetVisible(bool visible)
         {
             leftBtn.Visible = visible;
-            rightBtn.Visible = visible;            
+            rightBtn.Visible = visible;
         }
         void OnCallBack()
         {
@@ -110,6 +116,11 @@ namespace ViewClient
                 rightPanel.Controls.Add(removeView);
                 leftMonitorView.TxtPanel.Visible = true;
                 rightMonitorView.Visible = true;
+
+                if (leftType == CameraType.Batch)
+                {
+                    leftMonitorView.SetImageView();
+                }
             }
             else
             {
@@ -122,6 +133,6 @@ namespace ViewClient
             this.Text = leftMonitorView.Text + "和" + rightMonitorView.Text;
             //removeView.Show();
         }
-       
+
     }
 }

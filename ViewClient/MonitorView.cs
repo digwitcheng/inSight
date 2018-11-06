@@ -44,7 +44,7 @@ namespace ViewClient
             //Thread thread = new Thread(ConnetServer);
             //thread.Start();
         }
-        void oNativeModeClient_ConnectCompleted(object sender, Cognex.InSight.CvsConnectCompletedEventArgs e)
+        private void oNativeModeClient_ConnectCompleted(object sender, Cognex.InSight.CvsConnectCompletedEventArgs e)
         {
             //const int ExtLen = 3;
             //string response, fList;
@@ -65,17 +65,7 @@ namespace ViewClient
 
             //txtResponse.Text =oNativeModeClient.WelcomeBanner;
 
-        }
-        public bool IsConnected
-        {
-            get
-            {
-                if (!(cvsInSightDisplay1 == null))
-                    return cvsInSightDisplay1.Connected;
-                else
-                    return false;
-            }
-        }
+        }       
         private string SendCommand(string message)
         {
             try
@@ -154,16 +144,37 @@ namespace ViewClient
         {
 
         }
-
         private void MonitorView_FormClosing(object sender, FormClosingEventArgs e)
         {
             AppForm_Disposed();
         }
-        void AppForm_Disposed()
+        private void AppForm_Disposed()
         {
             if (oNativeModeClient.Connected)
                 oNativeModeClient.Disconnect();
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (IsConnected)
+            {
+                sum.Text = Get(ConstDefine.TOTAL);
+                qualified.Text = Get(ConstDefine.PASS_COUNT);
+                unqualified.Text = Get(ConstDefine.FAIL_COUNT);
+            }
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                if (!(cvsInSightDisplay1 == null))
+                    return cvsInSightDisplay1.Connected;
+                else
+                    return false;
+            }
+        }
+
         public void OpenJob()
         {
             cvsInSightDisplay1.Edit.OpenJob.Execute();
@@ -185,15 +196,17 @@ namespace ViewClient
             cvsInSightDisplay1.Edit.SoftOnline.Activated = false;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        public void SetGridView()
         {
-            if (IsConnected)
-            {
-                sum.Text = Get(ConstDefine.TOTAL);
-                qualified.Text = Get(ConstDefine.PASS_COUNT);
-                unqualified.Text = Get(ConstDefine.FAIL_COUNT);
-            }
-
+            cvsInSightDisplay1.ShowGrid = true;
+            cvsInSightDisplay1.ShowScrollBars = true;
         }
+
+        public void SetImageView()
+        {
+            cvsInSightDisplay1.ShowGrid = false;
+            cvsInSightDisplay1.ShowScrollBars = false;
+        }
+
     }
 }
