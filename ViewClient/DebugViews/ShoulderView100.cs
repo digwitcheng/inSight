@@ -13,6 +13,7 @@ namespace ViewClient.DebugViews
     {
         Action action;
         MonitorView monitorView;
+        bool isChanged = false;
         public ShoulderView100(MonitorView monitorView, Action action)
         {
             this.monitorView = monitorView;
@@ -26,27 +27,33 @@ namespace ViewClient.DebugViews
             {
                 if (monitorView.IsConnected)
                 {
-                    bgsjLabel.Text = monitorView.Get("Exposure");
-                    zyLabel.Text = monitorView.Get("Gain");
-                    zbxLabel.Text = monitorView.Get("FindLineX_100");
-                    zbyLabel.Text = monitorView.Get("FindLineY_100");
-                    zbgdLabel.Text = monitorView.Get("FindLindHigh_100");
-                    zbkdLabel.Text = monitorView.Get("FindLineWide_100");
-                    pgzbyzLabel.Text = monitorView.Get("FindLineTs_100");
-                    pgbkdLabel.Text = monitorView.Get("FindLineEdge_100");
-                    bqbyzLabel.Text = monitorView.Get("FindLineTs_100L");
-                    bqbkdLabel.Text = monitorView.Get("FindLineEdge_100L");
-                    bqsxyzLabel.Text = monitorView.Get("Limit");
-                    bqxxyzLabel.Text = monitorView.Get("LowerLimit");
+                    bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
+                    zyLabel.Text = monitorView.Get(CommandType.Gain);
+                    zbxLabel.Text = monitorView.Get(CommandType.FindLineX_100);
+                    zbyLabel.Text = monitorView.Get(CommandType.FindLineY_100);
+                    zbgdLabel.Text = monitorView.Get(CommandType.FindLindHigh_100);
+                    zbkdLabel.Text = monitorView.Get(CommandType.FindLineWide_100);
+                    pgzbyzLabel.Text = monitorView.Get(CommandType.FindLineTs_100);
+                    pgbkdLabel.Text = monitorView.Get(CommandType.FindLineEdge_100);
+                    bqbyzLabel.Text = monitorView.Get(CommandType.FindLineTs_100L);
+                    bqbkdLabel.Text = monitorView.Get(CommandType.FindLineEdge_100L);
+                    bqsxyzLabel.Text = monitorView.Get(CommandType.Limit);
+                    bqxxyzLabel.Text = monitorView.Get(CommandType.LowerLimit);
                 }
             }
         }
-
+        string Changed(CommandType type, string value)
+        {
+            isChanged = true;
+            monitorView.Data.SetValue(type, value);
+            return monitorView.Set(type, value);
+        }
         private void bgsjTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                bgsjLabel.Text = monitorView.Set("Exposure", bgsjTextBox.Text);
+                bgsjLabel.Text = Changed(CommandType.Exposure, bgsjTextBox.Text);
+                
             }
         }
 
@@ -56,13 +63,19 @@ namespace ViewClient.DebugViews
             {
                 action();
             }
+            if (isChanged)
+            {
+                monitorView.SaveData();
+                isChanged = false;
+            }
         }
 
         private void zyTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                zyLabel.Text = monitorView.Set("Gain", zyTextBox.Text);
+                zyLabel.Text = Changed(CommandType.Gain, zyTextBox.Text);
+                
             }
         }
 
@@ -70,7 +83,8 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbxLabel.Text = monitorView.Set("FindLineX_100", zbxTextBox.Text);
+                zbxLabel.Text = Changed(CommandType.FindLineX_100, zbxTextBox.Text);
+                
             }
         }
 
@@ -78,7 +92,8 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbyLabel.Text = monitorView.Set("FindLineY_100", zbyTextBox.Text);
+                zbyLabel.Text = Changed(CommandType.FindLineY_100, zbyTextBox.Text);
+                
             }
         }
 
@@ -86,7 +101,8 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbgdLabel.Text = monitorView.Set("FindLindHigh_100", zbgdTextBox.Text);
+                zbgdLabel.Text = Changed(CommandType.FindLindHigh_100, zbgdTextBox.Text);
+                
             }
         }
 
@@ -94,7 +110,8 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbkdLabel.Text = monitorView.Set("FindLineWide_100", zbkdTextBox.Text);
+                zbkdLabel.Text = Changed(CommandType.FindLineWide_100, zbkdTextBox.Text);
+                
             }
         }
 
@@ -102,7 +119,8 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                pgbkdLabel.Text = monitorView.Set("FindLineEdge_100", pgbkdTextBox.Text);
+                pgbkdLabel.Text = Changed(CommandType.FindLineEdge_100, pgbkdTextBox.Text);
+                
             }
         }
 
@@ -110,7 +128,8 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                pgzbyzLabel.Text = monitorView.Set("FindLineTs_100", pgzbyzTextBox.Text);
+                pgzbyzLabel.Text = Changed(CommandType.FindLineTs_100, pgzbyzTextBox.Text);
+                
             }
         }
 
@@ -118,7 +137,8 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bqbyzLabel.Text = monitorView.Set("FindLineTs_100L", bqbyzTextBox.Text);
+                bqbyzLabel.Text = Changed(CommandType.FindLineTs_100L, bqbyzTextBox.Text);
+                
             }
         }
 
@@ -126,7 +146,8 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bqbkdLabel.Text = monitorView.Set("FindLineEdge_100L", bqbkdTextBox.Text);
+                bqbkdLabel.Text = Changed(CommandType.FindLineEdge_100L, bqbkdTextBox.Text);
+                
             }
         }
 
@@ -134,7 +155,8 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bqsxyzLabel.Text = monitorView.Set("Limit", bqsxyzTextBox.Text);
+                bqsxyzLabel.Text = Changed(CommandType.Limit, bqsxyzTextBox.Text);
+                
             }
         }
 
@@ -142,7 +164,8 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bqxxyzLabel.Text = monitorView.Set("LowerLimit", bqxxyzTextBox.Text);
+                bqxxyzLabel.Text = Changed(CommandType.LowerLimit, bqxxyzTextBox.Text);
+                
             }
         }
     }

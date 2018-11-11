@@ -12,13 +12,14 @@ namespace ViewClient.DebugViews
         {
             switch (type)
             {
+                
+                case CameraType.Batch:
                 case CameraType.IsFront:
                 case CameraType.IsBack:
+                    return new BatchView(monitorView, action);
                 case CameraType.Front:
                 case CameraType.Back:
-                    return new FrontBackView(monitorView,action);
-                case CameraType.Batch:
-                    return new BatchView(monitorView, action);
+                    return new FrontBackView(monitorView, action);
                 case CameraType.Shoulder:
                     return new ShoulderView100(monitorView, action);
                 default:

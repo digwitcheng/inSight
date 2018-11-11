@@ -12,6 +12,10 @@ namespace ViewClient
         public const string  ISFRONT_CAMERA_ADDRESS = "192.168.0.3";
         public const string  ISBACK_CAMERA_ADDRESS = "192.168.0.4";
         public const string  BATCH_CAMERA_ADDRESS = "192.168.0.1";
-        public const string  SHOULDER_CAMERA_ADDRESS = "192.168.0.6";
+        public const string  SHOULDER_CAMERA_ADDRESS = "192.168.0.10";
+
+        public const string EXCEL_PATH = "MaterielTable.csv";
+        public const string EXCEL_TEMP_PATH = "Temp.csv";
+
     }
 }

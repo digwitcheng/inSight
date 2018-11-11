@@ -30,7 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.saveBtn = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.backBtn = new System.Windows.Forms.Button();
             this.zyTextBox = new System.Windows.Forms.TextBox();
             this.zyLabel = new System.Windows.Forms.Label();
@@ -40,12 +42,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(167)))), ((int)(((byte)(190)))));
-            this.panel1.Controls.Add(this.saveBtn);
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.backBtn);
             this.panel1.Controls.Add(this.zyTextBox);
             this.panel1.Controls.Add(this.zyLabel);
@@ -59,22 +62,46 @@
             this.panel1.Size = new System.Drawing.Size(343, 605);
             this.panel1.TabIndex = 1;
             // 
-            // saveBtn
+            // panel2
             // 
-            this.saveBtn.Location = new System.Drawing.Point(162, 522);
-            this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(99, 50);
-            this.saveBtn.TabIndex = 40;
-            this.saveBtn.Text = "参数保存";
-            this.saveBtn.UseVisualStyleBackColor = true;
+            this.panel2.Controls.Add(this.radioButton2);
+            this.panel2.Controls.Add(this.radioButton1);
+            this.panel2.Location = new System.Drawing.Point(48, 161);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(145, 98);
+            this.panel2.TabIndex = 41;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = true;
+            this.radioButton2.Location = new System.Drawing.Point(18, 22);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(71, 16);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "显示表格";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(18, 56);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(71, 16);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.Text = "显示图像";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // backBtn
             // 
-            this.backBtn.Location = new System.Drawing.Point(38, 522);
+            this.backBtn.Location = new System.Drawing.Point(53, 512);
             this.backBtn.Name = "backBtn";
-            this.backBtn.Size = new System.Drawing.Size(99, 50);
+            this.backBtn.Size = new System.Drawing.Size(99, 43);
             this.backBtn.TabIndex = 39;
-            this.backBtn.Text = "返回";
+            this.backBtn.Text = "保存并返回";
             this.backBtn.UseVisualStyleBackColor = true;
             this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
@@ -146,6 +173,8 @@
             this.Text = "BatchView";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -153,7 +182,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Button backBtn;
         private System.Windows.Forms.TextBox zyTextBox;
         private System.Windows.Forms.Label zyLabel;
@@ -162,5 +190,8 @@
         private System.Windows.Forms.Label bgsjLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

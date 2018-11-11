@@ -10,6 +10,7 @@
     <AssemblyName>ViewClient</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -20,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cognex.InSight, Version=4.9.2511.0, Culture=neutral, PublicKeyToken=6b9774afddb09935, processorArchitecture=x86">
@@ -53,7 +56,7 @@
     <Compile Include="CameraConfig.cs" />
     <Compile Include="CameraType.cs" />
     <Compile Include="AppSetting.cs" />
-    <Compile Include="ConstDefine.cs" />
+    <Compile Include="CommandType.cs" />
     <Compile Include="DebugViews\BatchView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,22 +76,30 @@
     <Compile Include="DebugViews\ShoulderView100.Designer.cs">
       <DependentUpon>ShoulderView100.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainView.cs">
+    <Compile Include="Tools\FileTools.cs" />
+    <Compile Include="FormInit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainView.Designer.cs">
+    <Compile Include="FormInit.Designer.cs">
+      <DependentUpon>FormInit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainViews\MainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainViews\MainView.Designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
-    <Compile Include="MonitorView.cs">
+    <Compile Include="MaterielData.cs" />
+    <Compile Include="MainViews\MonitorView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MonitorView.Designer.cs">
+    <Compile Include="MainViews\MonitorView.Designer.cs">
       <DependentUpon>MonitorView.cs</DependentUpon>
     </Compile>
-    <Compile Include="CameraSelect.cs">
+    <Compile Include="MainViews\CameraSelect.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CameraSelect.Designer.cs">
+    <Compile Include="MainViews\CameraSelect.Designer.cs">
       <DependentUpon>CameraSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
@@ -97,10 +108,10 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="MonitorViewTab.cs">
+    <Compile Include="MainViews\MonitorViewTab.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MonitorViewTab.Designer.cs">
+    <Compile Include="MainViews\MonitorViewTab.Designer.cs">
       <DependentUpon>MonitorViewTab.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -111,7 +122,7 @@
     <Compile Include="SelectJob.Designer.cs">
       <DependentUpon>SelectJob.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tools.cs" />
+    <Compile Include="Tools\Utils.cs" />
     <EmbeddedResource Include="DebugViews\BatchView.resx">
       <DependentUpon>BatchView.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,16 +132,19 @@
     <EmbeddedResource Include="DebugViews\ShoulderView100.resx">
       <DependentUpon>ShoulderView100.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainView.resx">
+    <EmbeddedResource Include="FormInit.resx">
+      <DependentUpon>FormInit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainViews\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MonitorView.resx">
+    <EmbeddedResource Include="MainViews\MonitorView.resx">
       <DependentUpon>MonitorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MonitorViewTab.resx">
+    <EmbeddedResource Include="MainViews\MonitorViewTab.resx">
       <DependentUpon>MonitorViewTab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -141,10 +155,12 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SelectJob.resx">
       <DependentUpon>SelectJob.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -155,6 +171,19 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\强生31.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

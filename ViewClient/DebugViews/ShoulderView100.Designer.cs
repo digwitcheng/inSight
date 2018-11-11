@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.saveBtn = new System.Windows.Forms.Button();
             this.backBtn = new System.Windows.Forms.Button();
             this.bqxxyzTextBox = new System.Windows.Forms.TextBox();
             this.bqxxyzLabel = new System.Windows.Forms.Label();
@@ -75,7 +74,6 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(167)))), ((int)(((byte)(190)))));
-            this.panel1.Controls.Add(this.saveBtn);
             this.panel1.Controls.Add(this.backBtn);
             this.panel1.Controls.Add(this.bqxxyzTextBox);
             this.panel1.Controls.Add(this.bqxxyzLabel);
@@ -119,22 +117,13 @@
             this.panel1.Size = new System.Drawing.Size(343, 624);
             this.panel1.TabIndex = 1;
             // 
-            // saveBtn
-            // 
-            this.saveBtn.Location = new System.Drawing.Point(162, 522);
-            this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(99, 50);
-            this.saveBtn.TabIndex = 40;
-            this.saveBtn.Text = "参数保存";
-            this.saveBtn.UseVisualStyleBackColor = true;
-            // 
             // backBtn
             // 
             this.backBtn.Location = new System.Drawing.Point(38, 522);
             this.backBtn.Name = "backBtn";
             this.backBtn.Size = new System.Drawing.Size(99, 50);
             this.backBtn.TabIndex = 39;
-            this.backBtn.Text = "返回";
+            this.backBtn.Text = "返回并保存";
             this.backBtn.UseVisualStyleBackColor = true;
             this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
@@ -473,7 +462,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Button backBtn;
         private System.Windows.Forms.TextBox bqxxyzTextBox;
         private System.Windows.Forms.Label bqxxyzLabel;

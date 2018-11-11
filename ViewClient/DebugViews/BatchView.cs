@@ -13,6 +13,7 @@ namespace ViewClient.DebugViews
     {
         Action action;
         MonitorView monitorView;
+        bool isChanged = false;
         public BatchView(MonitorView monitorView, Action action)
         {
             this.monitorView = monitorView;
@@ -26,6 +27,11 @@ namespace ViewClient.DebugViews
             {
                 action();
             }
+            if (isChanged)
+            {
+                monitorView.SaveData();
+                isChanged = false;
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -34,17 +40,22 @@ namespace ViewClient.DebugViews
             {
                 if (monitorView.IsConnected)
                 {
-                    bgsjLabel.Text = monitorView.Get("Exposure");
-                    zyLabel.Text = monitorView.Get("Gain");
+                    bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
+                    zyLabel.Text = monitorView.Get(CommandType.Gain);
                 }
             }
         }
-
+        string Changed(CommandType type,string value)
+        {
+            isChanged = true;
+            monitorView.Data.SetValue(type, value);
+            return monitorView.Set(type, value);
+        }
         private void bgsjTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                bgsjLabel.Text = monitorView.Set("Exposure", bgsjTextBox.Text);
+                bgsjLabel.Text = Changed(CommandType.Exposure, bgsjTextBox.Text);
             }
         }
 
@@ -52,8 +63,19 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zyLabel.Text = monitorView.Set("Gain", zyTextBox.Text);
+                isChanged = true;
+                zyLabel.Text = Changed(CommandType.Gain, zyTextBox.Text);
             }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            monitorView.SetGridView();
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            monitorView.SetImageView();
         }
     }
 }

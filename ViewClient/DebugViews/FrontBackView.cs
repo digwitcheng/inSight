@@ -13,7 +13,8 @@ namespace ViewClient.DebugViews
     {
         Action action;
         MonitorView monitorView;
-        public FrontBackView(MonitorView monitorView,Action action)
+        bool isChanged = false;
+        public FrontBackView(MonitorView monitorView, Action action)
         {
             this.monitorView = monitorView;
             this.action = action;
@@ -31,41 +32,46 @@ namespace ViewClient.DebugViews
             {
                 action();
             }
+            if (isChanged)
+            {
+                monitorView.SaveData();
+                isChanged = false;
+            }
         }
-
-        private void saveBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (monitorView != null)
             {
                 if (monitorView.IsConnected)
                 {
-                    bgsjLabel.Text = monitorView.Get("Exposure");
-                    zyLabel.Text = monitorView.Get("Gain");
-                    ewmLabel.Text = monitorView.Get("BarCode");
-                    zbxLabel.Text = monitorView.Get("FindLineX");
-                    zbyLabel.Text = monitorView.Get("FindLineY");
-                    zbgdLabel.Text = monitorView.Get("FindLindHigh");
-                    zbkdLabel.Text = monitorView.Get("FindLineWide");
-                    bkdLabel.Text = monitorView.Get("FindLineEdge");
-                    zbyzLabel.Text = monitorView.Get("FindLineThreshold");
-                    ewmxzLabel.Text = monitorView.Get("BarCodeX");
-                    ewmyzLabel.Text = monitorView.Get("BarCodeY");
-                    ewmgdLabel.Text = monitorView.Get("BarCodeHigh");
-                    ewmkdLabel.Text = monitorView.Get("BarCodeWide");
+                    bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
+                    zyLabel.Text = monitorView.Get(CommandType.Gain);
+                    ewmLabel.Text = monitorView.Get(CommandType.BarCode);
+                    zbxLabel.Text = monitorView.Get(CommandType.FindLineX);
+                    zbyLabel.Text = monitorView.Get(CommandType.FindLineY);
+                    zbgdLabel.Text = monitorView.Get(CommandType.FindLindHigh);
+                    zbkdLabel.Text = monitorView.Get(CommandType.FindLineWide);
+                    bkdLabel.Text = monitorView.Get(CommandType.FindLineEdge);
+                    zbyzLabel.Text = monitorView.Get(CommandType.FindLineThreshold);
+                    ewmxzLabel.Text = monitorView.Get(CommandType.BarCodeX);
+                    ewmyzLabel.Text = monitorView.Get(CommandType.BarCodeY);
+                    ewmgdLabel.Text = monitorView.Get(CommandType.BarCodeHigh);
+                    ewmkdLabel.Text = monitorView.Get(CommandType.BarCodeWide);
                 }
             }
         }
-
+        string Changed(CommandType type, string value)
+        {
+            isChanged = true;
+            monitorView.Data.SetValue(type, value);
+            return monitorView.Set(type, value);
+        }
         private void bgsjTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                bgsjLabel.Text = monitorView.Set("Exposure",bgsjTextBox.Text);
+                bgsjLabel.Text  = Changed(CommandType.Exposure,bgsjTextBox.Text);
             }
         }
 
@@ -73,7 +79,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zyLabel.Text = monitorView.Set("Gain", zyTextBox.Text);
+                zyLabel.Text  = Changed(CommandType.Gain, zyTextBox.Text);
             }
         }
 
@@ -81,7 +87,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                ewmLabel.Text = monitorView.Set("BarCode", ewmTextBox.Text);
+                ewmLabel.Text  = Changed(CommandType.BarCode, ewmTextBox.Text);
             }
         }
 
@@ -89,7 +95,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbxLabel.Text = monitorView.Set("FindLineX", zbxTextBox.Text);
+                zbxLabel.Text  = Changed(CommandType.FindLineX, zbxTextBox.Text);
             }
         }
 
@@ -97,7 +103,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbyLabel.Text = monitorView.Set("FindLineY", zbyTextBox.Text);
+                zbyLabel.Text  = Changed(CommandType.FindLineY, zbyTextBox.Text);
             }
         }
 
@@ -105,7 +111,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbgdLabel.Text = monitorView.Set("FindLindHigh", zbgdTextBox.Text);
+                zbgdLabel.Text  = Changed(CommandType.FindLindHigh, zbgdTextBox.Text);
             }
         }
 
@@ -113,7 +119,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbkdLabel.Text = monitorView.Set("FindLineWide", zbkdTextBox.Text);
+                zbkdLabel.Text  = Changed(CommandType.FindLineWide, zbkdTextBox.Text);
             }
         }
 
@@ -121,7 +127,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bkdLabel.Text = monitorView.Set("FindLineEdge", bkdTextBox.Text);
+                bkdLabel.Text  = Changed(CommandType.FindLineEdge, bkdTextBox.Text);
             }
         }
 
@@ -129,7 +135,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbyzLabel.Text = monitorView.Set("FindLineThreshold", zbyzTextBox.Text);
+                zbyzLabel.Text  = Changed(CommandType.FindLineThreshold, zbyzTextBox.Text);
             }
         }
 
@@ -137,7 +143,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                ewmxzLabel.Text = monitorView.Set("BarCodeX", ewmxzTextBox.Text);
+                ewmxzLabel.Text  = Changed(CommandType.BarCodeX, ewmxzTextBox.Text);
             }
         }
 
@@ -145,7 +151,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                ewmyzLabel.Text = monitorView.Set("BarCodeY", ewmyzTextBox.Text);
+                ewmyzLabel.Text  = Changed(CommandType.BarCodeY, ewmyzTextBox.Text);
             }
         }
 
@@ -153,7 +159,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                ewmgdLabel.Text = monitorView.Set("BarCodeHigh", ewmgdTextBox.Text);
+                ewmgdLabel.Text  = Changed(CommandType.BarCodeHigh, ewmgdTextBox.Text);
             }
         }
 
@@ -161,7 +167,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                ewmkdLabel.Text = monitorView.Set("BarCodeWide", ewmkdTextBox.Text);
+                ewmkdLabel.Text  = Changed(CommandType.BarCodeWide, ewmkdTextBox.Text);
             }
         }
 

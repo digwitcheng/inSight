@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ViewClient
@@ -14,19 +15,15 @@ namespace ViewClient
         public Login()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
             string userName = userTextBox.Text.Trim();
             string password = passwordTextBox.Text.Trim();
-
-            Form selctJobView = new SelectJob(this,userName,password);
-            selctJobView.Show();
-
-            //MonitorViewTab BatchShoulderView = new MonitorViewTab(CameraType.Front, CameraType.Back);
-            //BatchShoulderView.Show();
-
-            this.Visible = false;
+            FormInit formInit = new FormInit(() => { this.Visible = true; }, userName, password);
+            formInit.Show();
         }
         private void button2_Click(object sender, EventArgs e)
         {

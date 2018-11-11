@@ -11,36 +11,70 @@ namespace ViewClient
 {
     public partial class SelectJob : Form
     {
-        Form loginForm;
-        MonitorViewTab frontBackView;
-        MonitorViewTab batchShoulderView;
-        MonitorViewTab isFrontIsBackView;
+        MonitorViewTab frontBackViewTab;
+        MonitorViewTab batchShoulderViewTab;
+        MonitorViewTab isFrontIsBackViewTab;
+        Action action;
         string userName;
         string password;
         MainView mainView;
-        public SelectJob(Form form,string userName,string password)
+        public SelectJob(Action action ,string userName, string password)
         {
-            this.loginForm = form;
+            this.action = action;
             this.userName = userName;
             this.password = password;
             InitializeComponent();
+
         }
+
         private void button2_Click(object sender, EventArgs e)
         {
-            //frontBackView.Show();
-            //batchShoulderView.Show();
-            //isFrontIsBackView.Show();
-            if(mainView==null)
-              mainView = new MainView(batchShoulderView, frontBackView, isFrontIsBackView);
+            if (listBox1.Enabled == true)
+            {
+                MessageBox.Show("请先确定好配方!");
+                return;
+            }
+            List<MaterielData> datas = FileTools.ReadExcelByText(listBox1.SelectedItem.ToString());
+            if (datas == null||datas.Count<=0)
+            {
+                return;
+            }
+            foreach(MaterielData data in datas)
+            {
+                LoadInitCameraData(batchShoulderViewTab,data);
+                LoadInitCameraData(frontBackViewTab,data);
+                LoadInitCameraData(isFrontIsBackViewTab,data);
+            }
+
+
+            if (mainView == null)
+                mainView = new MainView(batchShoulderViewTab, frontBackViewTab, isFrontIsBackViewTab);
             mainView.Visible = true;
             mainView.Show();
 
         }
+        void LoadInitCameraData(MonitorViewTab monitorViewTab,MaterielData data)
+        {
+            if (monitorViewTab.LeftMonitorView.CameraAddress.Equals(data.CameraAddress))
+            {
+                monitorViewTab.LeftMonitorView.Data = data;
+                monitorViewTab.LeftMonitorView.LoadData();
+            }
+            if (monitorViewTab.RightMonitorView.CameraAddress.Equals(data.CameraAddress))
+            {
+                monitorViewTab.RightMonitorView.Data = data;
+                monitorViewTab.RightMonitorView.LoadData();
+            }
+        }
+
         void LoadCameraView()
         {
-            batchShoulderView = new MonitorViewTab(Tools.CreateCameraConfig(userName, password, CameraType.Batch), Tools.CreateCameraConfig(userName, password, CameraType.Shoulder));
-            frontBackView = new MonitorViewTab(Tools.CreateCameraConfig(userName,password,CameraType.Front), Tools.CreateCameraConfig(userName, password, CameraType.Back));
-             isFrontIsBackView = new MonitorViewTab(Tools.CreateCameraConfig(userName, password, CameraType.IsFront), Tools.CreateCameraConfig(userName, password, CameraType.IsBack));
+            batchShoulderViewTab = new MonitorViewTab(Utils.CreateCameraConfig(userName, password, CameraType.Batch), Utils.CreateCameraConfig(userName, password, CameraType.Shoulder));
+            frontBackViewTab = new MonitorViewTab(Utils.CreateCameraConfig(userName, password, CameraType.Front), Utils.CreateCameraConfig(userName, password, CameraType.Back));
+            isFrontIsBackViewTab = new MonitorViewTab(Utils.CreateCameraConfig(userName, password, CameraType.IsFront), Utils.CreateCameraConfig(userName, password, CameraType.IsBack));
+
+            batchShoulderViewTab.LeftMonitorView.BindOnline(BatchOnline);
+
             this.timer1.Enabled = true;
             this.timer1.Start();
 
@@ -48,16 +82,16 @@ namespace ViewClient
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            Tools.CheckConnect(frontBackView.LeftMonitorView, panel5, frontBtn);
-            Tools.CheckConnect(frontBackView.RightMonitorView, panel6, backBtn);
+            Utils.CheckConnect(batchShoulderViewTab.LeftMonitorView, panel3);
+            Utils.CheckConnect(batchShoulderViewTab.RightMonitorView, panel4);
 
-            Tools.CheckConnect(batchShoulderView.LeftMonitorView, panel3, batchBtn);
-            Tools.CheckConnect(batchShoulderView.RightMonitorView, panel4, shouderBtn);
+            Utils.CheckConnect(frontBackViewTab.LeftMonitorView, panel5);
+            Utils.CheckConnect(frontBackViewTab.RightMonitorView, panel6);
 
-            Tools.CheckConnect(isFrontIsBackView.LeftMonitorView, panel7, IsFrontBtn);
-            Tools.CheckConnect(isFrontIsBackView.RightMonitorView, panel8, IsBackBtn);
+            Utils.CheckConnect(isFrontIsBackViewTab.LeftMonitorView, panel7);
+            Utils.CheckConnect(isFrontIsBackViewTab.RightMonitorView, panel8);
         }
-       
+
 
         private void SelectJob_Load(object sender, EventArgs e)
         {
@@ -70,43 +104,118 @@ namespace ViewClient
 
         private void SelectJobBtn_Click(object sender, EventArgs e)
         {
-            frontBackView.LeftMonitorView.OpenJob();
+            if (BatchOnline.Checked)
+            {
+                MessageBox.Show("请先脱机!");
+                return;
+            }
+            batchShoulderViewTab.LeftMonitorView.OpenJob();
+        }
+
+        private void BatchOnline_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (BatchOnline.Checked)
+            {
+                BatchOnline.BackColor = Color.Yellow;
+            }
+            else
+            {
+                BatchOnline.BackColor = Color.Gainsboro;
+            }
+        }
+
+        private void ShoulderOnline_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ShoulderOnline.Checked)
+            {
+                ShoulderOnline.BackColor = Color.Yellow;
+            }
+            else
+            {
+                ShoulderOnline.BackColor = Color.Gainsboro;
+            }
+        }
+
+        private void FrontOnline_CheckedChanged(object sender, EventArgs e)
+        {
+            if (FrontOnline.Checked)
+            {
+                FrontOnline.BackColor = Color.Yellow;
+            }
+            else
+            {
+                FrontOnline.BackColor = Color.Gainsboro;
+            }
+        }
+
+        private void BackOnline_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BackOnline.Checked)
+            {
+                BackOnline.BackColor = Color.Yellow;
+            }
+            else
+            {
+                BackOnline.BackColor = Color.Gainsboro;
+            }
+        }
+
+        private void IsFrontOnline_CheckedChanged(object sender, EventArgs e)
+        {
+            if (IsFrontOnline.Checked)
+            {
+                IsFrontOnline.BackColor = Color.Yellow;
+            }
+            else
+            {
+                IsFrontOnline.BackColor = Color.Gainsboro;
+            }
+        }
+
+        private void IsBackOnline_CheckedChanged(object sender, EventArgs e)
+        {
+            if (IsBackOnline.Checked)
+            {
+                IsBackOnline.BackColor = Color.Yellow;
+            }
+            else
+            {
+                IsBackOnline.BackColor = Color.Gainsboro;
+            }
+        }
+
+        private void listBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            seletedLabel.Text = "当前选择的配方:" + listBox1.SelectedItem.ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (listBox1.Enabled == false)
+            {
+
+                button1.Text = "确定";
+                listBox1.Enabled = true;
+            }
+            else
+            {
+                button1.Text = "重新选择";
+                listBox1.Enabled = false;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            loginForm.Visible=true;
-            this.Close(); 
+            this.Close();
         }
 
-        private void batchBtn_Click(object sender, EventArgs e)
+        private void SelectJob_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Tools.ClickCameraBtn(batchShoulderView.LeftMonitorView, batchBtn);
-        }
-
-        private void frontBtn_Click(object sender, EventArgs e)
-        {
-            Tools.ClickCameraBtn(frontBackView.LeftMonitorView, frontBtn);           
-        }
-
-        private void backBtn_Click(object sender, EventArgs e)
-        {
-            Tools.ClickCameraBtn(frontBackView.RightMonitorView, backBtn);
-        }
-
-        private void IsFrontBtn_Click(object sender, EventArgs e)
-        {
-            Tools.ClickCameraBtn(isFrontIsBackView.LeftMonitorView, IsFrontBtn);
-        }
-
-        private void shouderBtn_Click(object sender, EventArgs e)
-        {
-            Tools.ClickCameraBtn(batchShoulderView.RightMonitorView, shouderBtn);
-        }
-
-        private void IsBackBtn_Click(object sender, EventArgs e)
-        {
-            Tools.ClickCameraBtn(isFrontIsBackView.RightMonitorView, IsBackBtn);
+            if (mainView != null)
+            {
+                mainView.Close();
+            }
+            action();
         }
     }
 }

@@ -7,7 +7,6 @@ namespace ViewClient
 {
     public class CameraConfig
     {
-
         public CameraType CurrentCameraType { get; set; }
         public string CameraName { get; set; }
         public string CameraAddress { get; set; }

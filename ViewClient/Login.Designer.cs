@@ -128,6 +128,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(521, 322);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(537, 360);
+            this.MinimumSize = new System.Drawing.Size(537, 360);
             this.Name = "Login";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
