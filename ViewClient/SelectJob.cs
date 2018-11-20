@@ -24,7 +24,6 @@ namespace ViewClient
             this.userName = userName;
             this.password = password;
             InitializeComponent();
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -45,10 +44,14 @@ namespace ViewClient
                 LoadInitCameraData(frontBackViewTab,data);
                 LoadInitCameraData(isFrontIsBackViewTab,data);
             }
-
-
+            if (AppSetting.MatNoList100ml.Contains(listBox1.SelectedItem.ToString().Trim()))
+            {
+                batchShoulderViewTab.IsMatNo100ml = true;
+            }
             if (mainView == null)
+            {
                 mainView = new MainView(batchShoulderViewTab, frontBackViewTab, isFrontIsBackViewTab);
+            }
             mainView.Visible = true;
             mainView.Show();
 
@@ -75,6 +78,11 @@ namespace ViewClient
             isFrontIsBackViewTab = new MonitorViewTab(Utils.CreateCameraConfig(userName, password, CameraType.IsFront), Utils.CreateCameraConfig(userName, password, CameraType.IsBack));
 
             batchShoulderViewTab.LeftMonitorView.BindOnline(BatchOnline);
+            batchShoulderViewTab.RightMonitorView.BindOnline(ShoulderOnline);
+            frontBackViewTab.LeftMonitorView.BindOnline(FrontOnline);
+            frontBackViewTab.RightMonitorView.BindOnline(BackOnline);
+            isFrontIsBackViewTab.LeftMonitorView.BindOnline(IsFrontOnline);
+            isFrontIsBackViewTab.RightMonitorView.BindOnline(IsBackOnline);
 
             this.timer1.Enabled = true;
             this.timer1.Start();

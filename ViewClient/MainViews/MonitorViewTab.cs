@@ -20,6 +20,7 @@ namespace ViewClient
         Form removeView;
         Form addView;
         bool isClickLeft = true;
+        public bool IsMatNo100ml = false;
         public MonitorViewTab(CameraConfig leftConfig, CameraConfig rightConfig)
         {
             InitializeComponent();
@@ -64,7 +65,7 @@ namespace ViewClient
             isClickLeft = true;
             SetVisible(false);
             rightMonitorView.Visible = false;
-            Form backView = MonitorViewFactory.Create(leftMonitorView, leftType, OnCallBack);
+            Form backView = MonitorViewFactory.Create(leftMonitorView, leftType, OnCallBack, IsMatNo100ml);
             this.Text = leftMonitorView.Text + "调试界面";
             leftMonitorView.TxtPanel.Visible = false;
             addView = backView;
@@ -88,7 +89,7 @@ namespace ViewClient
             isClickLeft = false;
             SetVisible(false);
             leftMonitorView.Visible = false;
-            Form frontView = MonitorViewFactory.Create(rightMonitorView, rightType, OnCallBack);
+            Form frontView = MonitorViewFactory.Create(rightMonitorView, rightType, OnCallBack, IsMatNo100ml);
             this.Text = rightMonitorView.Text + "调试界面";
             rightMonitorView.TxtPanel.Visible = false;
             addView = frontView;

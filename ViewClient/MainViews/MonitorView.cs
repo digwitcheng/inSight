@@ -20,6 +20,7 @@ namespace ViewClient
         private readonly CameraConfig config;
         private bool isCameraInited = false;
         private string cameraAddress;
+        int unqualifiedCount = 0;
         public MonitorView(CameraConfig config)
         {           
             InitializeComponent();
@@ -31,7 +32,8 @@ namespace ViewClient
         }
         private void MonitorView_Load(object sender, EventArgs e)
         {
-
+            timer1.Enabled = true;
+            timer1.Start();
 
         }
         private void InitCvsInSightDisplay()
@@ -68,15 +70,14 @@ namespace ViewClient
 
         private void oNativeModeClient_ConnectCompleted(object sender, Cognex.InSight.CvsConnectCompletedEventArgs e)
         {
-            timer1.Enabled = true;
-            timer1.Start();
+           
         }
 
 
         private void clearCountBtn1_Click(object sender, EventArgs e)
         {
             Set(CommandType.Reset, 1);
-            Set(CommandType.Reset, 0);
+            Set(CommandType.Reset, 0);            
         }
 
         private void cameraBtn1_Click(object sender, EventArgs e)
@@ -91,8 +92,7 @@ namespace ViewClient
         {
             if (oNativeModeClient.Connected)
                 oNativeModeClient.Disconnect();
-        }
-
+        }        
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (oNativeModeClient.Connected)
@@ -101,15 +101,19 @@ namespace ViewClient
                 qualified.Text = Get(CommandType.Pass);
                 unqualified.Text = Get(CommandType.Fail);
 
-
-                Regex regex = new Regex("[1-9]+");
-                if (regex.IsMatch(unqualified.Text))// unqualified.Text)
+                if (config.CurrentCameraType == CameraType.IsBack || config.CurrentCameraType == CameraType.IsFront)
                 {
-                    DialogResult dr = MessageBox.Show("确认你已拿走了缺标的产品！！");
-                    timer1.Stop();
-                    if (dr == DialogResult.OK)
+                    int temp = 0;
+                    bool res = int.TryParse(unqualified.Text, out temp);
+                    if (res && temp > unqualifiedCount)// unqualified.Text)
                     {
-                        timer1.Start();
+                        timer1.Stop();
+                        DialogResult dr = MessageBox.Show("确认你已拿走了缺标的产品！！");
+                        if (dr == DialogResult.OK)
+                        {
+                            unqualifiedCount = temp;
+                            timer1.Start();
+                        }
                     }
                 }
 

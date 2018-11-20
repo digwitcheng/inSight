@@ -366,7 +366,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.Aqua;
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(167)))), ((int)(((byte)(190)))));
             this.panel3.Controls.Add(this.BatchOnline);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.SelectJobBtn);

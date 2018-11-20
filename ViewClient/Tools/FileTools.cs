@@ -9,7 +9,69 @@ using System.Windows.Forms;
 namespace ViewClient
 {
     class FileTools
-    {         
+    {
+        public static bool LoadSetting()
+        {
+            string path = AppSetting.EXCEL_SETTING_PATH;
+            if (!File.Exists(path))
+            {
+                MessageBox.Show("设置文件不存在,加载默认配置！");
+                return false;
+            }
+            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
+            try
+            {
+                string line = sr.ReadLine();
+                while (line != null)
+                {
+                    line = sr.ReadLine();
+                    if (line != null)
+                    {
+                        string[] cells = line.Split(',');
+                        if (cells[0].Equals("批号相机"))
+                        {
+                            AppSetting.BATCH_CAMERA_ADDRESS = cells[1];
+                        }
+                        if (cells[0].Equals("肩标相机"))
+                        {
+                            AppSetting.SHOULDER_CAMERA_ADDRESS = cells[1];
+                        }
+                        if (cells[0].Equals("前标相机"))
+                        {
+                            AppSetting.FRONT_CAMERA_ADDRESS = cells[1];
+                        }
+                        if (cells[0].Equals("背标相机"))
+                        {
+                            AppSetting.BACK_CAMERA_ADDRESS = cells[1];
+                        }
+                        if (cells[0].Equals("正标有无相机"))
+                        {
+                            AppSetting.ISFRONT_CAMERA_ADDRESS = cells[1];
+                        }
+                        if (cells[0].Equals("背标有无相机"))
+                        {
+                            AppSetting.ISBACK_CAMERA_ADDRESS = cells[1];
+                        }
+                        if (cells[0].Equals("100ML物料编号"))
+                        {
+                            for (int i = 1; i < cells.Length; i++)
+                            {
+                                AppSetting.MatNoList100ml.Add(cells[i].Trim());
+                            }
+                        }
+                    }
+                }
+                sr.Close();
+                fs.Close();
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("读取设置文件失败,加载默认配置！");
+                return false;
+            }
+            return true;
+        }
 
        public static List<MaterielData> ReadExcelByText(string MatNo)
         {
@@ -21,43 +83,49 @@ namespace ViewClient
             }
             FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-
             List<MaterielData> listDatas = new List<MaterielData>();
-            string line = sr.ReadLine();
-            while (line != null)
+            try
             {
-                line = sr.ReadLine();
-                if (line != null)
+                string line = sr.ReadLine();
+                while (line != null)
                 {
-                    string[] cells = line.Split(',');
-                    if (cells[0].Equals(MatNo))
+                    line = sr.ReadLine();
+                    if (line != null)
                     {
-                        MaterielData data = new MaterielData();
-                        data.MatNo = MatNo;
-                        data.BarCode = cells[1];
-                        data.Info = cells[2];
-                        data.CameraAddress = cells[3];
-                        data.Exposure = cells[4];
-                        data.Gain = cells[5];
-                        data.FindLineX = cells[6];
-                        data.FindLineY= cells[7];
-                        data.FindLindHigh = cells[8];
-                        data.FindLineWide = cells[9];
-                        data.FindLineEdge = cells[10];
-                        data.FindLineThreshold = cells[11];
-                        data.BarCodeX = cells[12];
-                        data.BarCodeY = cells[13];
-                        data.BarCodeHigh = cells[14];
-                        data.BarCodeWide = cells[15];
-                        data.Limit = cells[16];
-                        data.LowerLimit = cells[17];
+                        string[] cells = line.Split(',');
+                        if (cells[0].Equals(MatNo))
+                        {
+                            MaterielData data = new MaterielData();
+                            data.MatNo = MatNo;
+                            data.BarCode = cells[1];
+                            data.Info = cells[2];
+                            data.CameraAddress = cells[3];
+                            data.Exposure = cells[4];
+                            data.Gain = cells[5];
+                            data.FindLineX = cells[6];
+                            data.FindLineY = cells[7];
+                            data.FindLindHigh = cells[8];
+                            data.FindLineWide = cells[9];
+                            data.FindLineEdge = cells[10];
+                            data.FindLineThreshold = cells[11];
+                            data.BarCodeX = cells[12];
+                            data.BarCodeY = cells[13];
+                            data.BarCodeHigh = cells[14];
+                            data.BarCodeWide = cells[15];
+                            data.Limit = cells[16];
+                            data.LowerLimit = cells[17];
 
-                        listDatas.Add(data);
+                            listDatas.Add(data);
+                        }
                     }
                 }
+                sr.Close();
+                fs.Close();
+            }catch(Exception e)
+            {
+                MessageBox.Show("物料excel表读取失败:"+e);
+                return null;
             }
-            sr.Close();
-            fs.Close();
             return listDatas;
         }
 
@@ -112,7 +180,6 @@ namespace ViewClient
             fsWrite.Close();
             File.Delete(path);
             File.Move(tempPath, path);
-
 
         }
         static string Replace(MaterielData data)
