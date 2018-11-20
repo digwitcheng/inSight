@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
@@ -20,8 +21,7 @@ namespace ViewClient
         private bool isCameraInited = false;
         private string cameraAddress;
         public MonitorView(CameraConfig config)
-        {
-            Cognex.InSight.CvsInSightSoftwareDevelopmentKit.Initialize();
+        {           
             InitializeComponent();
             this.Text = config.CameraName;
             this.CameraNameLabel.Text= config.CameraName;
@@ -36,7 +36,7 @@ namespace ViewClient
         }
         private void InitCvsInSightDisplay()
         {
-            cvsInSightDisplay1.LoadStandardTheme();
+           // cvsInSightDisplay1.LoadStandardTheme();
             cvsInSightDisplay1.ShowImage = true;
             cvsInSightDisplay1.ImageZoomMode = Cognex.InSight.Controls.Display.CvsDisplayZoom.Fill;
 
@@ -68,7 +68,8 @@ namespace ViewClient
 
         private void oNativeModeClient_ConnectCompleted(object sender, Cognex.InSight.CvsConnectCompletedEventArgs e)
         {
-
+            timer1.Enabled = true;
+            timer1.Start();
         }
 
 
@@ -94,11 +95,24 @@ namespace ViewClient
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (IsConnected)
+            if (oNativeModeClient.Connected)
             {
                 sum.Text = Get(CommandType.Total);
                 qualified.Text = Get(CommandType.Pass);
                 unqualified.Text = Get(CommandType.Fail);
+
+
+                Regex regex = new Regex("[1-9]+");
+                if (regex.IsMatch(unqualified.Text))// unqualified.Text)
+                {
+                    DialogResult dr = MessageBox.Show("确认你已拿走了缺标的产品！！");
+                    timer1.Stop();
+                    if (dr == DialogResult.OK)
+                    {
+                        timer1.Start();
+                    }
+                }
+
             }
         }
         private string SendCommand(string message)
@@ -221,6 +235,7 @@ namespace ViewClient
 
         internal void LoadData()
         {
+            Set(CommandType.MatNo, Data.MatNo);
             Set(CommandType.BarCode, Data.BarCode);
             Set(CommandType.BarCodeHigh, Data.BarCodeHigh);
             Set(CommandType.BarCodeWide, Data.BarCodeWide);

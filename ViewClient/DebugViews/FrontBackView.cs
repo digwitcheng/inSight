@@ -64,6 +64,11 @@ namespace ViewClient.DebugViews
         string Changed(CommandType type, string value)
         {
             isChanged = true;
+            if (monitorView.Data == null)
+            {
+                MessageBox.Show("相机未连接！或当前连接的相机ip不在当前选择的物料编号之中");
+                return "未连接";
+            }
             monitorView.Data.SetValue(type, value);
             return monitorView.Set(type, value);
         }

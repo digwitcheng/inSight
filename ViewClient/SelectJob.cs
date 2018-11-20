@@ -69,6 +69,7 @@ namespace ViewClient
 
         void LoadCameraView()
         {
+            Cognex.InSight.CvsInSightSoftwareDevelopmentKit.Initialize();
             batchShoulderViewTab = new MonitorViewTab(Utils.CreateCameraConfig(userName, password, CameraType.Batch), Utils.CreateCameraConfig(userName, password, CameraType.Shoulder));
             frontBackViewTab = new MonitorViewTab(Utils.CreateCameraConfig(userName, password, CameraType.Front), Utils.CreateCameraConfig(userName, password, CameraType.Back));
             isFrontIsBackViewTab = new MonitorViewTab(Utils.CreateCameraConfig(userName, password, CameraType.IsFront), Utils.CreateCameraConfig(userName, password, CameraType.IsBack));

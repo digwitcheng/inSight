@@ -11,7 +11,7 @@ namespace ViewClient
     class FileTools
     {         
 
-       public static List<MaterielData> ReadExcelByText(string materielId)
+       public static List<MaterielData> ReadExcelByText(string MatNo)
         {
             string path = AppSetting.EXCEL_PATH;
             if (!File.Exists(path))
@@ -30,10 +30,10 @@ namespace ViewClient
                 if (line != null)
                 {
                     string[] cells = line.Split(',');
-                    if (cells[0].Equals(materielId))
+                    if (cells[0].Equals(MatNo))
                     {
                         MaterielData data = new MaterielData();
-                        data.MaterielId = materielId;
+                        data.MatNo = MatNo;
                         data.BarCode = cells[1];
                         data.Info = cells[2];
                         data.CameraAddress = cells[3];
@@ -63,6 +63,10 @@ namespace ViewClient
 
         public static void WriteExcelByText(MaterielData materielData)
         {
+            if (materielData == null)
+            {
+                return;
+            }
             string path = AppSetting.EXCEL_PATH;
             string tempPath = AppSetting.EXCEL_TEMP_PATH;
             FileStream fsRead=null;
@@ -78,13 +82,18 @@ namespace ViewClient
             StreamReader sr = new StreamReader(fsRead, System.Text.Encoding.GetEncoding("gb2312"));
             StreamWriter sw = new StreamWriter(fsWrite, System.Text.Encoding.GetEncoding("gb2312"));
             string line = sr.ReadLine();
+            if (line != null)
+            {
+                sw.Write(line);
+                sw.WriteLine();
+            }
             while (line != null)
             {
                 line = sr.ReadLine();
                 if (line != null)
-                {
+                {  
                     string[] cells = line.Split(',');
-                    if (cells[0].Equals(materielData.MaterielId)&&cells[3].Equals(materielData.CameraAddress))
+                    if (cells[0].Equals(materielData.MatNo)&&cells[3].Equals(materielData.CameraAddress))
                     {
                         string newLine = Replace(materielData);
                         sw.Write(newLine);
@@ -109,7 +118,7 @@ namespace ViewClient
         static string Replace(MaterielData data)
         {
             StringBuilder sb = new StringBuilder();
-            Append(sb,data.MaterielId );
+            Append(sb,data.MatNo );
             Append(sb,data.BarCode );
             Append(sb,data.Info );
             Append(sb,data.CameraAddress );

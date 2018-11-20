@@ -32,6 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.CameraNameLabel = new System.Windows.Forms.Label();
             this.cvsInSightDisplay1 = new Cognex.InSight.Controls.Display.CvsInSightDisplay();
             this.txtPanel = new System.Windows.Forms.Panel();
             this.clearCountBtn1 = new System.Windows.Forms.Button();
@@ -42,7 +43,6 @@
             this.sum = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.CameraNameLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -83,6 +83,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(508, 436);
             this.panel2.TabIndex = 0;
+            // 
+            // CameraNameLabel
+            // 
+            this.CameraNameLabel.AutoSize = true;
+            this.CameraNameLabel.Font = new System.Drawing.Font("宋体", 20F);
+            this.CameraNameLabel.Location = new System.Drawing.Point(182, 7);
+            this.CameraNameLabel.Name = "CameraNameLabel";
+            this.CameraNameLabel.Size = new System.Drawing.Size(96, 27);
+            this.CameraNameLabel.TabIndex = 1;
+            this.CameraNameLabel.Text = "label2";
             // 
             // cvsInSightDisplay1
             // 
@@ -174,18 +184,7 @@
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // CameraNameLabel
-            // 
-            this.CameraNameLabel.AutoSize = true;
-            this.CameraNameLabel.Font = new System.Drawing.Font("宋体", 20F);
-            this.CameraNameLabel.Location = new System.Drawing.Point(182, 7);
-            this.CameraNameLabel.Name = "CameraNameLabel";
-            this.CameraNameLabel.Size = new System.Drawing.Size(96, 27);
-            this.CameraNameLabel.TabIndex = 1;
-            this.CameraNameLabel.Text = "label2";
             // 
             // MonitorView
             // 

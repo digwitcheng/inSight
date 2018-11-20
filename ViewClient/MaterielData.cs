@@ -7,7 +7,7 @@ namespace ViewClient
 {
     class MaterielData
     {
-        public string MaterielId { get; set; }
+        public string MatNo { get; set; }
         public string Info { get; set; }
         public string BarCode { get; set; }
         public string CameraAddress { get; set; }
@@ -31,6 +31,8 @@ namespace ViewClient
         {
             switch (type)
             {
+                case CommandType.MatNo:MatNo = value;
+                    break;
                 case CommandType.BarCode: BarCode = value;
                     break;
                 case CommandType.Exposure: Exposure = value;
