@@ -12,7 +12,7 @@ namespace ViewClient.DebugViews
     public partial class BatchView : Form
     {
         Action action;
-        MonitorView monitorView;
+        public MonitorView monitorView;
         bool isChanged = false;
         public BatchView(MonitorView monitorView, Action action)
         {
@@ -36,14 +36,7 @@ namespace ViewClient.DebugViews
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (monitorView != null)
-            {
-                if (monitorView.IsConnected)
-                {
-                    bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
-                    zyLabel.Text = monitorView.Get(CommandType.Gain);
-                }
-            }
+
         }
         string Changed(CommandType type,string value)
         {
@@ -81,6 +74,38 @@ namespace ViewClient.DebugViews
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             monitorView.SetImageView();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+             monitorView.SaveJobAs();
+        }
+
+        private void BatchView_Load(object sender, EventArgs e)
+        {
+            monitorView.BindOnline(this.BatchOnline);
+            
+        }
+        private void BatchOnline_CheckStateChanged_1(object sender, EventArgs e)
+        {
+            if (BatchOnline.Checked)
+            {
+                BatchOnline.BackColor = Color.Yellow;
+            }
+            else
+            {
+                BatchOnline.BackColor = Color.Gainsboro;
+            }
+        }
+
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            if (monitorView == null) return;
+            if (monitorView.IsConnected)
+            {
+                bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
+                zyLabel.Text = monitorView.Get(CommandType.Gain);
+            }
         }
     }
 }

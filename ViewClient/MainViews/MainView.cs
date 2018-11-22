@@ -23,6 +23,7 @@ namespace ViewClient
             this.Text = "相机调试界面";
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
+
         }
 
         private void MainView_Load(object sender, EventArgs e)

@@ -15,7 +15,7 @@ namespace ViewClient.DebugViews
         MonitorView monitorView;
         bool isChanged = false;
         public FrontBackView(MonitorView monitorView, Action action)
-        {
+        {            
             this.monitorView = monitorView;
             this.action = action;
             InitializeComponent();
@@ -23,7 +23,7 @@ namespace ViewClient.DebugViews
 
         private void FrontBackView_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         private void backBtn_Click(object sender, EventArgs e)
@@ -39,28 +39,6 @@ namespace ViewClient.DebugViews
             }
         }
        
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (monitorView != null)
-            {
-                if (monitorView.IsConnected)
-                {
-                    bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
-                    zyLabel.Text = monitorView.Get(CommandType.Gain);
-                    ewmLabel.Text = monitorView.Get(CommandType.BarCode);
-                    zbxLabel.Text = monitorView.Get(CommandType.FindLineX);
-                    zbyLabel.Text = monitorView.Get(CommandType.FindLineY);
-                    zbgdLabel.Text = monitorView.Get(CommandType.FindLindHigh);
-                    zbkdLabel.Text = monitorView.Get(CommandType.FindLineWide);
-                    bkdLabel.Text = monitorView.Get(CommandType.FindLineEdge);
-                    zbyzLabel.Text = monitorView.Get(CommandType.FindLineThreshold);
-                    ewmxzLabel.Text = monitorView.Get(CommandType.BarCodeX);
-                    ewmyzLabel.Text = monitorView.Get(CommandType.BarCodeY);
-                    ewmgdLabel.Text = monitorView.Get(CommandType.BarCodeHigh);
-                    ewmkdLabel.Text = monitorView.Get(CommandType.BarCodeWide);
-                }
-            }
-        }
         string Changed(CommandType type, string value)
         {
             isChanged = true;
@@ -179,6 +157,27 @@ namespace ViewClient.DebugViews
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (monitorView == null) return;
+            if (monitorView.IsConnected)
+            {
+                bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
+                zyLabel.Text = monitorView.Get(CommandType.Gain);
+                ewmLabel.Text = monitorView.Get(CommandType.BarCode);
+                zbxLabel.Text = monitorView.Get(CommandType.FindLineX);
+                zbyLabel.Text = monitorView.Get(CommandType.FindLineY);
+                zbgdLabel.Text = monitorView.Get(CommandType.FindLindHigh);
+                zbkdLabel.Text = monitorView.Get(CommandType.FindLineWide);
+                bkdLabel.Text = monitorView.Get(CommandType.FindLineEdge);
+                zbyzLabel.Text = monitorView.Get(CommandType.FindLineThreshold);
+                ewmxzLabel.Text = monitorView.Get(CommandType.BarCodeX);
+                ewmyzLabel.Text = monitorView.Get(CommandType.BarCodeY);
+                ewmgdLabel.Text = monitorView.Get(CommandType.BarCodeHigh);
+                ewmkdLabel.Text = monitorView.Get(CommandType.BarCodeWide);
+            }
         }
     }
 }

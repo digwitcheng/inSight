@@ -11,8 +11,8 @@ namespace ViewClient
         public static  string  BACK_CAMERA_ADDRESS = "192.168.0.2";
         public static  string  ISFRONT_CAMERA_ADDRESS = "192.168.0.1";
         public static  string  ISBACK_CAMERA_ADDRESS = "192.168.0.4";
-        public static  string  BATCH_CAMERA_ADDRESS = "192.168.0.6";
-        public static  string  SHOULDER_CAMERA_ADDRESS = "192.168.0.10";
+        public static  string  BATCH_CAMERA_ADDRESS = "127.0.0.1";
+        public static  string  SHOULDER_CAMERA_ADDRESS = "192.168.0.6";
         public static List<string> MatNoList100ml = new List<string>();
 
         public const string EXCEL_PATH = "MaterielTable.csv";

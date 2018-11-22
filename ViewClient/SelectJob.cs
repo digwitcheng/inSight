@@ -223,6 +223,7 @@ namespace ViewClient
             if (mainView != null)
             {
                 mainView.Close();
+                mainView = null;
             }
             action();
         }

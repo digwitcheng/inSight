@@ -1,5 +1,6 @@
 ﻿using Cognex.InSight;
 using Cognex.InSight.Cell;
+using Cognex.InSight.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -182,6 +183,13 @@ namespace ViewClient
             return SendCommand(command);
         }
 
+        internal void SaveJobAs()
+        {
+            timer1.Stop();
+            cvsInSightDisplay1.Edit.SaveJobAs.Execute();
+            timer1.Start();
+        }
+
         internal string Set(CommandType type, string value)
         {
             string command = Utils.SetCommandString(type.ToString(), value);
@@ -206,7 +214,9 @@ namespace ViewClient
 
         internal void OpenJob()
         {
+            timer1.Stop();
             cvsInSightDisplay1.Edit.OpenJob.Execute();
+            timer1.Start();
         }
 
         internal bool IsCameraInited

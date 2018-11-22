@@ -16,7 +16,7 @@ namespace ViewClient.DebugViews
                 case CameraType.Batch:
                 case CameraType.IsFront:
                 case CameraType.IsBack:
-                    return new BatchView(monitorView, action);
+                    return new BatchView(monitorView, action); ;
                 case CameraType.Front:
                 case CameraType.Back:
                     return new FrontBackView(monitorView, action);

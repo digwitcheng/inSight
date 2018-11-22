@@ -20,28 +20,6 @@ namespace ViewClient.DebugViews
             this.action = action;
             InitializeComponent();
         }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (monitorView != null)
-            {
-                if (monitorView.IsConnected)
-                {
-                    bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
-                    zyLabel.Text = monitorView.Get(CommandType.Gain);
-                    zbxLabel.Text = monitorView.Get(CommandType.FindLineX_100);
-                    zbyLabel.Text = monitorView.Get(CommandType.FindLineY_100);
-                    zbgdLabel.Text = monitorView.Get(CommandType.FindLindHigh_100);
-                    zbkdLabel.Text = monitorView.Get(CommandType.FindLineWide_100);
-                    pgzbyzLabel.Text = monitorView.Get(CommandType.FindLineTs_100);
-                    pgbkdLabel.Text = monitorView.Get(CommandType.FindLineEdge_100);
-                    bqbyzLabel.Text = monitorView.Get(CommandType.FindLineTs_100L);
-                    bqbkdLabel.Text = monitorView.Get(CommandType.FindLineEdge_100L);
-                    bqsxyzLabel.Text = monitorView.Get(CommandType.Limit);
-                    bqxxyzLabel.Text = monitorView.Get(CommandType.LowerLimit);
-                }
-            }
-        }
         string Changed(CommandType type, string value)
         {
             isChanged = true;
@@ -171,6 +149,31 @@ namespace ViewClient.DebugViews
             {
                 bqxxyzLabel.Text = Changed(CommandType.LowerLimit, bqxxyzTextBox.Text);
                 
+            }
+        }
+
+        private void ShoulderView100_Load(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (monitorView == null) return;
+            if (monitorView.IsConnected)
+            {
+                bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
+                zyLabel.Text = monitorView.Get(CommandType.Gain);
+                zbxLabel.Text = monitorView.Get(CommandType.FindLineX_100);
+                zbyLabel.Text = monitorView.Get(CommandType.FindLineY_100);
+                zbgdLabel.Text = monitorView.Get(CommandType.FindLindHigh_100);
+                zbkdLabel.Text = monitorView.Get(CommandType.FindLineWide_100);
+                pgzbyzLabel.Text = monitorView.Get(CommandType.FindLineTs_100);
+                pgbkdLabel.Text = monitorView.Get(CommandType.FindLineEdge_100);
+                bqbyzLabel.Text = monitorView.Get(CommandType.FindLineTs_100L);
+                bqbkdLabel.Text = monitorView.Get(CommandType.FindLineEdge_100L);
+                bqsxyzLabel.Text = monitorView.Get(CommandType.Limit);
+                bqxxyzLabel.Text = monitorView.Get(CommandType.LowerLimit);
             }
         }
     }
