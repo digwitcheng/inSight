@@ -21,11 +21,13 @@ namespace ViewClient
         private Form backView;
         bool isClickLeft = true;
         public bool IsMatNo100ml = false;
-        public MonitorViewTab(CameraConfig leftConfig, CameraConfig rightConfig)
+        bool isAdmin;
+        public MonitorViewTab(CameraConfig leftConfig, CameraConfig rightConfig,bool isAdmin)
         {
             InitializeComponent();
             this.leftType = leftConfig.CurrentCameraType;
             this.rightType = rightConfig.CurrentCameraType;
+            this.isAdmin = isAdmin;
             string leftName = leftConfig.CameraName;
             string rightName = rightConfig.CameraName;
             this.Text = leftName + "和" + rightName;
@@ -40,6 +42,8 @@ namespace ViewClient
         {
             try
             {
+                this.panel2.Visible = false;
+                this.panel3.Visible = false;
                 AddMonitorView(leftMonitorView, leftPanel);
                 AddMonitorView(rightMonitorView, rightPanel);
             }

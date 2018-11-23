@@ -9,11 +9,9 @@ namespace ViewClient
 {
     class Utils
     {
-        internal static CameraConfig CreateCameraConfig(string userName,string password,CameraType type)
+        internal static CameraConfig CreateCameraConfig(CameraType type)
         {
             CameraConfig config = new CameraConfig();
-            config.UserName = userName;
-            config.Password = password;
             config.CurrentCameraType = type;
             switch (type)
             {

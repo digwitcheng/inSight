@@ -10,6 +10,67 @@ namespace ViewClient
 {
     class FileTools
     {
+        public static bool SaveUserSetting(List<User> users)
+        {
+            string path = AppSetting.EXCEL_SETTING_PATH;
+            string tempPath = AppSetting.EXCEL_TEMP_PATH;
+            if (!File.Exists(path))
+            {
+                MessageBox.Show("设置文件不存在！保存失败!");
+                return false;
+            }
+            FileStream fsRead = null;
+            try
+            {
+                fsRead = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Delete);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("保存到excel表格失败！请先关闭Excel表格占用进程!");
+                return false;
+            }
+            try
+            {
+                FileStream fsWrite = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+                StreamReader sr = new StreamReader(fsRead, System.Text.Encoding.GetEncoding("gb2312"));
+                StreamWriter sw = new StreamWriter(fsWrite, System.Text.Encoding.GetEncoding("gb2312"));
+                string line = sr.ReadLine();
+                if (line != null)
+                {
+                    sw.WriteLine(line);
+                }
+                while (line != null)
+                {
+                    line = sr.ReadLine();
+                    if (line != null)
+                    {
+                        string[] cells = line.Split(',');
+                        if (!cells[0].Equals("管理员") && !cells[0].Equals("工作员"))
+                        {
+                            sw.WriteLine(line);
+                        }
+                    }
+                }
+                foreach (User user in users)
+                {
+                    sw.WriteLine(Replace(user));
+                }
+                sw.Flush();
+                sw.Close();
+                sr.Close();
+                fsRead.Close();
+                fsWrite.Close();
+                File.Delete(path);
+                File.Move(tempPath, path);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("保存失败：" + e);
+            }
+            MessageBox.Show("保存成功！");
+            return true;
+        }
+
         public static bool LoadSetting()
         {
             string path = AppSetting.EXCEL_SETTING_PATH;
@@ -29,6 +90,10 @@ namespace ViewClient
                     if (line != null)
                     {
                         string[] cells = line.Split(',');
+                        if (cells.Length < 2)
+                        {
+                            continue;
+                        }
                         if (cells[0].Equals("批号相机"))
                         {
                             AppSetting.BATCH_CAMERA_ADDRESS = cells[1];
@@ -59,6 +124,26 @@ namespace ViewClient
                             {
                                 AppSetting.MatNoList100ml.Add(cells[i].Trim());
                             }
+                        }
+                        if (cells[0].Equals("管理员"))
+                        {
+                            if (cells.Length < 3)
+                            {
+                                MessageBox.Show(cells[1] + "未设密码，已跳过");
+                                continue;
+                            }
+                            User user = new User(cells[1],cells[2],true);
+                            AppSetting.UserList.Add(user);
+                        }
+                        if (cells[0].Equals("工作员"))
+                        {
+                            if (cells.Length < 3)
+                            {
+                                MessageBox.Show(cells[1] + "未设密码，已跳过");
+                                continue;
+                            }
+                            User user = new User(cells[1], cells[2], false);
+                            AppSetting.UserList.Add(user);
                         }
                     }
                 }
@@ -93,6 +178,10 @@ namespace ViewClient
                     if (line != null)
                     {
                         string[] cells = line.Split(',');
+                        if (cells.Length < 18)
+                        {
+                            continue;
+                        }
                         if (cells[0].Equals(MatNo))
                         {
                             MaterielData data = new MaterielData();
@@ -114,7 +203,6 @@ namespace ViewClient
                             data.BarCodeWide = cells[15];
                             data.Limit = cells[16];
                             data.LowerLimit = cells[17];
-
                             listDatas.Add(data);
                         }
                     }
@@ -146,41 +234,53 @@ namespace ViewClient
                 MessageBox.Show("保存到excel表格失败！请先关闭Excel表格占用进程!");
                 return;
             }
-            FileStream fsWrite = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
-            StreamReader sr = new StreamReader(fsRead, System.Text.Encoding.GetEncoding("gb2312"));
-            StreamWriter sw = new StreamWriter(fsWrite, System.Text.Encoding.GetEncoding("gb2312"));
-            string line = sr.ReadLine();
-            if (line != null)
+            try
             {
-                sw.Write(line);
-                sw.WriteLine();
-            }
-            while (line != null)
-            {
-                line = sr.ReadLine();
+                FileStream fsWrite = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+                StreamReader sr = new StreamReader(fsRead, System.Text.Encoding.GetEncoding("gb2312"));
+                StreamWriter sw = new StreamWriter(fsWrite, System.Text.Encoding.GetEncoding("gb2312"));
+                string line = sr.ReadLine();
                 if (line != null)
-                {  
-                    string[] cells = line.Split(',');
-                    if (cells[0].Equals(materielData.MatNo)&&cells[3].Equals(materielData.CameraAddress))
-                    {
-                        string newLine = Replace(materielData);
-                        sw.Write(newLine);
-                    }
-                    else
-                    { 
-                        sw.Write(line);
-                    }
-                    sw.WriteLine();
+                {
+                    sw.WriteLine(line);
                 }
+                while (line != null)
+                {
+                    line = sr.ReadLine();
+                    if (line != null)
+                    {
+                        string[] cells = line.Split(',');
+                        if (cells[0].Equals(materielData.MatNo) && cells[3].Equals(materielData.CameraAddress))
+                        {
+                            string newLine = Replace(materielData);
+                            sw.WriteLine(newLine);
+                        }
+                        else
+                        {
+                            sw.WriteLine(line);
+                        }
+                    }
+                }
+                sw.Flush();
+                sw.Close();
+                sr.Close();
+                fsRead.Close();
+                fsWrite.Close();
+                File.Delete(path);
+                File.Move(tempPath, path);
+            }catch(Exception e)
+            {
+                MessageBox.Show("保存失败："+e);
             }
-            sw.Flush();
-            sw.Close();
-            sr.Close();
-            fsRead.Close();
-            fsWrite.Close();
-            File.Delete(path);
-            File.Move(tempPath, path);
-
+            MessageBox.Show("保存成功！");
+        }
+        static string Replace(User user)
+        {
+            StringBuilder sb = new StringBuilder();
+            Append(sb, user.IsAdmin == true ? "管理员" : "工作员");
+            Append(sb, user.UserName);
+            sb.Append(user.Password);
+            return sb.ToString();
         }
         static string Replace(MaterielData data)
         {

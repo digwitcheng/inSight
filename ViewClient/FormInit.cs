@@ -14,13 +14,11 @@ namespace ViewClient
     public partial class FormInit : Form
     {
         Action action;
-        string userName;
-        string password;
-        public FormInit(Action action, string userName, string password)
+        bool isAdmin;
+        public FormInit(bool isAdmin,Action action)
         {
             this.action = action;
-            this.userName = userName;
-            this.password = password;
+            this.isAdmin = isAdmin;
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
         }
@@ -41,7 +39,7 @@ namespace ViewClient
         }
         private void timer1_Tick(object sender, EventArgs e)
         {           
-            Form selctJobView = new SelectJob(action, userName, password);
+            Form selctJobView = new SelectJob(action, isAdmin);
             selctJobView.Show();
             timer1.Stop();
             this.Close();

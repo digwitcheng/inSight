@@ -10,7 +10,5 @@ namespace ViewClient
         public CameraType CurrentCameraType { get; set; }
         public string CameraName { get; set; }
         public string CameraAddress { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
     }
 }

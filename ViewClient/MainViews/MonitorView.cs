@@ -54,11 +54,11 @@ namespace ViewClient
             {
                 if (!(cvsInSightDisplay1.Connected))
                 {
-                    cvsInSightDisplay1.Connect(config.CameraAddress, config.UserName, config.Password, false);
+                    cvsInSightDisplay1.Connect(config.CameraAddress, "admin", "", false);
                 }
                 if (!oNativeModeClient.Connected)
                 {
-                    oNativeModeClient.ConnectAsynchronous(config.CameraAddress, config.UserName, config.Password);
+                    oNativeModeClient.ConnectAsynchronous(config.CameraAddress, "admin", "");
                 }
             }
             catch (Exception ex)

@@ -76,6 +76,12 @@
     <Compile Include="DebugViews\ShoulderView100.Designer.cs">
       <DependentUpon>ShoulderView100.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditUser.Designer.cs">
+      <DependentUpon>EditUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="FormInit.cs">
       <SubType>Form</SubType>
@@ -123,6 +129,13 @@
       <DependentUpon>SelectJob.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\Utils.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserManager.Designer.cs">
+      <DependentUpon>UserManager.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DebugViews\BatchView.resx">
       <DependentUpon>BatchView.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DebugViews\ShoulderView100.resx">
       <DependentUpon>ShoulderView100.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditUser.resx">
+      <DependentUpon>EditUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormInit.resx">
       <DependentUpon>FormInit.cs</DependentUpon>
@@ -159,6 +175,9 @@
     </Compile>
     <EmbeddedResource Include="SelectJob.resx">
       <DependentUpon>SelectJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserManager.resx">
+      <DependentUpon>UserManager.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

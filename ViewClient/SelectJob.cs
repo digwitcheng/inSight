@@ -15,14 +15,12 @@ namespace ViewClient
         MonitorViewTab batchShoulderViewTab;
         MonitorViewTab isFrontIsBackViewTab;
         Action action;
-        string userName;
-        string password;
+        bool isAdmin;
         MainView mainView;
-        public SelectJob(Action action ,string userName, string password)
+        public SelectJob(Action action ,bool isAdmin)
         {
             this.action = action;
-            this.userName = userName;
-            this.password = password;
+            this.isAdmin = isAdmin;
             InitializeComponent();
         }
 
@@ -72,10 +70,15 @@ namespace ViewClient
 
         void LoadCameraView()
         {
+            if (!isAdmin)
+            {
+                UserManagerBtn.Visible = false;
+            }
+
             Cognex.InSight.CvsInSightSoftwareDevelopmentKit.Initialize();
-            batchShoulderViewTab = new MonitorViewTab(Utils.CreateCameraConfig(userName, password, CameraType.Batch), Utils.CreateCameraConfig(userName, password, CameraType.Shoulder));
-            frontBackViewTab = new MonitorViewTab(Utils.CreateCameraConfig(userName, password, CameraType.Front), Utils.CreateCameraConfig(userName, password, CameraType.Back));
-            isFrontIsBackViewTab = new MonitorViewTab(Utils.CreateCameraConfig(userName, password, CameraType.IsFront), Utils.CreateCameraConfig(userName, password, CameraType.IsBack));
+            batchShoulderViewTab = new MonitorViewTab(Utils.CreateCameraConfig(CameraType.Batch), Utils.CreateCameraConfig( CameraType.Shoulder),isAdmin);
+            frontBackViewTab = new MonitorViewTab(Utils.CreateCameraConfig( CameraType.Front), Utils.CreateCameraConfig( CameraType.Back),isAdmin);
+            isFrontIsBackViewTab = new MonitorViewTab(Utils.CreateCameraConfig( CameraType.IsFront), Utils.CreateCameraConfig( CameraType.IsBack),isAdmin);
 
             batchShoulderViewTab.LeftMonitorView.BindOnline(BatchOnline);
             batchShoulderViewTab.RightMonitorView.BindOnline(ShoulderOnline);
@@ -226,6 +229,12 @@ namespace ViewClient
                 mainView = null;
             }
             action();
+        }
+
+        private void UserManagerBtn_Click(object sender, EventArgs e)
+        {
+            UserManager userManager = new UserManager();
+            userManager.ShowDialog();
         }
     }
 }

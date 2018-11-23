@@ -14,6 +14,7 @@ namespace ViewClient
         public static  string  BATCH_CAMERA_ADDRESS = "127.0.0.1";
         public static  string  SHOULDER_CAMERA_ADDRESS = "192.168.0.6";
         public static List<string> MatNoList100ml = new List<string>();
+        public static List<User> UserList = new List<User>();
 
         public const string EXCEL_PATH = "MaterielTable.csv";
         public const string EXCEL_TEMP_PATH = "Temp.csv";

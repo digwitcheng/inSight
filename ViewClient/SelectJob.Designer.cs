@@ -58,6 +58,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.UserManagerBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -71,6 +72,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(167)))), ((int)(((byte)(190)))));
+            this.panel1.Controls.Add(this.UserManagerBtn);
             this.panel1.Controls.Add(this.seletedLabel);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.listBox1);
@@ -442,6 +444,16 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
+            // UserManagerBtn
+            // 
+            this.UserManagerBtn.Location = new System.Drawing.Point(600, 12);
+            this.UserManagerBtn.Name = "UserManagerBtn";
+            this.UserManagerBtn.Size = new System.Drawing.Size(98, 37);
+            this.UserManagerBtn.TabIndex = 10;
+            this.UserManagerBtn.Text = "用户管理";
+            this.UserManagerBtn.UseVisualStyleBackColor = true;
+            this.UserManagerBtn.Click += new System.EventHandler(this.UserManagerBtn_Click);
+            // 
             // SelectJob
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -502,5 +514,6 @@
         internal System.Windows.Forms.CheckBox ShoulderOnline;
         private System.Windows.Forms.Label seletedLabel;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button UserManagerBtn;
     }
 }
