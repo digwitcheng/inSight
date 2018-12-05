@@ -157,6 +157,11 @@ namespace ViewClient
             cvsInSightDisplay1.Edit.SoftOnline.Bind(chkOnline);
         }
 
+        internal void BindLiveMode(CheckBox liveMode)
+        {
+            cvsInSightDisplay1.Edit.LiveAcquire.Bind(liveMode);
+        }
+
         internal Panel TxtPanel { get { return this.txtPanel; } }
 
         internal string Get(CommandType position)

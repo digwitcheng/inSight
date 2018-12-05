@@ -23,7 +23,8 @@ namespace ViewClient.DebugViews
 
         private void FrontBackView_Load(object sender, EventArgs e)
         {
-           
+            monitorView.BindOnline(this.BatchOnline);
+            monitorView.BindLiveMode(this.LiveModeCheckBox);
         }
 
         private void backBtn_Click(object sender, EventArgs e)
@@ -177,6 +178,30 @@ namespace ViewClient.DebugViews
                 ewmyzLabel.Text = monitorView.Get(CommandType.BarCodeY);
                 ewmgdLabel.Text = monitorView.Get(CommandType.BarCodeHigh);
                 ewmkdLabel.Text = monitorView.Get(CommandType.BarCodeWide);
+            }
+        }
+
+        private void BatchOnline_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (BatchOnline.Checked)
+            {
+                BatchOnline.BackColor = Color.Yellow;
+            }
+            else
+            {
+                BatchOnline.BackColor = Color.Gainsboro;
+            }
+        }
+
+        private void LiveModeCheckBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (LiveModeCheckBox.Checked)
+            {
+                LiveModeCheckBox.BackColor = Color.Yellow;
+            }
+            else
+            {
+                LiveModeCheckBox.BackColor = Color.Gainsboro;
             }
         }
     }

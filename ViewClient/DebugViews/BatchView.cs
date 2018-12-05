@@ -84,9 +84,11 @@ namespace ViewClient.DebugViews
         private void BatchView_Load(object sender, EventArgs e)
         {
             monitorView.BindOnline(this.BatchOnline);
-            
+            monitorView.BindLiveMode(this.LiveModeCheckBox);
+
+
         }
-        private void BatchOnline_CheckStateChanged_1(object sender, EventArgs e)
+        private void BatchOnline_CheckStateChanged(object sender, EventArgs e)
         {
             if (BatchOnline.Checked)
             {
@@ -95,6 +97,18 @@ namespace ViewClient.DebugViews
             else
             {
                 BatchOnline.BackColor = Color.Gainsboro;
+            }
+        }
+
+        private void LiveModeCheckBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (LiveModeCheckBox.Checked)
+            {
+                LiveModeCheckBox.BackColor = Color.Yellow;
+            }
+            else
+            {
+                LiveModeCheckBox.BackColor = Color.Gainsboro;
             }
         }
 

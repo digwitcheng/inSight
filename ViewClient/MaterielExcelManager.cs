@@ -86,18 +86,27 @@ namespace ViewClient
             listView1.Columns["100ml标签上限阈值"].Width = -2;
             listView1.Columns["100ml标签下限阈值"].Width = -2;
 
-            if (selectIndex < 0)
+
+            if (selectIndex == listView1.Items.Count)
             {
-                selectIndex = 0;
+                listView1.HideSelection = false;
+                listView1.Items[selectIndex - 1].Focused = true;
+                listView1.Items[selectIndex - 1].Selected = true;
+                listView1.Items[selectIndex - 1].EnsureVisible();//保证可见
             }
-            if (selectIndex >= listView1.Items.Count)
+            else
             {
-                selectIndex = listView1.Items.Count - 1;
+                listView1.HideSelection = false;
+                listView1.Items[selectIndex].Focused = true;
+                listView1.Items[selectIndex].Selected = true;
+
+                int temp = selectIndex + 20;
+                if (temp >= listView1.Items.Count-1)
+                {
+                    temp = listView1.Items.Count-1;
+                }
+                listView1.Items[temp].EnsureVisible();//保证可见
             }
-            listView1.HideSelection = false;
-            listView1.Items[selectIndex].Focused = true;
-            listView1.Items[selectIndex].Selected = true;
-            listView1.Items[selectIndex].EnsureVisible();//保证可见
 
             listView1.EndUpdate();
 
@@ -216,19 +225,10 @@ namespace ViewClient
                 MessageBox.Show("请先选中要删除的用户");
                 return;
             }
-            selectIndex = listView1.SelectedItems[0].Index + 1;
+            selectIndex = listView1.SelectedItems[0].Index;
             add = false;
-            string matNo = (string)listView1.SelectedItems[0].SubItems[0].Text.Trim();
-            string cameraIp = (string)listView1.SelectedItems[0].SubItems[2].Text.Trim();
-            foreach (MaterielData data in materielDataMap)
-            {
-                if (data.CameraAddress.Equals(cameraIp))
-                {
-                    materielDataMap.Remove(data);
-                    LoadData();
-                    break;
-                }
-            }
+            materielDataMap.RemoveAt(selectIndex);
+            LoadData();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
