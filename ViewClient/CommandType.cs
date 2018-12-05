@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ViewClient
 {
-     enum CommandType
+    public  enum CommandType
     {
         Exposure,//	曝光时间
         Gain,//	增益值

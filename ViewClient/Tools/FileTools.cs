@@ -55,6 +55,7 @@ namespace ViewClient
                 {
                     sw.WriteLine(Replace(user));
                 }
+                sw.WriteLine();
                 sw.Flush();
                 sw.Close();
                 sr.Close();
@@ -157,8 +158,7 @@ namespace ViewClient
             }
             return true;
         }
-
-       public static List<MaterielData> ReadExcelByText(string MatNo)
+       public static List<MaterielData> ReadExcelByText()
         {
             string path = AppSetting.EXCEL_PATH;
             if (!File.Exists(path))
@@ -168,7 +168,7 @@ namespace ViewClient
             }
             FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-            List<MaterielData> listDatas = new List<MaterielData>();
+            List<MaterielData> list = new List<MaterielData>();
             try
             {
                 string line = sr.ReadLine();
@@ -178,35 +178,39 @@ namespace ViewClient
                     if (line != null)
                     {
                         string[] cells = line.Split(',');
+                        if (cells[0].Equals("111"))
+                        {
+                            int a = 0;
+                        }
                         if (cells.Length < 18)
                         {
-                            continue;
+                             continue;
                         }
-                        if (cells[0].Equals(MatNo))
-                        {
-                            MaterielData data = new MaterielData();
-                            data.MatNo = MatNo;
-                            data.BarCode = cells[1];
-                            data.Info = cells[2];
-                            data.CameraAddress = cells[3];
-                            data.Exposure = cells[4];
-                            data.Gain = cells[5];
-                            data.FindLineX = cells[6];
-                            data.FindLineY = cells[7];
-                            data.FindLindHigh = cells[8];
-                            data.FindLineWide = cells[9];
-                            data.FindLineEdge = cells[10];
-                            data.FindLineThreshold = cells[11];
-                            data.BarCodeX = cells[12];
-                            data.BarCodeY = cells[13];
-                            data.BarCodeHigh = cells[14];
-                            data.BarCodeWide = cells[15];
-                            data.Limit = cells[16];
-                            data.LowerLimit = cells[17];
-                            listDatas.Add(data);
-                        }
+                        MaterielData data = new MaterielData();
+                        data.MatNo = cells[0];
+                        data.BarCode = cells[1];
+                        data.Info = cells[2];
+                        data.CameraAddress = cells[3];
+                        data.Exposure = cells[4];
+                        data.Gain = cells[5];
+                        data.FindLineX = cells[6];
+                        data.FindLineY = cells[7];
+                        data.FindLindHigh = cells[8];
+                        data.FindLineWide = cells[9];
+                        data.FindLineEdge = cells[10];
+                        data.FindLineThreshold = cells[11];
+                        data.BarCodeX = cells[12];
+                        data.BarCodeY = cells[13];
+                        data.BarCodeHigh = cells[14];
+                        data.BarCodeWide = cells[15];
+                        data.Limit = cells[16];
+                        data.LowerLimit = cells[17];
+
+                        
+                        list.Add(data);
                     }
                 }
+                fs.Flush();
                 sr.Close();
                 fs.Close();
             }catch(Exception e)
@@ -214,9 +218,58 @@ namespace ViewClient
                 MessageBox.Show("物料excel表读取失败:"+e);
                 return null;
             }
-            return listDatas;
+            return list;
         }
-
+        public static bool WriteExcelByText(List<MaterielData> materielDataMap)
+        {
+            if (materielDataMap == null)
+            {
+                return false;
+            }
+            string path = AppSetting.EXCEL_PATH;
+            string tempPath = AppSetting.EXCEL_TEMP_PATH;
+            FileStream fsRead = null;
+            try
+            {
+                fsRead = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Delete);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("保存到excel表格失败！请先关闭Excel表格占用进程!");
+                return false;
+            }
+            try
+            {
+                FileStream fsWrite = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+                StreamReader sr = new StreamReader(fsRead, System.Text.Encoding.GetEncoding("gb2312"));
+                StreamWriter sw = new StreamWriter(fsWrite, System.Text.Encoding.GetEncoding("gb2312"));
+                string line = sr.ReadLine();
+                if (line != null)
+                {
+                    sw.WriteLine(line);
+                }
+                foreach (MaterielData data in materielDataMap)
+                {
+                    string newLine = Replace(data);
+                    sw.WriteLine(newLine);
+                }
+                            
+                sw.Flush();
+                sw.Close();               
+                sr.Close();
+                fsRead.Close();
+                fsWrite.Close();
+                File.Delete(path);
+                File.Move(tempPath, path);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("保存失败：" + e);
+                return false;
+            }
+            MessageBox.Show("保存成功！");
+            return true;
+        }
         public static void WriteExcelByText(MaterielData materielData)
         {
             if (materielData == null)
@@ -261,6 +314,7 @@ namespace ViewClient
                         }
                     }
                 }
+                sw.WriteLine();
                 sw.Flush();
                 sw.Close();
                 sr.Close();

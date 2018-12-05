@@ -18,7 +18,6 @@ namespace ViewClient
             users = AppSetting.UserList;
             LoadData();
         }
-        Button editBtn=new Button();
         private void LoadData()
         {
             listBox1.Items.Clear();
@@ -40,17 +39,6 @@ namespace ViewClient
         {
             label1.Text = "提示：\r\n在选中条上双击修改";
         }
-        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {           
-
-            //if (this.listView1.SelectedItems.Count > 0)
-            //{
-            //    this.editBtn.Location = new Point(this.listView1.SelectedItems[0].SubItems[2].Bounds.Left,
-            //        this.listView1.SelectedItems[0].SubItems[2].Bounds.Top);
-            //    this.editBtn.Visible = true;
-            //}
-        }
-
         private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (listBox1.SelectedItem == null)

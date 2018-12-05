@@ -76,11 +76,26 @@
     <Compile Include="DebugViews\ShoulderView100.Designer.cs">
       <DependentUpon>ShoulderView100.cs</DependentUpon>
     </Compile>
+    <Compile Include="DoubleBufferListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="EditUser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditUser.Designer.cs">
       <DependentUpon>EditUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MaterielEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MaterielEdit.Designer.cs">
+      <DependentUpon>MaterielEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MaterielExcelManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MaterielExcelManager.Designer.cs">
+      <DependentUpon>MaterielExcelManager.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="FormInit.cs">
@@ -162,6 +177,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainViews\MonitorViewTab.resx">
       <DependentUpon>MonitorViewTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MaterielEdit.resx">
+      <DependentUpon>MaterielEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MaterielExcelManager.resx">
+      <DependentUpon>MaterielExcelManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

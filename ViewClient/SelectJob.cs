@@ -17,24 +17,33 @@ namespace ViewClient
         Action action;
         bool isAdmin;
         MainView mainView;
-        public SelectJob(Action action ,bool isAdmin)
+         List<MaterielData> allMaterielData;
+        public SelectJob( List<MaterielData> materielDataMap,Action action ,bool isAdmin)
         {
+            this.allMaterielData = materielDataMap;
             this.action = action;
             this.isAdmin = isAdmin;
-            InitializeComponent();
+            InitializeComponent();            
+            if (materielDataMap == null)
+            {
+                return;
+            }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (listBox1.Enabled == true)
             {
                 MessageBox.Show("请先确定好配方!");
                 return;
-            }
-            List<MaterielData> datas = FileTools.ReadExcelByText(listBox1.SelectedItem.ToString());
-            if (datas == null||datas.Count<=0)
+            }      
+            List<MaterielData> datas = SeleteSameMatNo();
+            if (datas == null)
             {
                 return;
+            }
+            if (datas.Count < 6)
+            {
+                MessageBox.Show("注意：物料编号" + listBox1.SelectedItem.ToString() + "在物料表中只有"+datas.Count+"台相机");
             }
             foreach(MaterielData data in datas)
             {
@@ -46,14 +55,31 @@ namespace ViewClient
             {
                 batchShoulderViewTab.IsMatNo100ml = true;
             }
+            else
+            {
+                batchShoulderViewTab.IsMatNo100ml = false;
+            }
             if (mainView == null)
             {
                 mainView = new MainView(batchShoulderViewTab, frontBackViewTab, isFrontIsBackViewTab);
             }
             mainView.Visible = true;
             mainView.Show();
-
         }
+
+        private List<MaterielData> SeleteSameMatNo()
+        {
+            List<MaterielData> sameMatNoData = new List<MaterielData>();
+            foreach (MaterielData item in allMaterielData)
+            {
+                if (item.MatNo.Equals(listBox1.SelectedItem.ToString().Trim()))
+                {
+                    sameMatNoData.Add(item);
+                }
+            }
+            return sameMatNoData;
+        }
+
         void LoadInitCameraData(MonitorViewTab monitorViewTab,MaterielData data)
         {
             if (monitorViewTab.LeftMonitorView.CameraAddress.Equals(data.CameraAddress))
@@ -73,8 +99,8 @@ namespace ViewClient
             if (!isAdmin)
             {
                 UserManagerBtn.Visible = false;
+                MaterielManagerBtn.Visible = false;
             }
-
             Cognex.InSight.CvsInSightSoftwareDevelopmentKit.Initialize();
             batchShoulderViewTab = new MonitorViewTab(Utils.CreateCameraConfig(CameraType.Batch), Utils.CreateCameraConfig( CameraType.Shoulder),isAdmin);
             frontBackViewTab = new MonitorViewTab(Utils.CreateCameraConfig( CameraType.Front), Utils.CreateCameraConfig( CameraType.Back),isAdmin);
@@ -89,7 +115,6 @@ namespace ViewClient
 
             this.timer1.Enabled = true;
             this.timer1.Start();
-
         }
 
         private void timer1_Tick_1(object sender, EventArgs e)
@@ -107,22 +132,11 @@ namespace ViewClient
 
         private void SelectJob_Load(object sender, EventArgs e)
         {
-            if (listBox1.Items.Count > 0)
-            {
-                listBox1.SelectedIndex = 0;
-            }
+            LoadMaterelNo();
             LoadCameraView();
         }
 
-        private void SelectJobBtn_Click(object sender, EventArgs e)
-        {
-            if (BatchOnline.Checked)
-            {
-                MessageBox.Show("请先脱机!");
-                return;
-            }
-            batchShoulderViewTab.LeftMonitorView.OpenJob();
-        }
+       
 
         private void BatchOnline_CheckStateChanged(object sender, EventArgs e)
         {
@@ -208,11 +222,13 @@ namespace ViewClient
 
                 button1.Text = "确定";
                 listBox1.Enabled = true;
+                MaterielManagerBtn.Enabled = true;
             }
             else
             {
                 button1.Text = "重新选择";
                 listBox1.Enabled = false;
+                MaterielManagerBtn.Enabled = false;
             }
         }
 
@@ -235,6 +251,63 @@ namespace ViewClient
         {
             UserManager userManager = new UserManager();
             userManager.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MaterielExcelManager materielExcelManager = new MaterielExcelManager(LoadMaterelNo, allMaterielData);
+            materielExcelManager.ShowDialog();
+        }
+
+        void LoadMaterelNo()
+        {
+            listBox1.Items.Clear();
+            List<string> set = new List<string>();
+            foreach (MaterielData item in allMaterielData)
+            {
+                if (!set.Contains(item.MatNo))
+                {
+                    set.Add(item.MatNo);
+                    listBox1.Items.Add(item.MatNo);
+                }
+            }
+            if (listBox1.SelectedIndex==-1&&listBox1.Items.Count > 0)
+            {
+                listBox1.SelectedIndex = 0;
+            }
+        }
+
+        private void SelectJob_Paint(object sender, PaintEventArgs e)
+        {
+            
+        }
+        private void SelectJobBtn_Click(object sender, EventArgs e)
+        {
+            if (BatchOnline.Checked)
+            {
+                MessageBox.Show("请先脱机!");
+                return;
+            }
+            batchShoulderViewTab.LeftMonitorView.OpenJob();
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (IsFrontOnline.Checked)
+            {
+                MessageBox.Show("请先脱机!");
+                return;
+            }
+            isFrontIsBackViewTab.LeftMonitorView.OpenJob();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (IsBackOnline.Checked)
+            {
+                MessageBox.Show("请先脱机!");
+                return;
+            }
+            isFrontIsBackViewTab.RightMonitorView.OpenJob();
         }
     }
 }

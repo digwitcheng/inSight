@@ -38,9 +38,13 @@ namespace ViewClient
 
         }
         private void timer1_Tick(object sender, EventArgs e)
-        {           
-            Form selctJobView = new SelectJob(action, isAdmin);
-            selctJobView.Show();
+        {
+            List<MaterielData> materielDataMap = FileTools.ReadExcelByText();
+            if (materielDataMap != null)
+            {
+                Form selctJobView = new SelectJob(materielDataMap,action, isAdmin);
+                selctJobView.Show();
+            }
             timer1.Stop();
             this.Close();
         }

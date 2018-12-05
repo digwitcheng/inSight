@@ -10,7 +10,12 @@ namespace ViewClient
         public string UserName { get; set; }
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
-        public User(string userName,string password,bool isAdmin)
+        public User(string userName,string password)
+        {
+            this.UserName = userName;
+            this.Password = password;
+        }
+        public User(string userName, string password,bool isAdmin)
         {
             this.UserName = userName;
             this.Password = password;
@@ -22,12 +27,11 @@ namespace ViewClient
             User user = (User)obj;
             if (!user.UserName.Equals(this.UserName)) return false;
             if (!user.Password.Equals(this.Password)) return false;
-            if (!(user.IsAdmin==this.IsAdmin))return false;
             return true;
         }
         public override int GetHashCode()
         {
-            return UserName.GetHashCode()&Password.GetHashCode()&IsAdmin.GetHashCode();
+            return UserName.GetHashCode()&Password.GetHashCode();
         }
     }
 }

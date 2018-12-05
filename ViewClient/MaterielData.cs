@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ViewClient
 {
-    class MaterielData
+    public class MaterielData
     {
         public string MatNo { get; set; }
         public string Info { get; set; }
@@ -26,42 +26,80 @@ namespace ViewClient
         public string Limit { get; set; }
         public string LowerLimit { get; set; }
 
+        public MaterielData()
+        {
+            MatNo = "";
+            Info = "";
+            BarCode = "";
+            CameraAddress = "";
+            Exposure = "";
+            Gain = "";
+            FindLineX = "";
+            FindLineY = "";
+            FindLindHigh = "";
+            FindLineWide = "";
+            FindLineEdge = "";
+            FindLineThreshold = "";
+            BarCodeX = "";
+            BarCodeY = "";
+            BarCodeHigh = "";
+            BarCodeWide = "";
+            Limit = "";
+            LowerLimit = "";
+        }
+
 
         public void SetValue(CommandType type, string value)
         {
             switch (type)
             {
-                case CommandType.MatNo:MatNo = value;
+                case CommandType.MatNo:
+                    MatNo = value;
                     break;
-                case CommandType.BarCode: BarCode = value;
+                case CommandType.BarCode:
+                    BarCode = value;
                     break;
-                case CommandType.Exposure: Exposure = value;
+                case CommandType.Exposure:
+                    Exposure = value;
                     break;
-                case CommandType.Gain: Gain = value;
+                case CommandType.Gain:
+                    Gain = value;
                     break;
-                case CommandType.FindLineX: FindLineX = value;
+                case CommandType.FindLineX:
+                    FindLineX = value;
                     break;
-                case CommandType.FindLineY: FindLineY = value;
+                case CommandType.FindLineY:
+                    FindLineY = value;
                     break;
-                case CommandType.FindLindHigh: FindLindHigh = value;
+                case CommandType.FindLindHigh:
+                    FindLindHigh = value;
                     break;
-                case CommandType.FindLineWide: FindLineWide = value;
+                case CommandType.FindLineWide:
+                    FindLineWide = value;
                     break;
-                case CommandType.FindLineEdge: FindLineEdge = value;
+                case CommandType.FindLineEdge:
+                    FindLineEdge = value;
                     break;
-                case CommandType.FindLineThreshold: FindLineThreshold = value;
+                case CommandType.FindLineThreshold:
+                    FindLineThreshold = value;
                     break;
-                case CommandType.BarCodeX: BarCodeX = value;
+                case CommandType.BarCodeX:
+                    BarCodeX = value;
                     break;
-                case CommandType.BarCodeY: BarCodeY = value;
+                case CommandType.BarCodeY:
+                    BarCodeY = value;
                     break;
-                case CommandType.BarCodeHigh: BarCodeHigh = value;
+                case CommandType.BarCodeHigh:
+                    BarCodeHigh = value;
                     break;
-                case CommandType.BarCodeWide: BarCodeWide = value;
+                case CommandType.BarCodeWide:
+                    BarCodeWide = value;
                     break;
-                case CommandType.Limit: Limit = value;
+                case CommandType.Limit:
+                    Limit = value;
                     break;
-                case CommandType.LowerLimit: LowerLimit = value;
+                case CommandType.LowerLimit:
+                    LowerLimit = value;
                     break;
             }
         }

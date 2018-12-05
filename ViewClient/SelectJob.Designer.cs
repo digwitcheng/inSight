@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.MaterielManagerBtn = new System.Windows.Forms.Button();
+            this.UserManagerBtn = new System.Windows.Forms.Button();
             this.seletedLabel = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -58,7 +60,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.UserManagerBtn = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -72,6 +75,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(167)))), ((int)(((byte)(190)))));
+            this.panel1.Controls.Add(this.MaterielManagerBtn);
             this.panel1.Controls.Add(this.UserManagerBtn);
             this.panel1.Controls.Add(this.seletedLabel);
             this.panel1.Controls.Add(this.button1);
@@ -86,6 +90,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(738, 562);
             this.panel1.TabIndex = 0;
+            // 
+            // MaterielManagerBtn
+            // 
+            this.MaterielManagerBtn.Location = new System.Drawing.Point(600, 56);
+            this.MaterielManagerBtn.Name = "MaterielManagerBtn";
+            this.MaterielManagerBtn.Size = new System.Drawing.Size(98, 31);
+            this.MaterielManagerBtn.TabIndex = 11;
+            this.MaterielManagerBtn.Text = "物料管理";
+            this.MaterielManagerBtn.UseVisualStyleBackColor = true;
+            this.MaterielManagerBtn.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // UserManagerBtn
+            // 
+            this.UserManagerBtn.Location = new System.Drawing.Point(600, 12);
+            this.UserManagerBtn.Name = "UserManagerBtn";
+            this.UserManagerBtn.Size = new System.Drawing.Size(98, 37);
+            this.UserManagerBtn.TabIndex = 10;
+            this.UserManagerBtn.Text = "用户管理";
+            this.UserManagerBtn.UseVisualStyleBackColor = true;
+            this.UserManagerBtn.Click += new System.EventHandler(this.UserManagerBtn_Click);
             // 
             // seletedLabel
             // 
@@ -110,64 +134,6 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 12;
-            this.listBox1.Items.AddRange(new object[] {
-            "43307113",
-            "43307112",
-            "43307111",
-            "43301166",
-            "43301165",
-            "43301168",
-            "43301169",
-            "43307114",
-            "43309112",
-            "43309111",
-            "43304114",
-            "43304113",
-            "43304112",
-            "43309116",
-            "43304111",
-            "43303112",
-            "43303111",
-            "43301173",
-            "43301172",
-            "43301171",
-            "43301170",
-            "43301167",
-            "43301164",
-            "43301163",
-            "43301162",
-            "43301161",
-            "43301160",
-            "43301159",
-            "43301158",
-            "43301157",
-            "43309113",
-            "43309114",
-            "43309115",
-            "43309120",
-            "43309118",
-            "43309117",
-            "43309119",
-            "43304115",
-            "79800232",
-            "79800235",
-            "79800222",
-            "79800231",
-            "79800233",
-            "79800234",
-            "79800240",
-            "79605050",
-            "79605043",
-            "79602527",
-            "79602555",
-            "79605042",
-            "79602560",
-            "79602561",
-            "79602528",
-            "79602372",
-            "79602529",
-            "79605005",
-            "79605737"});
             this.listBox1.Location = new System.Drawing.Point(466, 104);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(232, 280);
@@ -203,16 +169,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(317, 392);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(362, 397);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
             // panel8
             // 
+            this.panel8.Controls.Add(this.button6);
             this.panel8.Controls.Add(this.IsBackOnline);
             this.panel8.Controls.Add(this.label8);
-            this.panel8.Location = new System.Drawing.Point(3, 328);
+            this.panel8.Location = new System.Drawing.Point(3, 333);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(311, 61);
+            this.panel8.Size = new System.Drawing.Size(356, 61);
             this.panel8.TabIndex = 9;
             // 
             // IsBackOnline
@@ -220,7 +187,7 @@
             this.IsBackOnline.BackColor = System.Drawing.Color.Gainsboro;
             this.IsBackOnline.Font = new System.Drawing.Font("宋体", 15F);
             this.IsBackOnline.ForeColor = System.Drawing.Color.Black;
-            this.IsBackOnline.Location = new System.Drawing.Point(143, 21);
+            this.IsBackOnline.Location = new System.Drawing.Point(248, 21);
             this.IsBackOnline.Name = "IsBackOnline";
             this.IsBackOnline.Size = new System.Drawing.Size(92, 28);
             this.IsBackOnline.TabIndex = 31;
@@ -240,11 +207,12 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.button5);
             this.panel7.Controls.Add(this.IsFrontOnline);
             this.panel7.Controls.Add(this.label7);
-            this.panel7.Location = new System.Drawing.Point(3, 263);
+            this.panel7.Location = new System.Drawing.Point(3, 267);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(311, 59);
+            this.panel7.Size = new System.Drawing.Size(356, 59);
             this.panel7.TabIndex = 8;
             // 
             // IsFrontOnline
@@ -252,7 +220,7 @@
             this.IsFrontOnline.BackColor = System.Drawing.Color.Gainsboro;
             this.IsFrontOnline.Font = new System.Drawing.Font("宋体", 15F);
             this.IsFrontOnline.ForeColor = System.Drawing.Color.Black;
-            this.IsFrontOnline.Location = new System.Drawing.Point(143, 21);
+            this.IsFrontOnline.Location = new System.Drawing.Point(248, 18);
             this.IsFrontOnline.Name = "IsFrontOnline";
             this.IsFrontOnline.Size = new System.Drawing.Size(92, 28);
             this.IsFrontOnline.TabIndex = 30;
@@ -274,9 +242,9 @@
             // 
             this.panel6.Controls.Add(this.BackOnline);
             this.panel6.Controls.Add(this.label6);
-            this.panel6.Location = new System.Drawing.Point(3, 198);
+            this.panel6.Location = new System.Drawing.Point(3, 201);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(311, 59);
+            this.panel6.Size = new System.Drawing.Size(356, 59);
             this.panel6.TabIndex = 7;
             // 
             // BackOnline
@@ -284,7 +252,7 @@
             this.BackOnline.BackColor = System.Drawing.Color.Gainsboro;
             this.BackOnline.Font = new System.Drawing.Font("宋体", 15F);
             this.BackOnline.ForeColor = System.Drawing.Color.Black;
-            this.BackOnline.Location = new System.Drawing.Point(143, 23);
+            this.BackOnline.Location = new System.Drawing.Point(248, 23);
             this.BackOnline.Name = "BackOnline";
             this.BackOnline.Size = new System.Drawing.Size(92, 28);
             this.BackOnline.TabIndex = 29;
@@ -306,9 +274,9 @@
             // 
             this.panel5.Controls.Add(this.FrontOnline);
             this.panel5.Controls.Add(this.label5);
-            this.panel5.Location = new System.Drawing.Point(3, 133);
+            this.panel5.Location = new System.Drawing.Point(3, 135);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(311, 59);
+            this.panel5.Size = new System.Drawing.Size(356, 59);
             this.panel5.TabIndex = 6;
             // 
             // FrontOnline
@@ -316,7 +284,7 @@
             this.FrontOnline.BackColor = System.Drawing.Color.Gainsboro;
             this.FrontOnline.Font = new System.Drawing.Font("宋体", 15F);
             this.FrontOnline.ForeColor = System.Drawing.Color.Black;
-            this.FrontOnline.Location = new System.Drawing.Point(143, 21);
+            this.FrontOnline.Location = new System.Drawing.Point(248, 18);
             this.FrontOnline.Name = "FrontOnline";
             this.FrontOnline.Size = new System.Drawing.Size(92, 28);
             this.FrontOnline.TabIndex = 28;
@@ -338,9 +306,9 @@
             // 
             this.panel4.Controls.Add(this.ShoulderOnline);
             this.panel4.Controls.Add(this.label4);
-            this.panel4.Location = new System.Drawing.Point(3, 68);
+            this.panel4.Location = new System.Drawing.Point(3, 69);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(311, 59);
+            this.panel4.Size = new System.Drawing.Size(356, 59);
             this.panel4.TabIndex = 5;
             // 
             // ShoulderOnline
@@ -348,7 +316,7 @@
             this.ShoulderOnline.BackColor = System.Drawing.Color.Gainsboro;
             this.ShoulderOnline.Font = new System.Drawing.Font("宋体", 15F);
             this.ShoulderOnline.ForeColor = System.Drawing.Color.Black;
-            this.ShoulderOnline.Location = new System.Drawing.Point(143, 16);
+            this.ShoulderOnline.Location = new System.Drawing.Point(248, 16);
             this.ShoulderOnline.Name = "ShoulderOnline";
             this.ShoulderOnline.Size = new System.Drawing.Size(92, 28);
             this.ShoulderOnline.TabIndex = 28;
@@ -374,7 +342,7 @@
             this.panel3.Controls.Add(this.SelectJobBtn);
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(311, 59);
+            this.panel3.Size = new System.Drawing.Size(356, 59);
             this.panel3.TabIndex = 5;
             // 
             // BatchOnline
@@ -382,7 +350,7 @@
             this.BatchOnline.BackColor = System.Drawing.Color.Gainsboro;
             this.BatchOnline.Font = new System.Drawing.Font("宋体", 15F);
             this.BatchOnline.ForeColor = System.Drawing.Color.Black;
-            this.BatchOnline.Location = new System.Drawing.Point(212, 21);
+            this.BatchOnline.Location = new System.Drawing.Point(248, 21);
             this.BatchOnline.Name = "BatchOnline";
             this.BatchOnline.Size = new System.Drawing.Size(92, 28);
             this.BatchOnline.TabIndex = 27;
@@ -402,7 +370,7 @@
             // 
             // SelectJobBtn
             // 
-            this.SelectJobBtn.Location = new System.Drawing.Point(118, 14);
+            this.SelectJobBtn.Location = new System.Drawing.Point(148, 14);
             this.SelectJobBtn.Name = "SelectJobBtn";
             this.SelectJobBtn.Size = new System.Drawing.Size(89, 41);
             this.SelectJobBtn.TabIndex = 6;
@@ -444,15 +412,25 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
-            // UserManagerBtn
+            // button5
             // 
-            this.UserManagerBtn.Location = new System.Drawing.Point(600, 12);
-            this.UserManagerBtn.Name = "UserManagerBtn";
-            this.UserManagerBtn.Size = new System.Drawing.Size(98, 37);
-            this.UserManagerBtn.TabIndex = 10;
-            this.UserManagerBtn.Text = "用户管理";
-            this.UserManagerBtn.UseVisualStyleBackColor = true;
-            this.UserManagerBtn.Click += new System.EventHandler(this.UserManagerBtn_Click);
+            this.button5.Location = new System.Drawing.Point(148, 14);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(89, 41);
+            this.button5.TabIndex = 28;
+            this.button5.Text = "批号相机规格";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(148, 14);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(89, 41);
+            this.button6.TabIndex = 28;
+            this.button6.Text = "批号相机规格";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // SelectJob
             // 
@@ -464,6 +442,7 @@
             this.Text = "SelectJob";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectJob_FormClosing);
             this.Load += new System.EventHandler(this.SelectJob_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SelectJob_Paint);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -515,5 +494,8 @@
         private System.Windows.Forms.Label seletedLabel;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button UserManagerBtn;
+        private System.Windows.Forms.Button MaterielManagerBtn;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button5;
     }
 }

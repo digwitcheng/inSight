@@ -28,11 +28,12 @@ namespace ViewClient
         {
             string userName = userTextBox.Text.Trim();
             string password = passwordTextBox.Text.Trim();
-            User user = new User(userName, password, AdminRadioBtn.Checked);
+            User user = new User(userName, password);
             if (AppSetting.UserList.Contains(user))
             {
+                int index= AppSetting.UserList.IndexOf(user);
                 this.Visible = false;
-                FormInit formInit = new FormInit(AdminRadioBtn.Checked,() => { this.Visible = true; });
+                FormInit formInit = new FormInit(AppSetting.UserList[index].IsAdmin,() => { this.Visible = true; });
                 formInit.Show();
             }
             else
@@ -43,6 +44,11 @@ namespace ViewClient
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

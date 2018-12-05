@@ -42,8 +42,11 @@ namespace ViewClient
         {
             try
             {
-                this.panel2.Visible = false;
-                this.panel3.Visible = false;
+                if (!isAdmin)
+                {
+                    this.panel2.Visible = false;
+                    this.panel3.Visible = false;
+                }
                 AddMonitorView(leftMonitorView, leftPanel);
                 AddMonitorView(rightMonitorView, rightPanel);
             }
@@ -72,12 +75,11 @@ namespace ViewClient
             this.Text = leftMonitorView.Text + "调试界面";
             leftMonitorView.TxtPanel.Visible = false;
 
-            if (backView == null)
-            {
+           
                 backView =  MonitorViewFactory.Create(leftMonitorView, leftType, OnCallBack, IsMatNo100ml);
                 backView.TopLevel = false;
                 backView.Dock = DockStyle.Fill;
-            }
+           
             rightPanel.Controls.Remove(rightMonitorView);
             rightPanel.Controls.Add(backView);
             backView.Show();
@@ -97,12 +99,11 @@ namespace ViewClient
             this.Text = rightMonitorView.Text + "调试界面";
             rightMonitorView.TxtPanel.Visible = false;
 
-            if (frontView == null)
-            {
+            
                 frontView = MonitorViewFactory.Create(rightMonitorView, rightType, OnCallBack, IsMatNo100ml);
                 frontView.TopLevel = false;
                 frontView.Dock = DockStyle.Fill;
-            }
+            
             leftPanel.Controls.Remove(leftMonitorView);
             leftPanel.Controls.Add(frontView);
             frontView.Show();
