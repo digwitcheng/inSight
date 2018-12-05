@@ -21,7 +21,6 @@ namespace ViewClient
         private readonly CameraConfig config;
         private bool isCameraInited = false;
         private string cameraAddress;
-        int unqualifiedCount = 0;
         public MonitorView(CameraConfig config)
         {           
             InitializeComponent();
@@ -78,7 +77,7 @@ namespace ViewClient
         private void clearCountBtn1_Click(object sender, EventArgs e)
         {
             Set(CommandType.Reset, 1);
-            Set(CommandType.Reset, 0);            
+            Set(CommandType.Reset, 0);
         }
 
         private void cameraBtn1_Click(object sender, EventArgs e)
@@ -101,23 +100,6 @@ namespace ViewClient
                 sum.Text = Get(CommandType.Total);
                 qualified.Text = Get(CommandType.Pass);
                 unqualified.Text = Get(CommandType.Fail);
-
-                if (config.CurrentCameraType == CameraType.IsBack || config.CurrentCameraType == CameraType.IsFront)
-                {
-                    int temp = 0;
-                    bool res = int.TryParse(unqualified.Text, out temp);
-                    if (res && temp > unqualifiedCount)// unqualified.Text)
-                    {
-                        timer1.Stop();
-                        DialogResult dr = MessageBox.Show("确认你已拿走了缺标的产品！！");
-                        if (dr == DialogResult.OK)
-                        {
-                            unqualifiedCount = temp;
-                            timer1.Start();
-                        }
-                    }
-                }
-
             }
         }
         private string SendCommand(string message)
@@ -269,5 +251,24 @@ namespace ViewClient
         }
 
         #endregion
+
+        bool isOk = true;
+        private void unqualified_TextChanged(object sender, EventArgs e)
+        {
+            if (config.CurrentCameraType == CameraType.IsBack || config.CurrentCameraType == CameraType.IsFront)
+            {
+                int cur = 0;
+                bool res = int.TryParse(unqualified.Text.Trim(), out cur);
+                if (res&& isOk)// unqualified.Text)
+                {
+                    isOk = false;
+                    DialogResult dr = MessageBox.Show("确认你已拿走了缺标的产品?", "警告", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    if (dr == DialogResult.OK)
+                    {
+                        isOk = true;
+                    }
+                }
+            }
+        }
     }
 }

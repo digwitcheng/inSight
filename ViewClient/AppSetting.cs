@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ViewClient.Properties;
 
 namespace ViewClient
 {
@@ -19,6 +20,8 @@ namespace ViewClient
         public const string EXCEL_PATH = "MaterielTable.csv";
         public const string EXCEL_TEMP_PATH = "Temp.csv";
         public const string EXCEL_SETTING_PATH = "Setting.csv";
+
+        public const string APP_NAME = "强生李施德林视觉检测系统";
 
     }
 }

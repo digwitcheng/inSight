@@ -7,7 +7,7 @@
     <ProjectGuid>{81F96454-67D5-4A52-8A7F-B2D3A842911A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ViewClient</RootNamespace>
-    <AssemblyName>ViewClient</AssemblyName>
+    <AssemblyName>强生李施德林视觉检测系统</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cognex.InSight, Version=4.9.2511.0, Culture=neutral, PublicKeyToken=6b9774afddb09935, processorArchitecture=x86">
@@ -116,12 +119,6 @@
     </Compile>
     <Compile Include="MainViews\MonitorView.Designer.cs">
       <DependentUpon>MonitorView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainViews\CameraSelect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainViews\CameraSelect.Designer.cs">
-      <DependentUpon>CameraSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -224,6 +221,13 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\图片1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Logo.ico" />
+    <None Include="Resources\Logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

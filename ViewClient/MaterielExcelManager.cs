@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ViewClient.Properties;
 
 namespace ViewClient
 {
@@ -18,8 +19,12 @@ namespace ViewClient
         public MaterielExcelManager(Action action, List<MaterielData> materielDataMap)
         {
             InitializeComponent();
+            this.Text = AppSetting.APP_NAME;
+            this.Icon = Resources.Logo;
             this.materielDataMap = materielDataMap;  
             this.action = action;
+            splitContainer1.FixedPanel = FixedPanel.Panel2;
+            splitContainer1.IsSplitterFixed = true;
             LoadData();
         }
         private void LoadData()

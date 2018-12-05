@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ViewClient.Properties;
 
 namespace ViewClient
 {
@@ -17,12 +18,13 @@ namespace ViewClient
 
         public MainView(MonitorViewTab batchShoulderView, MonitorViewTab frontBackView, MonitorViewTab isFrontIsBackView)
         {
+            InitializeComponent();
             this.batchShoulderViewTab = batchShoulderView;
             this.frontBackViewTab = frontBackView;
             this.isFrontIsBackViewTab = isFrontIsBackView;
-            this.Text = "相机调试界面";
+            this.Text = AppSetting.APP_NAME;
+            this.Icon = Resources.Logo;
             this.StartPosition = FormStartPosition.CenterScreen;
-            InitializeComponent();
 
         }
 

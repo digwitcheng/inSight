@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ViewClient.Properties;
 
 namespace ViewClient
 {
@@ -21,6 +22,8 @@ namespace ViewClient
         public SelectJob( List<MaterielData> materielDataMap,Action action ,bool isAdmin)
         {
             this.allMaterielData = materielDataMap;
+            this.Text = AppSetting.APP_NAME;
+            this.Icon = Resources.Logo;
             this.action = action;
             this.isAdmin = isAdmin;
             InitializeComponent();            

@@ -421,8 +421,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(683, 537);
             this.Controls.Add(this.panel1);
+            this.MinimumSize = new System.Drawing.Size(699, 575);
             this.Name = "MaterielEdit";
-            this.Text = "MaterielEdit";
+            this.Text = "物料表管理";
             this.Load += new System.EventHandler(this.MaterielEdit_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

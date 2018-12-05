@@ -17,6 +17,8 @@ namespace ViewClient
         bool isAdmin;
         public FormInit(bool isAdmin,Action action)
         {
+            this.Text = AppSetting.APP_NAME;
+            this.Icon = Resources.Logo;
             this.action = action;
             this.isAdmin = isAdmin;
             this.StartPosition = FormStartPosition.CenterScreen;

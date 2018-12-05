@@ -29,17 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // panel1
             // 
-            this.panel1.BackgroundImage = global::ViewClient.Properties.Resources.强生31;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -54,7 +57,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("宋体", 12F);
-            this.label1.Location = new System.Drawing.Point(157, 134);
+            this.label1.Location = new System.Drawing.Point(146, 198);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(192, 16);
             this.label1.TabIndex = 0;
@@ -63,17 +66,13 @@
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::ViewClient.Properties.Resources.强生31;
+            this.pictureBox1.Image = global::ViewClient.Properties.Resources.图片1;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(534, 223);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FormInit
             // 
@@ -87,7 +86,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(534, 223);
             this.Name = "FormInit";
-            this.Text = "FormInit";
+            this.Text = "强生李施德林视觉检测系统";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormInit_FormClosing);
             this.Load += new System.EventHandler(this.FormInit_Load);
             this.Shown += new System.EventHandler(this.FormInit_Shown);

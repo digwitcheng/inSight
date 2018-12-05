@@ -20,6 +20,7 @@ namespace ViewClient
             this.users = users;
             this.editUser = user;
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.Text = AppSetting.APP_NAME;
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ViewClient.Properties;
 
 namespace ViewClient
 {
@@ -16,6 +17,8 @@ namespace ViewClient
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.Text = AppSetting.APP_NAME;
+            this.Icon = Resources.Logo;
             LoadSetting();
         }
 

@@ -16,6 +16,8 @@ namespace ViewClient
         {
             InitializeComponent();
             users = AppSetting.UserList;
+            splitContainer1.FixedPanel = FixedPanel.Panel2;
+            splitContainer1.IsSplitterFixed = true;
             LoadData();
         }
         private void LoadData()
@@ -82,6 +84,16 @@ namespace ViewClient
             User user = new User(items[1], items[2], items[0].Equals("管理员"));
             users.Remove(user);
             LoadData();
+        }
+
+        private void splitContainer1_Paint(object sender, PaintEventArgs e)
+        {
+           
+
+        }
+
+        private void splitContainer1_Resize(object sender, EventArgs e)
+        {
         }
     }
 }

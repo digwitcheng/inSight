@@ -38,9 +38,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.button6 = new System.Windows.Forms.Button();
             this.IsBackOnline = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
             this.IsFrontOnline = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -60,8 +62,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -182,6 +182,16 @@
             this.panel8.Size = new System.Drawing.Size(356, 61);
             this.panel8.TabIndex = 9;
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(148, 14);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(89, 41);
+            this.button6.TabIndex = 28;
+            this.button6.Text = "批号相机规格";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // IsBackOnline
             // 
             this.IsBackOnline.BackColor = System.Drawing.Color.Gainsboro;
@@ -214,6 +224,16 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(356, 59);
             this.panel7.TabIndex = 8;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(148, 14);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(89, 41);
+            this.button5.TabIndex = 28;
+            this.button5.Text = "批号相机规格";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // IsFrontOnline
             // 
@@ -412,26 +432,6 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(148, 14);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(89, 41);
-            this.button5.TabIndex = 28;
-            this.button5.Text = "批号相机规格";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(148, 14);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(89, 41);
-            this.button6.TabIndex = 28;
-            this.button6.Text = "批号相机规格";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
             // SelectJob
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -439,7 +439,7 @@
             this.ClientSize = new System.Drawing.Size(738, 562);
             this.Controls.Add(this.panel1);
             this.Name = "SelectJob";
-            this.Text = "SelectJob";
+            this.Text = "强生李施德林视觉检测系统";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectJob_FormClosing);
             this.Load += new System.EventHandler(this.SelectJob_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.SelectJob_Paint);
