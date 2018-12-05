@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
@@ -54,16 +54,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(703, 581);
             this.panel1.TabIndex = 0;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(19, 302);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(88, 37);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "保存并返回";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label2
             // 
@@ -91,6 +81,16 @@
             this.listBox1.TabIndex = 2;
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(19, 302);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(88, 37);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "保存并返回";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -109,8 +109,6 @@
             this.splitContainer1.SplitterDistance = 703;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 1;
-            this.splitContainer1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Paint);
-            this.splitContainer1.Resize += new System.EventHandler(this.splitContainer1_Resize);
             // 
             // panel2
             // 
@@ -133,6 +131,7 @@
             this.button3.TabIndex = 9;
             this.button3.Text = "删除该用户";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // button1
             // 
@@ -142,6 +141,7 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "增加用户";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // label1
             // 

@@ -137,15 +137,6 @@ namespace ViewClient
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            bool res = FileTools.WriteExcelByText(materielDataMap);
-            if (res)
-            {
-                this.Close();
-            }
-        }
-
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (listView1.SelectedItems == null || listView1.SelectedItems.Count <= 0)
@@ -204,7 +195,21 @@ namespace ViewClient
             listView1.Items[selectIndex].SubItems[17].Text = data.LowerLimit;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void MaterielExcelManager_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            action();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            bool res = FileTools.WriteExcelByText(materielDataMap);
+            if (res)
+            {
+                this.Close();
+            }
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
         {
             if (listView1.SelectedItems == null || listView1.SelectedItems.Count <= 0)
             {
@@ -224,19 +229,14 @@ namespace ViewClient
                     break;
                 }
             }
-
         }
-        private void button1_Click(object sender, EventArgs e)
+
+        private void button1_Click_1(object sender, EventArgs e)
         {
             add = true;
             selectIndex = listView1.Items.Count;
             MaterielEdit materielEdit = new MaterielEdit(EditMaterielData, materielDataMap, null);
             materielEdit.ShowDialog();
-        }
-
-        private void MaterielExcelManager_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            action();
         }
     }
 }

@@ -56,13 +56,6 @@ namespace ViewClient
             LoadData();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            EditUser editUser = new EditUser(users, null);
-            editUser.ShowDialog();
-            LoadData();
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             bool res = FileTools.SaveUserSetting(users);
@@ -72,7 +65,15 @@ namespace ViewClient
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            EditUser editUser = new EditUser(users, null);
+            editUser.ShowDialog();
+            LoadData();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
         {
             if (listBox1.SelectedItem == null)
             {
@@ -84,16 +85,6 @@ namespace ViewClient
             User user = new User(items[1], items[2], items[0].Equals("管理员"));
             users.Remove(user);
             LoadData();
-        }
-
-        private void splitContainer1_Paint(object sender, PaintEventArgs e)
-        {
-           
-
-        }
-
-        private void splitContainer1_Resize(object sender, EventArgs e)
-        {
         }
     }
 }

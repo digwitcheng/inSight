@@ -225,13 +225,11 @@ namespace ViewClient
 
                 button1.Text = "确定";
                 listBox1.Enabled = true;
-                MaterielManagerBtn.Enabled = true;
             }
             else
             {
                 button1.Text = "重新选择";
                 listBox1.Enabled = false;
-                MaterielManagerBtn.Enabled = false;
             }
         }
 
