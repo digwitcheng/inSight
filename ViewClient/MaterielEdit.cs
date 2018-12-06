@@ -113,6 +113,9 @@ namespace ViewClient
             data.BarCodeY = ewmyzTextBox.Text.Trim();
             data.BarCodeHigh = ewmgdTextBox.Text.Trim();
             data.BarCodeWide = ewmkdTextBox.Text.Trim();
+
+            //100ml物料表
+
             data.Limit = bqsxyzTextBox.Text.Trim();
             data.LowerLimit = bqxxyzTextBox.Text.Trim();
         }
