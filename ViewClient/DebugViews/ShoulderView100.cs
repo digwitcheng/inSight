@@ -66,7 +66,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbxLabel.Text = Changed(CommandType.FindLineX_100, zbxTextBox.Text);
+                zbxLabel.Text = Changed(CommandType.FindLineX_100, zbx100TextBox.Text);
                 
             }
         }
@@ -75,7 +75,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbyLabel.Text = Changed(CommandType.FindLineY_100, zbyTextBox.Text);
+                zbyLabel.Text = Changed(CommandType.FindLineY_100, zby100TextBox.Text);
                 
             }
         }
@@ -84,7 +84,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbgdLabel.Text = Changed(CommandType.FindLindHigh_100, zbgdTextBox.Text);
+                zbgdLabel.Text = Changed(CommandType.FindLindHigh_100, zbgd100TextBox.Text);
                 
             }
         }
@@ -93,7 +93,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbkdLabel.Text = Changed(CommandType.FindLineWide_100, zbkdTextBox.Text);
+                zbkdLabel.Text = Changed(CommandType.FindLineWide_100, zbkd100TextBox.Text);
                 
             }
         }
@@ -102,7 +102,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                pgbkdLabel.Text = Changed(CommandType.FindLineEdge_100, pgbkdTextBox.Text);
+                pgbkdLabel.Text = Changed(CommandType.FindLineEdge_100, pgbkd100TextBox.Text);
                 
             }
         }
@@ -111,7 +111,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                pgzbyzLabel.Text = Changed(CommandType.FindLineTs_100, pgzbyzTextBox.Text);
+                pgzbyzLabel.Text = Changed(CommandType.FindLineTs_100, pgzbyz100TextBox.Text);
                 
             }
         }
@@ -120,7 +120,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bqbyzLabel.Text = Changed(CommandType.FindLineTs_100L, bqbyzTextBox.Text);
+                bqbyzLabel.Text = Changed(CommandType.FindLineTs_100L, bqbyz100TextBox.Text);
                 
             }
         }
@@ -129,7 +129,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bqbkdLabel.Text = Changed(CommandType.FindLineEdge_100L, bqbkdTextBox.Text);
+                bqbkdLabel.Text = Changed(CommandType.FindLineEdge_100L, bqbkd100TextBox.Text);
                 
             }
         }

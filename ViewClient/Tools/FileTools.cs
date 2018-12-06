@@ -133,7 +133,7 @@ namespace ViewClient
                                 MessageBox.Show(cells[1] + "未设密码，已跳过");
                                 continue;
                             }
-                            User user = new User(cells[1],cells[2],true);
+                            User user = new User(cells[1], cells[2], true);
                             AppSetting.UserList.Add(user);
                         }
                         if (cells[0].Equals("工作员"))
@@ -151,14 +151,14 @@ namespace ViewClient
                 sr.Close();
                 fs.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show("读取设置文件失败,加载默认配置！");
                 return false;
             }
             return true;
         }
-       public static List<MaterielData> ReadExcelByText()
+        public static List<MaterielData> ReadExcelByText()
         {
             string path = AppSetting.EXCEL_PATH;
             if (!File.Exists(path))
@@ -184,7 +184,7 @@ namespace ViewClient
                         }
                         if (cells.Length < 18)
                         {
-                             continue;
+                            continue;
                         }
                         MaterielData data = new MaterielData();
                         data.MatNo = cells[0];
@@ -203,19 +203,30 @@ namespace ViewClient
                         data.BarCodeY = cells[13];
                         data.BarCodeHigh = cells[14];
                         data.BarCodeWide = cells[15];
-                        data.Limit = cells[16];
-                        data.LowerLimit = cells[17];
 
-                        
+
+                        data.FindLineX_100 = cells[16];
+                        data.FindLineY_100 = cells[17];
+                        data.FindLindHigh_100 = cells[18];
+                        data.FindLineWide_100 = cells[19];
+                        data.FindLineTs_100 = cells[20];
+                        data.FindLineEdge_100 = cells[21];
+                        data.FindLineTs_100L = cells[22];
+                        data.FindLineEdge_100L = cells[23];
+                        data.Limit = cells[24];
+                        data.LowerLimit = cells[25];
+
+
                         list.Add(data);
                     }
                 }
                 fs.Flush();
                 sr.Close();
                 fs.Close();
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
-                MessageBox.Show("物料excel表读取失败:"+e);
+                MessageBox.Show("物料excel表读取失败:" + e);
                 return null;
             }
             return list;
@@ -253,9 +264,9 @@ namespace ViewClient
                     string newLine = Replace(data);
                     sw.WriteLine(newLine);
                 }
-                            
+
                 sw.Flush();
-                sw.Close();               
+                sw.Close();
                 sr.Close();
                 fsRead.Close();
                 fsWrite.Close();
@@ -278,11 +289,12 @@ namespace ViewClient
             }
             string path = AppSetting.EXCEL_PATH;
             string tempPath = AppSetting.EXCEL_TEMP_PATH;
-            FileStream fsRead=null;
+            FileStream fsRead = null;
             try
             {
-                 fsRead = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Delete);
-            }catch(Exception ex)
+                fsRead = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Delete);
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("保存到excel表格失败！请先关闭Excel表格占用进程!");
                 return;
@@ -322,9 +334,10 @@ namespace ViewClient
                 fsWrite.Close();
                 File.Delete(path);
                 File.Move(tempPath, path);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
-                MessageBox.Show("保存失败："+e);
+                MessageBox.Show("保存失败：" + e);
             }
             MessageBox.Show("保存成功！");
         }
@@ -339,27 +352,36 @@ namespace ViewClient
         static string Replace(MaterielData data)
         {
             StringBuilder sb = new StringBuilder();
-            Append(sb,data.MatNo );
-            Append(sb,data.BarCode );
-            Append(sb,data.Info );
-            Append(sb,data.CameraAddress );
-            Append(sb,data.Exposure );
-            Append(sb,data.Gain );
-            Append(sb,data.FindLineX );
-            Append(sb,data.FindLineY );
-            Append(sb,data.FindLindHigh );
-            Append(sb,data.FindLineWide );
-            Append(sb,data.FindLineEdge );
-            Append(sb,data.FindLineThreshold );
-            Append(sb,data.BarCodeX );
-            Append(sb,data.BarCodeY );
-            Append(sb,data.BarCodeHigh );
-            Append(sb,data.BarCodeWide );
-            Append(sb,data.Limit );
+            Append(sb, data.MatNo);
+            Append(sb, data.BarCode);
+            Append(sb, data.Info);
+            Append(sb, data.CameraAddress);
+            Append(sb, data.Exposure);
+            Append(sb, data.Gain);
+            Append(sb, data.FindLineX);
+            Append(sb, data.FindLineY);
+            Append(sb, data.FindLindHigh);
+            Append(sb, data.FindLineWide);
+            Append(sb, data.FindLineEdge);
+            Append(sb, data.FindLineThreshold);
+            Append(sb, data.BarCodeX);
+            Append(sb, data.BarCodeY);
+            Append(sb, data.BarCodeHigh);
+            Append(sb, data.BarCodeWide);
+
+            Append(sb, data.FindLineX_100);
+            Append(sb, data.FindLineY_100);
+            Append(sb, data.FindLindHigh_100);
+            Append(sb, data.FindLineWide_100);
+            Append(sb, data.FindLineTs_100);
+            Append(sb, data.FindLineEdge_100);
+            Append(sb, data.FindLineTs_100L);
+            Append(sb, data.FindLineEdge_100L);
+            Append(sb, data.Limit);
             sb.Append(data.LowerLimit);
             return sb.ToString();
         }
-        static void Append(StringBuilder sb,string cell)
+        static void Append(StringBuilder sb, string cell)
         {
             sb.Append(cell);
             sb.Append(",");

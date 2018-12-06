@@ -13,15 +13,15 @@ namespace ViewClient
     {
         MaterielData data;
         List<MaterielData> list;
-        Action<MaterielData,int> editAction;
+        Action<MaterielData, int> editAction;
         bool IsAdd;
         int editIndex;
-        public MaterielEdit(Action<MaterielData,int>editAction,List<MaterielData> list, MaterielData data)
+        public MaterielEdit(Action<MaterielData, int> editAction, List<MaterielData> list, MaterielData data)
         {
             InitializeComponent();
             this.list = list;
             this.data = data;
-            this.editAction = editAction;             
+            this.editAction = editAction;
         }
 
 
@@ -45,6 +45,15 @@ namespace ViewClient
                 ewmyzTextBox.Text = data.BarCodeY;
                 ewmgdTextBox.Text = data.BarCodeHigh;
                 ewmkdTextBox.Text = data.BarCodeWide;
+
+                zbx100TextBox.Text = data.FindLineX_100;
+                zby100TextBox.Text = data.FindLineY_100;
+                zbgd100TextBox.Text = data.FindLindHigh_100;
+                zbkd100TextBox.Text = data.FindLineWide_100;
+                pgzbyz100TextBox.Text = data.FindLineTs_100;
+                pgbkd100TextBox.Text = data.FindLineEdge_100;
+                bqbyz100TextBox.Text = data.FindLineTs_100L;
+                bqbkd100TextBox.Text = data.FindLineEdge_100L;
                 bqsxyzTextBox.Text = data.Limit;
                 bqxxyzTextBox.Text = data.LowerLimit;
 
@@ -78,7 +87,7 @@ namespace ViewClient
                 for (int i = 0; i < list.Count; i++)
                 {
                     if (i == editIndex) continue;
-                    if (list[i].CameraAddress.Equals(cameraIp)&&list[i].MatNo.Equals(matNo))
+                    if (list[i].CameraAddress.Equals(cameraIp) && list[i].MatNo.Equals(matNo))
                     {
                         MessageBox.Show("该相机Ip在当前物料号中已存在！");
                         return;
@@ -91,7 +100,7 @@ namespace ViewClient
             }
             SaveData();
             list.Insert(editIndex, data);
-            editAction(data,editIndex);
+            editAction(data, editIndex);
             this.Close();
         }
 
@@ -115,7 +124,14 @@ namespace ViewClient
             data.BarCodeWide = ewmkdTextBox.Text.Trim();
 
             //100ml物料表
-
+            data.FindLineX_100 = zbx100TextBox.Text.Trim();
+            data.FindLineY_100 = zby100TextBox.Text.Trim();
+            data.FindLindHigh_100 = zbgd100TextBox.Text.Trim();
+            data.FindLineWide_100 = zbkd100TextBox.Text.Trim();
+            data.FindLineTs_100 = pgzbyz100TextBox.Text.Trim();
+            data.FindLineEdge_100 = pgbkd100TextBox.Text.Trim();
+            data.FindLineTs_100L = bqbyz100TextBox.Text.Trim();
+            data.FindLineEdge_100L = bqbkd100TextBox.Text.Trim();
             data.Limit = bqsxyzTextBox.Text.Trim();
             data.LowerLimit = bqxxyzTextBox.Text.Trim();
         }

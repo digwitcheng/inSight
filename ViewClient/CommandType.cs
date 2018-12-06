@@ -25,6 +25,7 @@ namespace ViewClient
         BarCodeY,//	二维码检测区域Y坐标
         BarCodeHigh,//	二维码检测区域高度
         BarCodeWide,//	二维码检测区域宽度
+
         FindLineX_100,//	100ml找边区域X坐标
         FindLineY_100,//	100ml找边区域Y坐标
         FindLindHigh_100,//	100ml找边区域高度

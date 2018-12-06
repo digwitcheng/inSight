@@ -23,8 +23,18 @@ namespace ViewClient
         public string BarCodeY { get; set; }
         public string BarCodeHigh { get; set; }
         public string BarCodeWide { get; set; }
-        public string Limit { get; set; }
-        public string LowerLimit { get; set; }
+
+
+        public string FindLineX_100 { get; set; }//	100ml找边区域X坐标
+        public string FindLineY_100 { get; set; }//	100ml找边区域Y坐标
+        public string FindLindHigh_100 { get; set; }//	100ml找边区域高度
+        public string FindLineWide_100 { get; set; }//	100ml找边区域宽度
+        public string FindLineTs_100 { get; set; }//	100ml找边瓶盖阈值
+        public string FindLineEdge_100 { get; set; }//	100ml瓶盖边宽度
+        public string FindLineTs_100L { get; set; }//	100ml标签找边阈值
+        public string FindLineEdge_100L { get; set; }//	100ml标签边宽度
+        public string Limit { get; set; }//	100ml标签上限阈值
+        public string LowerLimit { get; set; }//	100ml标签下限阈值
 
         public MaterielData()
         {
@@ -44,8 +54,17 @@ namespace ViewClient
             BarCodeY = "";
             BarCodeHigh = "";
             BarCodeWide = "";
-            Limit = "";
-            LowerLimit = "";
+
+            FindLineX_100 = "";//	100ml找边区域X坐标
+            FindLineY_100 = "";//	100ml找边区域Y坐标
+            FindLindHigh_100 = "";//	100ml找边区域高度
+            FindLineWide_100 = "";//	100ml找边区域宽度
+            FindLineTs_100 = "";//	100ml找边瓶盖阈值
+            FindLineEdge_100 = "";//	100ml瓶盖边宽度
+            FindLineTs_100L = "";//	100ml标签找边阈值
+            FindLineEdge_100L = "";//	100ml标签边宽度
+            Limit = "";//	100ml标签上限阈值
+            LowerLimit = "";//	100ml标签下限阈值
         }
 
 
@@ -95,12 +114,21 @@ namespace ViewClient
                 case CommandType.BarCodeWide:
                     BarCodeWide = value;
                     break;
-                case CommandType.Limit:
-                    Limit = value;
-                    break;
-                case CommandType.LowerLimit:
-                    LowerLimit = value;
-                    break;
+                case CommandType.FindLineX_100: FindLineX_100 = value;
+                    break;//	100ml找边区域X坐标
+                case CommandType.FindLineY_100: FindLineY_100 = value;
+                    break;//	100ml找边区域Y坐标
+                case CommandType.FindLindHigh_100: FindLindHigh_100 = value; break;//	100ml找边区域高度
+                case CommandType.FindLineWide_100: FindLineWide_100 = value; break;//	100ml找边区域宽度
+                case CommandType.FindLineTs_100: FindLineTs_100 = value; break;//	100ml找边瓶盖阈值
+                case CommandType.FindLineEdge_100: FindLineEdge_100 = value; break;//	100ml瓶盖边宽度
+                case CommandType.FindLineTs_100L: FindLineTs_100L = value; break;//	100ml标签找边阈值
+                case CommandType.FindLineEdge_100L: FindLineEdge_100L = value; break;//	100ml标签边宽度
+                case CommandType.Limit: Limit = value;
+                    break;//	100ml标签上限阈值
+                case CommandType.LowerLimit: LowerLimit = value;
+                    break;//	100ml标签下限阈值
+
             }
         }
 

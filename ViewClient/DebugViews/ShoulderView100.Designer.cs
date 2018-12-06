@@ -39,28 +39,28 @@
             this.bqsxyzTextBox = new System.Windows.Forms.TextBox();
             this.bqsxyzLabel = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.bqbkdTextBox = new System.Windows.Forms.TextBox();
+            this.bqbkd100TextBox = new System.Windows.Forms.TextBox();
             this.bqbkdLabel = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.bqbyzTextBox = new System.Windows.Forms.TextBox();
+            this.bqbyz100TextBox = new System.Windows.Forms.TextBox();
             this.bqbyzLabel = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.pgzbyzTextBox = new System.Windows.Forms.TextBox();
+            this.pgzbyz100TextBox = new System.Windows.Forms.TextBox();
             this.pgzbyzLabel = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.pgbkdTextBox = new System.Windows.Forms.TextBox();
+            this.pgbkd100TextBox = new System.Windows.Forms.TextBox();
             this.pgbkdLabel = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.zbkdTextBox = new System.Windows.Forms.TextBox();
+            this.zbkd100TextBox = new System.Windows.Forms.TextBox();
             this.zbkdLabel = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.zbgdTextBox = new System.Windows.Forms.TextBox();
+            this.zbgd100TextBox = new System.Windows.Forms.TextBox();
             this.zbgdLabel = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.zbyTextBox = new System.Windows.Forms.TextBox();
+            this.zby100TextBox = new System.Windows.Forms.TextBox();
             this.zbyLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.zbxTextBox = new System.Windows.Forms.TextBox();
+            this.zbx100TextBox = new System.Windows.Forms.TextBox();
             this.zbxLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.zyTextBox = new System.Windows.Forms.TextBox();
@@ -85,28 +85,28 @@
             this.panel1.Controls.Add(this.bqsxyzTextBox);
             this.panel1.Controls.Add(this.bqsxyzLabel);
             this.panel1.Controls.Add(this.label21);
-            this.panel1.Controls.Add(this.bqbkdTextBox);
+            this.panel1.Controls.Add(this.bqbkd100TextBox);
             this.panel1.Controls.Add(this.bqbkdLabel);
             this.panel1.Controls.Add(this.label19);
-            this.panel1.Controls.Add(this.bqbyzTextBox);
+            this.panel1.Controls.Add(this.bqbyz100TextBox);
             this.panel1.Controls.Add(this.bqbyzLabel);
             this.panel1.Controls.Add(this.label17);
-            this.panel1.Controls.Add(this.pgzbyzTextBox);
+            this.panel1.Controls.Add(this.pgzbyz100TextBox);
             this.panel1.Controls.Add(this.pgzbyzLabel);
             this.panel1.Controls.Add(this.label15);
-            this.panel1.Controls.Add(this.pgbkdTextBox);
+            this.panel1.Controls.Add(this.pgbkd100TextBox);
             this.panel1.Controls.Add(this.pgbkdLabel);
             this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.zbkdTextBox);
+            this.panel1.Controls.Add(this.zbkd100TextBox);
             this.panel1.Controls.Add(this.zbkdLabel);
             this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.zbgdTextBox);
+            this.panel1.Controls.Add(this.zbgd100TextBox);
             this.panel1.Controls.Add(this.zbgdLabel);
             this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.zbyTextBox);
+            this.panel1.Controls.Add(this.zby100TextBox);
             this.panel1.Controls.Add(this.zbyLabel);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.zbxTextBox);
+            this.panel1.Controls.Add(this.zbx100TextBox);
             this.panel1.Controls.Add(this.zbxLabel);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.zyTextBox);
@@ -213,13 +213,13 @@
             this.label21.TabIndex = 30;
             this.label21.Text = "标签上限阈值:";
             // 
-            // bqbkdTextBox
+            // bqbkd100TextBox
             // 
-            this.bqbkdTextBox.Location = new System.Drawing.Point(192, 336);
-            this.bqbkdTextBox.Name = "bqbkdTextBox";
-            this.bqbkdTextBox.Size = new System.Drawing.Size(84, 21);
-            this.bqbkdTextBox.TabIndex = 29;
-            this.bqbkdTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bqbkdTextBox_KeyDown);
+            this.bqbkd100TextBox.Location = new System.Drawing.Point(192, 336);
+            this.bqbkd100TextBox.Name = "bqbkd100TextBox";
+            this.bqbkd100TextBox.Size = new System.Drawing.Size(84, 21);
+            this.bqbkd100TextBox.TabIndex = 29;
+            this.bqbkd100TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bqbkdTextBox_KeyDown);
             // 
             // bqbkdLabel
             // 
@@ -239,13 +239,13 @@
             this.label19.TabIndex = 27;
             this.label19.Text = "标签边宽度:";
             // 
-            // bqbyzTextBox
+            // bqbyz100TextBox
             // 
-            this.bqbyzTextBox.Location = new System.Drawing.Point(192, 303);
-            this.bqbyzTextBox.Name = "bqbyzTextBox";
-            this.bqbyzTextBox.Size = new System.Drawing.Size(84, 21);
-            this.bqbyzTextBox.TabIndex = 26;
-            this.bqbyzTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bqbyzTextBox_KeyDown);
+            this.bqbyz100TextBox.Location = new System.Drawing.Point(192, 303);
+            this.bqbyz100TextBox.Name = "bqbyz100TextBox";
+            this.bqbyz100TextBox.Size = new System.Drawing.Size(84, 21);
+            this.bqbyz100TextBox.TabIndex = 26;
+            this.bqbyz100TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bqbyzTextBox_KeyDown);
             // 
             // bqbyzLabel
             // 
@@ -265,13 +265,13 @@
             this.label17.TabIndex = 24;
             this.label17.Text = "标签边阈值:";
             // 
-            // pgzbyzTextBox
+            // pgzbyz100TextBox
             // 
-            this.pgzbyzTextBox.Location = new System.Drawing.Point(192, 273);
-            this.pgzbyzTextBox.Name = "pgzbyzTextBox";
-            this.pgzbyzTextBox.Size = new System.Drawing.Size(84, 21);
-            this.pgzbyzTextBox.TabIndex = 23;
-            this.pgzbyzTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.pgzbyzTextBox_KeyDown);
+            this.pgzbyz100TextBox.Location = new System.Drawing.Point(192, 273);
+            this.pgzbyz100TextBox.Name = "pgzbyz100TextBox";
+            this.pgzbyz100TextBox.Size = new System.Drawing.Size(84, 21);
+            this.pgzbyz100TextBox.TabIndex = 23;
+            this.pgzbyz100TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.pgzbyzTextBox_KeyDown);
             // 
             // pgzbyzLabel
             // 
@@ -291,13 +291,13 @@
             this.label15.TabIndex = 21;
             this.label15.Text = "瓶盖找边阈值:";
             // 
-            // pgbkdTextBox
+            // pgbkd100TextBox
             // 
-            this.pgbkdTextBox.Location = new System.Drawing.Point(192, 243);
-            this.pgbkdTextBox.Name = "pgbkdTextBox";
-            this.pgbkdTextBox.Size = new System.Drawing.Size(84, 21);
-            this.pgbkdTextBox.TabIndex = 20;
-            this.pgbkdTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.pgbkdTextBox_KeyDown);
+            this.pgbkd100TextBox.Location = new System.Drawing.Point(192, 243);
+            this.pgbkd100TextBox.Name = "pgbkd100TextBox";
+            this.pgbkd100TextBox.Size = new System.Drawing.Size(84, 21);
+            this.pgbkd100TextBox.TabIndex = 20;
+            this.pgbkd100TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.pgbkdTextBox_KeyDown);
             // 
             // pgbkdLabel
             // 
@@ -317,13 +317,13 @@
             this.label13.TabIndex = 18;
             this.label13.Text = "瓶盖边宽度:";
             // 
-            // zbkdTextBox
+            // zbkd100TextBox
             // 
-            this.zbkdTextBox.Location = new System.Drawing.Point(192, 213);
-            this.zbkdTextBox.Name = "zbkdTextBox";
-            this.zbkdTextBox.Size = new System.Drawing.Size(84, 21);
-            this.zbkdTextBox.TabIndex = 17;
-            this.zbkdTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbkdTextBox_KeyDown);
+            this.zbkd100TextBox.Location = new System.Drawing.Point(192, 213);
+            this.zbkd100TextBox.Name = "zbkd100TextBox";
+            this.zbkd100TextBox.Size = new System.Drawing.Size(84, 21);
+            this.zbkd100TextBox.TabIndex = 17;
+            this.zbkd100TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbkdTextBox_KeyDown);
             // 
             // zbkdLabel
             // 
@@ -343,13 +343,13 @@
             this.label11.TabIndex = 15;
             this.label11.Text = "找边区域宽度:";
             // 
-            // zbgdTextBox
+            // zbgd100TextBox
             // 
-            this.zbgdTextBox.Location = new System.Drawing.Point(192, 183);
-            this.zbgdTextBox.Name = "zbgdTextBox";
-            this.zbgdTextBox.Size = new System.Drawing.Size(84, 21);
-            this.zbgdTextBox.TabIndex = 14;
-            this.zbgdTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbgdTextBox_KeyDown);
+            this.zbgd100TextBox.Location = new System.Drawing.Point(192, 183);
+            this.zbgd100TextBox.Name = "zbgd100TextBox";
+            this.zbgd100TextBox.Size = new System.Drawing.Size(84, 21);
+            this.zbgd100TextBox.TabIndex = 14;
+            this.zbgd100TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbgdTextBox_KeyDown);
             // 
             // zbgdLabel
             // 
@@ -369,13 +369,13 @@
             this.label9.TabIndex = 12;
             this.label9.Text = "找边区域高度:";
             // 
-            // zbyTextBox
+            // zby100TextBox
             // 
-            this.zbyTextBox.Location = new System.Drawing.Point(192, 152);
-            this.zbyTextBox.Name = "zbyTextBox";
-            this.zbyTextBox.Size = new System.Drawing.Size(84, 21);
-            this.zbyTextBox.TabIndex = 11;
-            this.zbyTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbyTextBox_KeyDown);
+            this.zby100TextBox.Location = new System.Drawing.Point(192, 152);
+            this.zby100TextBox.Name = "zby100TextBox";
+            this.zby100TextBox.Size = new System.Drawing.Size(84, 21);
+            this.zby100TextBox.TabIndex = 11;
+            this.zby100TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbyTextBox_KeyDown);
             // 
             // zbyLabel
             // 
@@ -395,13 +395,13 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "找边区域Y值:";
             // 
-            // zbxTextBox
+            // zbx100TextBox
             // 
-            this.zbxTextBox.Location = new System.Drawing.Point(192, 123);
-            this.zbxTextBox.Name = "zbxTextBox";
-            this.zbxTextBox.Size = new System.Drawing.Size(84, 21);
-            this.zbxTextBox.TabIndex = 8;
-            this.zbxTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbxTextBox_KeyDown);
+            this.zbx100TextBox.Location = new System.Drawing.Point(192, 123);
+            this.zbx100TextBox.Name = "zbx100TextBox";
+            this.zbx100TextBox.Size = new System.Drawing.Size(84, 21);
+            this.zbx100TextBox.TabIndex = 8;
+            this.zbx100TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zbxTextBox_KeyDown);
             // 
             // zbxLabel
             // 
@@ -505,28 +505,28 @@
         private System.Windows.Forms.TextBox bqsxyzTextBox;
         private System.Windows.Forms.Label bqsxyzLabel;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox bqbkdTextBox;
+        private System.Windows.Forms.TextBox bqbkd100TextBox;
         private System.Windows.Forms.Label bqbkdLabel;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox bqbyzTextBox;
+        private System.Windows.Forms.TextBox bqbyz100TextBox;
         private System.Windows.Forms.Label bqbyzLabel;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox pgzbyzTextBox;
+        private System.Windows.Forms.TextBox pgzbyz100TextBox;
         private System.Windows.Forms.Label pgzbyzLabel;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox pgbkdTextBox;
+        private System.Windows.Forms.TextBox pgbkd100TextBox;
         private System.Windows.Forms.Label pgbkdLabel;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox zbkdTextBox;
+        private System.Windows.Forms.TextBox zbkd100TextBox;
         private System.Windows.Forms.Label zbkdLabel;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox zbgdTextBox;
+        private System.Windows.Forms.TextBox zbgd100TextBox;
         private System.Windows.Forms.Label zbgdLabel;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox zbyTextBox;
+        private System.Windows.Forms.TextBox zby100TextBox;
         private System.Windows.Forms.Label zbyLabel;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox zbxTextBox;
+        private System.Windows.Forms.TextBox zbx100TextBox;
         private System.Windows.Forms.Label zbxLabel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox zyTextBox;

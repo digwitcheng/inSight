@@ -21,7 +21,7 @@ namespace ViewClient
             InitializeComponent();
             this.Text = AppSetting.APP_NAME;
             this.Icon = Resources.Logo;
-            this.materielDataMap = materielDataMap;  
+            this.materielDataMap = materielDataMap;
             this.action = action;
             splitContainer1.FixedPanel = FixedPanel.Panel2;
             splitContainer1.IsSplitterFixed = true;
@@ -56,6 +56,15 @@ namespace ViewClient
             listView1.Columns.Add("二维码Y值", "二维码Y值");
             listView1.Columns.Add("二维码高度", "二维码高度");
             listView1.Columns.Add("二维码宽度", "二维码宽度");
+
+            listView1.Columns.Add("100ml找边区域X坐标", "100ml找边区域X坐标");
+            listView1.Columns.Add("100ml找边区域Y坐标", "100ml找边区域Y坐标");
+            listView1.Columns.Add("100ml找边区域高度", "100ml找边区域高度");
+            listView1.Columns.Add("100ml找边区域宽度", "100ml找边区域宽度");
+            listView1.Columns.Add("100ml找边瓶盖阈值", "100ml找边瓶盖阈值");
+            listView1.Columns.Add("100ml瓶盖边宽度", "100ml瓶盖边宽度");
+            listView1.Columns.Add("100ml标签找边阈值", "100ml标签找边阈值");
+            listView1.Columns.Add("100ml标签边宽度", "100ml标签边宽度");
             listView1.Columns.Add("100ml标签上限阈值", "100ml标签上限阈值");
             listView1.Columns.Add("100ml标签下限阈值", "100ml标签下限阈值");
             if (materielDataMap != null)
@@ -83,6 +92,15 @@ namespace ViewClient
             listView1.Columns["二维码Y值"].Width = -2;
             listView1.Columns["二维码高度"].Width = -2;
             listView1.Columns["二维码宽度"].Width = -2;
+
+            listView1.Columns["100ml找边区域X坐标"].Width = -2;
+            listView1.Columns["100ml找边区域Y坐标"].Width = -2;
+            listView1.Columns["100ml找边区域高度"].Width = -2;
+            listView1.Columns["100ml找边区域宽度"].Width = -2;
+            listView1.Columns["100ml找边瓶盖阈值"].Width = -2;
+            listView1.Columns["100ml瓶盖边宽度"].Width = -2;
+            listView1.Columns["100ml标签找边阈值"].Width = -2;
+            listView1.Columns["100ml标签边宽度"].Width = -2;
             listView1.Columns["100ml标签上限阈值"].Width = -2;
             listView1.Columns["100ml标签下限阈值"].Width = -2;
 
@@ -101,9 +119,9 @@ namespace ViewClient
                 listView1.Items[selectIndex].Selected = true;
 
                 int temp = selectIndex + 20;
-                if (temp >= listView1.Items.Count-1)
+                if (temp >= listView1.Items.Count - 1)
                 {
-                    temp = listView1.Items.Count-1;
+                    temp = listView1.Items.Count - 1;
                 }
                 listView1.Items[temp].EnsureVisible();//保证可见
             }
@@ -130,6 +148,15 @@ namespace ViewClient
             sb.Append(":" + data.BarCodeY);
             sb.Append(":" + data.BarCodeHigh);
             sb.Append(":" + data.BarCodeWide);
+
+            sb.Append(":" + data.FindLineX_100);//	100ml找边区域X坐标
+            sb.Append(":" + data.FindLineY_100);//	100ml找边区域Y坐标
+            sb.Append(":" + data.FindLindHigh_100);//	100ml找边区域高度
+            sb.Append(":" + data.FindLineWide_100);//	100ml找边区域宽度
+            sb.Append(":" + data.FindLineTs_100);//	100ml找边瓶盖阈值
+            sb.Append(":" + data.FindLineEdge_100);//	100ml瓶盖边宽度
+            sb.Append(":" + data.FindLineTs_100L);//	100ml标签找边阈值
+            sb.Append(":" + data.FindLineEdge_100L);//	100ml标签边宽度
             sb.Append(":" + data.Limit);
             sb.Append(":" + data.LowerLimit);
 

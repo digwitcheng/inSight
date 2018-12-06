@@ -58,7 +58,6 @@ namespace ViewClient.DebugViews
                 bgsjLabel.Text  = Changed(CommandType.Exposure,bgsjTextBox.Text);
             }
         }
-
         private void zyTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
