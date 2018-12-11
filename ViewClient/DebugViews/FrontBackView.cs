@@ -49,6 +49,10 @@ namespace ViewClient.DebugViews
                 return "未连接";
             }
             monitorView.Data.SetValue(type, value);
+            if (type == CommandType.MatNo || type == CommandType.BarCode)
+            {
+                return monitorView.SetWithString(type, value);
+            }
             return monitorView.Set(type, value);
         }
         private void bgsjTextBox_KeyDown(object sender, KeyEventArgs e)

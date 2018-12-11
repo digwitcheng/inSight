@@ -22,10 +22,10 @@ namespace ViewClient
         private bool isCameraInited = false;
         private string cameraAddress;
         public MonitorView(CameraConfig config)
-        {           
+        {
             InitializeComponent();
             this.Text = config.CameraName;
-            this.CameraNameLabel.Text= config.CameraName;
+            this.CameraNameLabel.Text = config.CameraName;
             this.config = config;
             this.cameraAddress = config.CameraAddress;
             InitCvsInSightDisplay();
@@ -38,7 +38,7 @@ namespace ViewClient
         }
         private void InitCvsInSightDisplay()
         {
-           // cvsInSightDisplay1.LoadStandardTheme();
+            // cvsInSightDisplay1.LoadStandardTheme();
             cvsInSightDisplay1.ShowImage = true;
             cvsInSightDisplay1.ImageZoomMode = Cognex.InSight.Controls.Display.CvsDisplayZoom.Fill;
 
@@ -47,7 +47,7 @@ namespace ViewClient
 
             ConnetServer();
         }
-         void ConnetServer()
+        void ConnetServer()
         {
             try
             {
@@ -66,11 +66,11 @@ namespace ViewClient
             }
             Refresh();
         }
-       
+
 
         private void oNativeModeClient_ConnectCompleted(object sender, Cognex.InSight.CvsConnectCompletedEventArgs e)
         {
-           
+
         }
 
 
@@ -92,7 +92,7 @@ namespace ViewClient
         {
             if (oNativeModeClient.Connected)
                 oNativeModeClient.Disconnect();
-        }        
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (oNativeModeClient.Connected)
@@ -114,7 +114,7 @@ namespace ViewClient
                     }
                 }
                 XmlNodeReader nrdr = oNativeModeClient.LastResponseReader;
-                if (nrdr!=null&&nrdr.ReadToFollowing("Status"))
+                if (nrdr != null && nrdr.ReadToFollowing("Status"))
                 {
                     if (nrdr.ReadElementContentAsString().Equals("1"))
                     {
@@ -166,7 +166,7 @@ namespace ViewClient
 
         internal string Get(CommandType position)
         {
-            string command = Utils.GetCommandString(position.ToString());
+            string command = Utils.GetCommandInteger(position.ToString());
             return SendCommand(command);
         }
 
@@ -176,10 +176,15 @@ namespace ViewClient
             cvsInSightDisplay1.Edit.SaveJobAs.Execute();
             timer1.Start();
         }
+        internal string SetWithString(CommandType type, string value)
+        {
+            string command = Utils.SetCommandString(type.ToString(), value);
+            return SendCommand(command);
+        }
 
         internal string Set(CommandType type, string value)
         {
-            string command = Utils.SetCommandString(type.ToString(), value);
+            string command = Utils.SetCommandInteger(type.ToString(), value);
             return SendCommand(command);
         }
 
@@ -236,8 +241,8 @@ namespace ViewClient
 
         internal void LoadData()
         {
-            Set(CommandType.MatNo, Data.MatNo);
-            Set(CommandType.BarCode, Data.BarCode);
+            SetWithString(CommandType.MatNo, Data.MatNo);
+            SetWithString(CommandType.BarCode, Data.BarCode);
             Set(CommandType.BarCodeHigh, Data.BarCodeHigh);
             Set(CommandType.BarCodeWide, Data.BarCodeWide);
             Set(CommandType.BarCodeX, Data.BarCodeX);
@@ -250,6 +255,15 @@ namespace ViewClient
             Set(CommandType.FindLineX, Data.FindLineX);
             Set(CommandType.FindLineY, Data.FindLineY);
             Set(CommandType.Gain, Data.Gain);
+
+            Set(CommandType.FindLineX_100, Data.FindLineX_100);
+            Set(CommandType.FindLineY_100, Data.FindLineY_100);
+            Set(CommandType.FindLindHigh_100, Data.FindLindHigh_100);
+            Set(CommandType.FindLineWide_100, Data.FindLineWide_100);
+            Set(CommandType.FindLineTs_100, Data.FindLineTs_100);
+            Set(CommandType.FindLineEdge_100, Data.FindLineEdge_100);
+            Set(CommandType.FindLineTs_100L, Data.FindLineTs_100L);
+            Set(CommandType.FindLineEdge_100L, Data.FindLineEdge_100L);
             Set(CommandType.Limit, Data.Limit);
             Set(CommandType.LowerLimit, Data.LowerLimit);
 
@@ -264,10 +278,10 @@ namespace ViewClient
             {
                 int cur = 0;
                 bool res = int.TryParse(unqualified.Text.Trim(), out cur);
-                if (res&& isOk)// unqualified.Text)
+                if (res && cur>0 && isOk)// unqualified.Text)
                 {
                     isOk = false;
-                    DialogResult dr = MessageBox.Show("确认你已拿走了缺标的产品?", "警告", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    DialogResult dr = MessageBox.Show("确认你已拿走了缺标的产品?", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if (dr == DialogResult.OK)
                     {
                         isOk = true;

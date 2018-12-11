@@ -18,8 +18,9 @@ namespace ViewClient
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = AppSetting.APP_NAME;
-            this.Icon = Resources.Logo;
+            this.Icon = Resources.Logo;            
             LoadSetting();
+           
         }
 
         private void LoadSetting()
@@ -51,6 +52,12 @@ namespace ViewClient
 
         private void Login_Load(object sender, EventArgs e)
         {
+            DateTime dateTime = new DateTime(2019, 3, 15, 1, 1, 1);
+            if (DateTime.Now > dateTime)
+            {
+                MessageBox.Show("版本已到期，联系我们！邮箱:1046541763@qq.com!");
+                this.Close();
+            }
         }
     }
 }

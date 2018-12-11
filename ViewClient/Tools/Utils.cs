@@ -82,14 +82,19 @@ namespace ViewClient
             }
         }
 
-        internal static string GetCommandString(string position)
+        internal static string GetCommandInteger(string position)
         {
             return string.Format("EV GetCellValue(\"{0}\")", position);
         }
 
-        internal static string SetCommandString(string position,string value)
+        internal static string SetCommandInteger(string position,string value)
         {
             return string.Format("EV SetCellValue(\"{0}\",{1})", position, value);
+        }
+
+        internal static string SetCommandString(string position, string value)
+        {
+            return string.Format("EV SetCellValue(\"{0}\",\"{1}\")", position, value);
         }
     }
 }

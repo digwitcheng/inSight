@@ -39,7 +39,7 @@ namespace ViewClient
                 MessageBox.Show("请先确定好配方!");
                 return;
             }      
-            List<MaterielData> datas = SeleteSameMatNo();
+            List<MaterielData> datas = SeletedMatNoData();
             if (datas == null)
             {
                 return;
@@ -54,14 +54,7 @@ namespace ViewClient
                 LoadInitCameraData(frontBackViewTab,data);
                 LoadInitCameraData(isFrontIsBackViewTab,data);
             }
-            if (AppSetting.MatNoList100ml.Contains(listBox1.SelectedItem.ToString().Trim()))
-            {
-                batchShoulderViewTab.IsMatNo100ml = true;
-            }
-            else
-            {
-                batchShoulderViewTab.IsMatNo100ml = false;
-            }
+           
             if (mainView == null)
             {
                 mainView = new MainView(batchShoulderViewTab, frontBackViewTab, isFrontIsBackViewTab);
@@ -70,16 +63,38 @@ namespace ViewClient
             mainView.Show();
         }
 
-        private List<MaterielData> SeleteSameMatNo()
+        private List<MaterielData> SeletedMatNoData()
         {
             List<MaterielData> sameMatNoData = new List<MaterielData>();
+            batchShoulderViewTab.IsMatNo100ml = false;
             foreach (MaterielData item in allMaterielData)
             {
                 if (item.MatNo.Equals(listBox1.SelectedItem.ToString().Trim()))
                 {
                     sameMatNoData.Add(item);
+
+                    if (item.FindLineX_100!=null&&!item.FindLineX_100.Equals(""))
+                    {
+                        int findX;
+                        bool findXRes= int.TryParse(item.FindLineX_100.Trim(), out findX);
+                       
+                        if ((findXRes && findX > 0))
+                        {
+                            batchShoulderViewTab.IsMatNo100ml = true;
+                        }
+                    }
+                    if (item.FindLineY_100 != null && !item.FindLineY_100.Equals(""))
+                    {
+                        int findY;
+                        bool findYRes = int.TryParse(item.FindLineY_100.Trim(), out findY);
+                        if (findYRes && findY > 0)
+                        {
+                            batchShoulderViewTab.IsMatNo100ml = true;
+                        }
+                    }
                 }
             }
+           
             return sameMatNoData;
         }
 

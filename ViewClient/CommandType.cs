@@ -9,8 +9,8 @@ namespace ViewClient
     {
         Exposure,//	曝光时间
         Gain,//	增益值
-        BarCode,//	二维码内容
-        MatNo,//	物料编号
+        BarCode,//	BarCode 二维码内容
+        MatNo,//	MatNo 物料编号
         Total,//	总数
         Pass,//	合格数
         Fail,//	不合格数
