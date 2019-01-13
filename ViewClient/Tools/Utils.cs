@@ -61,9 +61,21 @@ namespace ViewClient
             }
         }
 
+        internal static void ReconnectDisplay(MonitorView monitorView)
+        {
+            if (!monitorView.IsDisplayConnected)
+            {
+                monitorView.ConnectDisplay();
+            }
+            if (!monitorView.IsClientConnected)
+            {
+                monitorView.ConnectClient();
+            }
+        }
+
         internal static bool CheckConnect(MonitorView monitorView, Panel panel)
         {
-            if (monitorView.IsConnected)
+            if (monitorView.IsDisplayConnected)
             {
                 panel.BackColor = Color.Aqua;
                 panel.Enabled = true;

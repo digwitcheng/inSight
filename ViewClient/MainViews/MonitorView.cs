@@ -50,7 +50,7 @@ namespace ViewClient
             ConnectClient();
             ConnectDisplay();
         }
-        void ConnectClient()
+        public void ConnectClient()
         {
             try
             {
@@ -208,12 +208,23 @@ namespace ViewClient
             return Set(type, value + "");
         }
 
-        internal bool IsConnected
+        internal bool IsDisplayConnected
         {
             get
             {
                 if (!(cvsInSightDisplay1 == null))
                     return cvsInSightDisplay1.Connected;
+                else
+                    return false;
+            }
+        }
+
+        internal bool IsClientConnected
+        {
+            get
+            {
+                if (!(oNativeModeClient == null))
+                    return oNativeModeClient.Connected;
                 else
                     return false;
             }

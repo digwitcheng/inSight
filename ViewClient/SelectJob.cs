@@ -133,6 +133,8 @@ namespace ViewClient
 
             this.timer1.Enabled = true;
             this.timer1.Start();
+            this.timer2.Enabled = true;
+            this.timer2.Start();
         }
 
         private void timer1_Tick_1(object sender, EventArgs e)
@@ -324,6 +326,16 @@ namespace ViewClient
                 return;
             }
             isFrontIsBackViewTab.RightMonitorView.OpenJob();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            Utils.ReconnectDisplay(batchShoulderViewTab.LeftMonitorView);
+            Utils.ReconnectDisplay(batchShoulderViewTab.RightMonitorView);
+            Utils.ReconnectDisplay(frontBackViewTab.LeftMonitorView);
+            Utils.ReconnectDisplay(frontBackViewTab.RightMonitorView);
+            Utils.ReconnectDisplay(isFrontIsBackViewTab.LeftMonitorView);
+            Utils.ReconnectDisplay(isFrontIsBackViewTab.RightMonitorView);
         }
     }
 }

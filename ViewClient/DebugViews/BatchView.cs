@@ -100,7 +100,7 @@ namespace ViewClient.DebugViews
             monitorView.BindOnline(this.BatchOnline);
             monitorView.BindLiveMode(this.LiveModeCheckBox);
             if (monitorView == null) return;
-            if (monitorView.IsConnected)
+            if (monitorView.IsDisplayConnected)
             {
                 bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
                 zyLabel.Text = monitorView.Get(CommandType.Gain);

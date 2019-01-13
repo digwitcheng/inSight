@@ -165,7 +165,7 @@ namespace ViewClient.DebugViews
         private void Fresh()
         {
             if (monitorView == null) return;
-            if (monitorView.IsConnected)
+            if (monitorView.IsDisplayConnected)
             {
                 bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
                 zyLabel.Text = monitorView.Get(CommandType.Gain);
