@@ -295,7 +295,7 @@ namespace ViewClient
 
         private void SelectJob_Paint(object sender, PaintEventArgs e)
         {
-            
+                   
         }
         private void SelectJobBtn_Click(object sender, EventArgs e)
         {

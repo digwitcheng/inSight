@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LiveModeCheckBox = new System.Windows.Forms.CheckBox();
             this.BatchOnline = new System.Windows.Forms.CheckBox();
@@ -69,7 +68,6 @@
             this.bgsjTextBox = new System.Windows.Forms.TextBox();
             this.bgsjLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -473,12 +471,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "曝光时间:";
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // ShoulderView100
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -535,7 +527,6 @@
         private System.Windows.Forms.TextBox bgsjTextBox;
         private System.Windows.Forms.Label bgsjLabel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox LiveModeCheckBox;
         private System.Windows.Forms.CheckBox BatchOnline;
     }

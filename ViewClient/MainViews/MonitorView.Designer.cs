@@ -185,6 +185,7 @@
             // 
             // timer1
             // 
+            this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // MonitorView

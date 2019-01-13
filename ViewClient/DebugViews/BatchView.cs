@@ -49,11 +49,16 @@ namespace ViewClient.DebugViews
             monitorView.Data.SetValue(type, value);
             return monitorView.Set(type, value);
         }
+
         private void bgsjTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                bgsjLabel.Text = Changed(CommandType.Exposure, bgsjTextBox.Text);
+                string res = Changed(CommandType.Exposure, bgsjTextBox.Text);
+                if (res.Equals("1"))
+                {
+                    bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
+                }
             }
         }
 
@@ -62,7 +67,11 @@ namespace ViewClient.DebugViews
             if (e.KeyValue == 13)
             {
                 isChanged = true;
-                zyLabel.Text = Changed(CommandType.Gain, zyTextBox.Text);
+                string res = Changed(CommandType.Gain, zyTextBox.Text);
+                if (res.Equals("1"))
+                {
+                    zyLabel.Text = monitorView.Get(CommandType.Gain);
+                }
             }
         }
 
@@ -78,13 +87,24 @@ namespace ViewClient.DebugViews
 
         private void button1_Click(object sender, EventArgs e)
         {
-             monitorView.SaveJobAs();
+            if (this.BatchOnline.Checked)
+            {
+                MessageBox.Show("请先脱机!");
+                return;
+            }
+            monitorView.SaveJobAs();
         }
 
         private void BatchView_Load(object sender, EventArgs e)
         {
             monitorView.BindOnline(this.BatchOnline);
             monitorView.BindLiveMode(this.LiveModeCheckBox);
+            if (monitorView == null) return;
+            if (monitorView.IsConnected)
+            {
+                bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
+                zyLabel.Text = monitorView.Get(CommandType.Gain);
+            }
 
 
         }
@@ -112,14 +132,5 @@ namespace ViewClient.DebugViews
             }
         }
 
-        private void timer1_Tick_1(object sender, EventArgs e)
-        {
-            if (monitorView == null) return;
-            if (monitorView.IsConnected)
-            {
-                bgsjLabel.Text = monitorView.Get(CommandType.Exposure);
-                zyLabel.Text = monitorView.Get(CommandType.Gain);
-            }
-        }
     }
 }

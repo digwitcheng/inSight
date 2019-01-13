@@ -25,6 +25,7 @@ namespace ViewClient.DebugViews
         {
             monitorView.BindOnline(this.BatchOnline);
             monitorView.BindLiveMode(this.LiveModeCheckBox);
+            Fresh();
         }
 
         private void backBtn_Click(object sender, EventArgs e)
@@ -40,33 +41,41 @@ namespace ViewClient.DebugViews
             }
         }
        
-        string Changed(CommandType type, string value)
+        void Changed(CommandType type, string value,Label showLabel)
         {
             isChanged = true;
             if (monitorView.Data == null)
             {
                 MessageBox.Show("相机未连接！或当前连接的相机ip不在当前选择的物料编号之中");
-                return "未连接";
+                showLabel.Text= "未连接";
             }
             monitorView.Data.SetValue(type, value);
+            string res = "";
             if (type == CommandType.MatNo || type == CommandType.BarCode)
             {
-                return monitorView.SetWithString(type, value);
+                res = monitorView.SetWithString(type, value);
             }
-            return monitorView.Set(type, value);
+            else
+            {
+                res= monitorView.Set(type, value);
+            }
+            if (res.Equals("1"))
+            {
+                showLabel.Text = monitorView.Get(type);
+            }
         }
         private void bgsjTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                bgsjLabel.Text  = Changed(CommandType.Exposure,bgsjTextBox.Text);
+                Changed(CommandType.Exposure,bgsjTextBox.Text,bgsjLabel);
             }
         }
         private void zyTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                zyLabel.Text  = Changed(CommandType.Gain, zyTextBox.Text);
+               Changed(CommandType.Gain, zyTextBox.Text,zyLabel);
             }
         }
 
@@ -74,7 +83,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                ewmLabel.Text  = Changed(CommandType.BarCode, ewmTextBox.Text);
+                Changed(CommandType.BarCode, ewmTextBox.Text,ewmLabel);
             }
         }
 
@@ -82,7 +91,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbxLabel.Text  = Changed(CommandType.FindLineX, zbxTextBox.Text);
+                Changed(CommandType.FindLineX, zbxTextBox.Text,zbxLabel);
             }
         }
 
@@ -90,7 +99,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbyLabel.Text  = Changed(CommandType.FindLineY, zbyTextBox.Text);
+                Changed(CommandType.FindLineY, zbyTextBox.Text,zbyLabel);
             }
         }
 
@@ -98,7 +107,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbgdLabel.Text  = Changed(CommandType.FindLindHigh, zbgdTextBox.Text);
+                Changed(CommandType.FindLindHigh, zbgdTextBox.Text,zbgdLabel);
             }
         }
 
@@ -106,7 +115,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbkdLabel.Text  = Changed(CommandType.FindLineWide, zbkdTextBox.Text);
+                Changed(CommandType.FindLineWide, zbkdTextBox.Text,zbkdLabel);
             }
         }
 
@@ -114,7 +123,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bkdLabel.Text  = Changed(CommandType.FindLineEdge, bkdTextBox.Text);
+                Changed(CommandType.FindLineEdge, bkdTextBox.Text,bkdLabel);
             }
         }
 
@@ -122,7 +131,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbyzLabel.Text  = Changed(CommandType.FindLineThreshold, zbyzTextBox.Text);
+                 Changed(CommandType.FindLineThreshold, zbyzTextBox.Text,zbyzLabel);
             }
         }
 
@@ -130,7 +139,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                ewmxzLabel.Text  = Changed(CommandType.BarCodeX, ewmxzTextBox.Text);
+                 Changed(CommandType.BarCodeX, ewmxzTextBox.Text,ewmxzLabel);
             }
         }
 
@@ -138,7 +147,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                ewmyzLabel.Text  = Changed(CommandType.BarCodeY, ewmyzTextBox.Text);
+                Changed(CommandType.BarCodeY, ewmyzTextBox.Text,ewmyzLabel);
             }
         }
 
@@ -146,7 +155,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                ewmgdLabel.Text  = Changed(CommandType.BarCodeHigh, ewmgdTextBox.Text);
+                Changed(CommandType.BarCodeHigh, ewmgdTextBox.Text,ewmgdLabel);
             }
         }
 
@@ -154,7 +163,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                ewmkdLabel.Text  = Changed(CommandType.BarCodeWide, ewmkdTextBox.Text);
+                Changed(CommandType.BarCodeWide, ewmkdTextBox.Text,ewmkdLabel);
             }
         }
 
@@ -163,7 +172,7 @@ namespace ViewClient.DebugViews
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Fresh()
         {
             if (monitorView == null) return;
             if (monitorView.IsConnected)

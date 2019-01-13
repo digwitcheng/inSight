@@ -52,11 +52,17 @@ namespace ViewClient
 
         private void Login_Load(object sender, EventArgs e)
         {
-            DateTime dateTime = new DateTime(2019, 3, 15, 1, 1, 1);
+            DateTime dateTime = new DateTime(2019, 3, 13);
+            DateTime endTime = new DateTime(2019, 3, 16);
+            if (DateTime.Now > endTime)
+            {
+                MessageBox.Show("联系我们交接正式版本！");
+                 this.Close(); 
+            }
             if (DateTime.Now > dateTime)
             {
-                MessageBox.Show("版本已到期，联系我们！邮箱:1046541763@qq.com!");
-                this.Close();
+                string tips = string.Format("内测版本通过! 该内测版本{0}天后将不能使用，请联系我们交接正式版本！", (int)((endTime - DateTime.Now).TotalDays));
+                MessageBox.Show(tips);                
             }
         }
     }

@@ -20,23 +20,27 @@ namespace ViewClient.DebugViews
             this.action = action;
             InitializeComponent();
         }
-        string Changed(CommandType type, string value)
+        void Changed(CommandType type, string value, Label showLabel)
         {
             isChanged = true;
             if (monitorView.Data == null)
             {
                 MessageBox.Show("相机未连接！或当前连接的相机ip不在当前选择的物料编号之中");
-                return "未连接";
+                showLabel.Text = "未连接";
             }
             monitorView.Data.SetValue(type, value);
-            return monitorView.Set(type, value);
+            string res = "";
+            res = monitorView.Set(type, value);            
+            if (res.Equals("1"))
+            {
+                showLabel.Text = monitorView.Get(type);
+            }
         }
         private void bgsjTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                bgsjLabel.Text = Changed(CommandType.Exposure, bgsjTextBox.Text);
-                
+                Changed(CommandType.Exposure, bgsjTextBox.Text,bgsjLabel);                
             }
         }
 
@@ -57,8 +61,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zyLabel.Text = Changed(CommandType.Gain, zyTextBox.Text);
-                
+                Changed(CommandType.Gain, zyTextBox.Text,zyLabel);                
             }
         }
 
@@ -66,7 +69,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbxLabel.Text = Changed(CommandType.FindLineX_100, zbx100TextBox.Text);
+                Changed(CommandType.FindLineX_100, zbx100TextBox.Text,zbxLabel);
                 
             }
         }
@@ -75,7 +78,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbyLabel.Text = Changed(CommandType.FindLineY_100, zby100TextBox.Text);
+                Changed(CommandType.FindLineY_100, zby100TextBox.Text,zbyLabel);
                 
             }
         }
@@ -84,7 +87,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbgdLabel.Text = Changed(CommandType.FindLindHigh_100, zbgd100TextBox.Text);
+               Changed(CommandType.FindLindHigh_100, zbgd100TextBox.Text,zbgdLabel);
                 
             }
         }
@@ -93,7 +96,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                zbkdLabel.Text = Changed(CommandType.FindLineWide_100, zbkd100TextBox.Text);
+                Changed(CommandType.FindLineWide_100, zbkd100TextBox.Text,zbkdLabel);
                 
             }
         }
@@ -102,7 +105,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                pgbkdLabel.Text = Changed(CommandType.FindLineEdge_100, pgbkd100TextBox.Text);
+                Changed(CommandType.FindLineEdge_100, pgbkd100TextBox.Text,pgbkdLabel);
                 
             }
         }
@@ -111,7 +114,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                pgzbyzLabel.Text = Changed(CommandType.FindLineTs_100, pgzbyz100TextBox.Text);
+                Changed(CommandType.FindLineTs_100, pgzbyz100TextBox.Text,pgzbyzLabel);
                 
             }
         }
@@ -120,7 +123,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bqbyzLabel.Text = Changed(CommandType.FindLineTs_100L, bqbyz100TextBox.Text);
+                Changed(CommandType.FindLineTs_100L, bqbyz100TextBox.Text,bqbyzLabel);
                 
             }
         }
@@ -129,7 +132,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bqbkdLabel.Text = Changed(CommandType.FindLineEdge_100L, bqbkd100TextBox.Text);
+                Changed(CommandType.FindLineEdge_100L, bqbkd100TextBox.Text,bqbkdLabel);
                 
             }
         }
@@ -138,7 +141,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bqsxyzLabel.Text = Changed(CommandType.Limit, bqsxyzTextBox.Text);
+                Changed(CommandType.Limit, bqsxyzTextBox.Text,bqsxyzLabel);
                 
             }
         }
@@ -147,7 +150,7 @@ namespace ViewClient.DebugViews
         {
             if (e.KeyValue == 13)
             {
-                bqxxyzLabel.Text = Changed(CommandType.LowerLimit, bqxxyzTextBox.Text);
+                Changed(CommandType.LowerLimit, bqxxyzTextBox.Text,bqxxyzLabel);
                 
             }
         }
@@ -156,9 +159,10 @@ namespace ViewClient.DebugViews
         {
             monitorView.BindOnline(this.BatchOnline);
             monitorView.BindLiveMode(this.LiveModeCheckBox);
+            Fresh();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Fresh()
         {
             if (monitorView == null) return;
             if (monitorView.IsConnected)

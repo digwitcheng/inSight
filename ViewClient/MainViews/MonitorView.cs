@@ -21,6 +21,8 @@ namespace ViewClient
         private readonly CameraConfig config;
         private bool isCameraInited = false;
         private string cameraAddress;
+        private bool needStopTimer = false;
+        private bool firstLoad;
         public MonitorView(CameraConfig config)
         {
             InitializeComponent();
@@ -34,7 +36,7 @@ namespace ViewClient
         {
             timer1.Enabled = true;
             timer1.Start();
-
+            firstLoad = true;
         }
         private void InitCvsInSightDisplay()
         {
@@ -95,7 +97,7 @@ namespace ViewClient
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (oNativeModeClient.Connected)
+            if (oNativeModeClient.Connected&&needStopTimer==false)
             {
                 sum.Text = Get(CommandType.Total);
                 qualified.Text = Get(CommandType.Pass);
@@ -172,9 +174,9 @@ namespace ViewClient
 
         internal void SaveJobAs()
         {
-            timer1.Stop();
+            needStopTimer = true;
             cvsInSightDisplay1.Edit.SaveJobAs.Execute();
-            timer1.Start();
+            needStopTimer = false;
         }
         internal string SetWithString(CommandType type, string value)
         {
@@ -206,9 +208,9 @@ namespace ViewClient
 
         internal void OpenJob()
         {
-            timer1.Stop();
+            needStopTimer = true;
             cvsInSightDisplay1.Edit.OpenJob.Execute();
-            timer1.Start();
+            needStopTimer = false;
         }
 
         internal bool IsCameraInited
@@ -274,7 +276,7 @@ namespace ViewClient
         bool isOk = true;
         private void unqualified_TextChanged(object sender, EventArgs e)
         {
-            if (config.CurrentCameraType == CameraType.IsBack || config.CurrentCameraType == CameraType.IsFront)
+            if ((config.CurrentCameraType == CameraType.IsBack || config.CurrentCameraType == CameraType.IsFront )&&firstLoad==false)
             {
                 int cur = 0;
                 bool res = int.TryParse(unqualified.Text.Trim(), out cur);
@@ -288,6 +290,7 @@ namespace ViewClient
                     }
                 }
             }
+            firstLoad = false;
         }
     }
 }
