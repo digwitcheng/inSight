@@ -43,10 +43,14 @@
             this.sum = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.重新连接界面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.重新连接通信ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.txtPanel.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -188,11 +192,34 @@
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.重新连接界面ToolStripMenuItem,
+            this.重新连接通信ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(149, 48);
+            // 
+            // 重新连接界面ToolStripMenuItem
+            // 
+            this.重新连接界面ToolStripMenuItem.Name = "重新连接界面ToolStripMenuItem";
+            this.重新连接界面ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.重新连接界面ToolStripMenuItem.Text = "重新连接界面";
+            this.重新连接界面ToolStripMenuItem.Click += new System.EventHandler(this.重新连接界面ToolStripMenuItem_Click);
+            // 
+            // 重新连接通信ToolStripMenuItem
+            // 
+            this.重新连接通信ToolStripMenuItem.Name = "重新连接通信ToolStripMenuItem";
+            this.重新连接通信ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.重新连接通信ToolStripMenuItem.Text = "重新连接通信";
+            this.重新连接通信ToolStripMenuItem.Click += new System.EventHandler(this.重新连接通信ToolStripMenuItem_Click);
+            // 
             // MonitorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(514, 608);
+            this.ContextMenuStrip = this.contextMenuStrip1;
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -206,6 +233,7 @@
             this.panel2.PerformLayout();
             this.txtPanel.ResumeLayout(false);
             this.txtPanel.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -226,5 +254,8 @@
         private Cognex.InSight.Controls.Display.CvsInSightDisplay cvsInSightDisplay1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label CameraNameLabel;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 重新连接界面ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 重新连接通信ToolStripMenuItem;
     }
 }

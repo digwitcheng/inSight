@@ -30,7 +30,7 @@ namespace ViewClient
             this.CameraNameLabel.Text = config.CameraName;
             this.config = config;
             this.cameraAddress = config.CameraAddress;
-            InitCvsInSightDisplay();
+            InitCvsInSight();
         }
         private void MonitorView_Load(object sender, EventArgs e)
         {
@@ -38,8 +38,8 @@ namespace ViewClient
             timer1.Start();
             firstLoad = true;
         }
-        private void InitCvsInSightDisplay()
-        {
+        public void InitCvsInSight()
+        {            
             // cvsInSightDisplay1.LoadStandardTheme();
             cvsInSightDisplay1.ShowImage = true;
             cvsInSightDisplay1.ImageZoomMode = Cognex.InSight.Controls.Display.CvsDisplayZoom.Fill;
@@ -47,19 +47,32 @@ namespace ViewClient
             oNativeModeClient = new Cognex.InSight.NativeMode.CvsNativeModeClient();
             oNativeModeClient.ConnectCompleted += new Cognex.InSight.CvsConnectCompletedEventHandler(oNativeModeClient_ConnectCompleted);
 
-            ConnetServer();
+            ConnectClient();
+            ConnectDisplay();
         }
-        void ConnetServer()
+        void ConnectClient()
+        {
+            try
+            {
+               
+                if (!oNativeModeClient.Connected)
+                {
+                    oNativeModeClient.ConnectAsynchronous(config.CameraAddress, "admin", "");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            Refresh();
+        }
+        public  void ConnectDisplay()
         {
             try
             {
                 if (!(cvsInSightDisplay1.Connected))
                 {
                     cvsInSightDisplay1.Connect(config.CameraAddress, "admin", "", false);
-                }
-                if (!oNativeModeClient.Connected)
-                {
-                    oNativeModeClient.ConnectAsynchronous(config.CameraAddress, "admin", "");
                 }
             }
             catch (Exception ex)
@@ -291,6 +304,16 @@ namespace ViewClient
                 }
             }
             firstLoad = false;
+        }
+
+        private void 重新连接界面ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConnectDisplay();
+        }
+
+        private void 重新连接通信ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConnectClient();
         }
     }
 }

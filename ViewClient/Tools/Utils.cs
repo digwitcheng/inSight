@@ -61,24 +61,22 @@ namespace ViewClient
             }
         }
 
-        internal static void CheckConnect(MonitorView monitorView, Panel panel)
+        internal static bool CheckConnect(MonitorView monitorView, Panel panel)
         {
             if (monitorView.IsConnected)
             {
                 panel.BackColor = Color.Aqua;
                 panel.Enabled = true;
                 panel.BorderStyle = BorderStyle.Fixed3D;
-                //button.Enabled = true;
-                //button.Text = "联机/脱机";
+                return true;
             }
             else
             {
                 panel.BackColor = Color.LightGray;
                 panel.Enabled = false;
                 panel.BorderStyle = BorderStyle.None;
-                //button.Enabled = false;
-                //button.Text = "无相机";
-
+                //monitorView.InitCvsInSight();
+                return false;
             }
         }
 
